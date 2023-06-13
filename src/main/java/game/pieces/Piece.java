@@ -25,6 +25,11 @@ public abstract class Piece {
     public Piece(Location location, Board board)
     {
         setLocation(location);
+
+        if (board == null) {
+            throw new IllegalArgumentException("Board cannot be null");
+        }
+        this.board = board;
     }
 
     // Returns a list of legal moves.
@@ -33,9 +38,7 @@ public abstract class Piece {
     //Set the location of the piece.
     protected void setLocation(Location newLocation)
     {
-        if (newLocation != null) {
-            location = newLocation;
-        }
+        location = newLocation;
     }
 
     /**
