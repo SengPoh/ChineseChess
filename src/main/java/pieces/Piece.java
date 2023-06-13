@@ -1,3 +1,5 @@
+package pieces;
+
 /**
  * Represents a game piece.
  */
