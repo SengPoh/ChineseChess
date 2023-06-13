@@ -1,3 +1,5 @@
+package game;
+
 /**
  * Represents the game board.
  *

@@ -1,4 +1,6 @@
-package pieces;
+package game.pieces;
+
+import game.Location;
 
 /**
  * Represents a game piece.
@@ -8,5 +10,7 @@ package pieces;
  */
 
 public abstract class Piece {
+    private Location location;
+
     abstract public void move();
 }

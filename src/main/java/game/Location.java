@@ -1,3 +1,5 @@
+package game;
+
 /**
  * Represents a location a game piece can be at on the board.
  *
