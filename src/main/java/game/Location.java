@@ -22,11 +22,19 @@ public class Location {
         this.column = column;
     }
 
+    /**
+     * Returns the row.
+     * @return The row.
+     */
     public int getRow()
     {
         return row;
     }
 
+    /**
+     * Returns the column.
+     * @return The column.
+     */
     public int getColumn()
     {
         return column;

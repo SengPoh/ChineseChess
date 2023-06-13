@@ -1,6 +1,7 @@
 package game.pieces;
 
 import game.Location;
+import game.Board;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -14,8 +15,13 @@ import java.util.ArrayList;
 
 public abstract class Piece {
     private Location location;
+    private Board board;
 
-    public Piece (Location location)
+    /**
+     * Initialise the piece with its starting location.
+     * @param location The starting location of the piece.
+     */
+    public Piece(Location location)
     {
         setLocation(location);
     }
