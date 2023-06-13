@@ -30,6 +30,7 @@ public abstract class Piece {
     // Returns a list of legal moves.
     abstract public ArrayList<Location> getMoves();
 
+    //Set the location of the piece.
     protected void setLocation(Location newLocation)
     {
         if (newLocation != null) {
@@ -37,4 +38,21 @@ public abstract class Piece {
         }
     }
 
+    /**
+     * Return the board the piece is on.
+     * @return The board the piece is on.
+     */
+    protected Board getBoard()
+    {
+        return board;
+    }
+
+    /**
+     * Return the location of the piece.
+     * @return The location of the piece.
+     */
+    protected Location getLocation()
+    {
+        return location;
+    }
 }
