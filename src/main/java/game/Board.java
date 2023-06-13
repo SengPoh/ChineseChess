@@ -39,4 +39,22 @@ public class Board {
     {
         return length;
     }
+
+    /**
+     * Return true if the location is within the bounds of the board.
+     * @param location Location to be checked.
+     * @return True if the location is within the bounds of the board.
+     */
+    public boolean isWithinBoard(Location location)
+    {
+        if (location == null) {
+            return false;
+        } else if (location.getColumn() < 0 || location.getColumn() >= width) {
+            return false;
+        } else if (location.getRow() < 0 || location.getRow() >= length) {
+            return false;
+        }
+
+        return true;
+    }
 }

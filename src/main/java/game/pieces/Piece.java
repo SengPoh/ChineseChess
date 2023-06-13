@@ -20,8 +20,9 @@ public abstract class Piece {
     /**
      * Initialise the piece with its starting location.
      * @param location The starting location of the piece.
+     * @param board The board that the piece is on.
      */
-    public Piece(Location location)
+    public Piece(Location location, Board board)
     {
         setLocation(location);
     }
@@ -35,4 +36,5 @@ public abstract class Piece {
             location = newLocation;
         }
     }
+
 }
