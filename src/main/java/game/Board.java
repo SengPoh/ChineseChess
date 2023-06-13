@@ -1,5 +1,7 @@
 package game;
 
+import game.pieces.Piece;
+
 /**
  * Represents the game board.
  *
@@ -12,14 +14,14 @@ public class Board {
     //The length(vertical) and width(horizontal) of the board.
     private int length, width;
 
-    //Storage for game pieces.
-    private Object[][] board;
+    //Storage for game pieces in a row by column array.
+    private Piece[][] board;
 
     public Board(int length, int width)
     {
         this.length = length;
         this.width = width;
-        board = new Object[length][width];
+        board = new Piece[length][width];
     }
 
     /**
@@ -56,5 +58,19 @@ public class Board {
         }
 
         return true;
+    }
+
+    /**
+     * Returns true if the location does not contain a piece and is within the board.
+     * @param location The location to be checked.
+     * @return True if the location does not contain a piece and is within the board.
+     */
+    public boolean isEmpty(Location location)
+    {
+        if (location == null || !isWithinBoard(location)) {
+            return false;
+        } else if (board[location.getRow()][location.getColumn()] == null) {
+            return true;
+        }
     }
 }
