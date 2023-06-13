@@ -2,6 +2,9 @@ package game.pieces;
 
 import game.Location;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Represents a game piece.
  *
@@ -12,5 +15,18 @@ import game.Location;
 public abstract class Piece {
     private Location location;
 
-    abstract public void move();
+    public Piece (Location location)
+    {
+        setLocation(location);
+    }
+
+    // Returns a list of legal moves.
+    abstract public ArrayList<Location> getMoves();
+
+    protected void setLocation(Location newLocation)
+    {
+        if (newLocation != null) {
+            location = newLocation;
+        }
+    }
 }
