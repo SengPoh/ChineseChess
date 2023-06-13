@@ -1,5 +1,3 @@
-package com.example.chinesechess;
-
 /**
  * Represents the game board.
  */
