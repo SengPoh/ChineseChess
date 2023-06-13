@@ -1,5 +1,9 @@
 /**
  * Represents the game board.
+ *
+ *
+ * @author Lee Seng Poh
+ * @version 13-6-2023
  */
 public class Board {
 
