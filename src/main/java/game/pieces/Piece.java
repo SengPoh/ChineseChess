@@ -33,11 +33,6 @@ public abstract class Piece {
         this.board = board;
     }
 
-    /** Returns a list of legal moves.
-     * @return A list of legal moves.
-     */
-    abstract public ArrayList<Location> getMoves();
-
     /**
      * Set the location of the piece.
      * @param newLocation The new location of the piece.
@@ -64,6 +59,31 @@ public abstract class Piece {
     {
         return location;
     }
+
+    /** Returns a list of legal moves.
+     * @return A list of legal moves.
+     */
+    abstract public ArrayList<Location> getMoves();
+
+    /**
+     * Returns true if moving this piece to the specified location is a legal move.
+     * It is a legal move if the location is within the board and there is no other
+     * piece of the same color on the location,
+     * @param location The location this piece wants to move to.
+     * @return True if it is a legal move.
+     */
+    protected boolean isLegalMove(Location location)
+    {
+        if (location == null || !board.isWithinBoard(location)) {
+            return false;
+        } else if (!board.isEmpty(location) && isSameColor(board.getPiece(location))) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
      * Returns true if this piece is black color.
      * @return True if this is a black piece.
      */
