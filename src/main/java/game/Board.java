@@ -41,6 +41,11 @@ public class Board {
         return length;
     }
 
+    public Piece getPiece(Location location)
+    {
+        return board[location.getX()][location.getY()];
+    }
+
     /**
      * Return true if the location is within the bounds of the board.
      * @param location Location to be checked.
