@@ -63,13 +63,16 @@ public class Board {
      * Returns true if the location does not contain a piece and is within the board.
      * @param location The location to be checked.
      * @return True if the location does not contain a piece and is within the board.
+     *          False if the location is null.
      */
     public boolean isEmpty(Location location)
     {
         if (location == null || !isWithinBoard(location)) {
             return false;
-        } else if (board[location.getX()][location.getY()] == null) {
-            return true;
+        } else if (board[location.getX()][location.getY()] != null) {
+            return false;
         }
+
+        return true;
     }
 }
