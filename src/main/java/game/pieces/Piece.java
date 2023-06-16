@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public abstract class Piece {
     private Location location;
     private Board board;
+    private boolean isBlack;    //to identify color of the piece.
 
     /**
      * Initialise the piece with its starting location.
@@ -62,5 +63,22 @@ public abstract class Piece {
     protected Location getLocation()
     {
         return location;
+    }
+     * Returns true if this piece is black color.
+     * @return True if this is a black piece.
+     */
+    public boolean isBlack()
+    {
+        return isBlack;
+    }
+
+    /**
+     * Returns true if the piece being compared has the same color as this piece.
+     * @param otherPiece The piece that is being compared to this piece.
+     * @return True if both pieces have the same color.
+     */
+    protected boolean isSameColor(Piece otherPiece)
+    {
+        return isBlack() == otherPiece.isBlack();
     }
 }
