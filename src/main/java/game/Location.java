@@ -8,35 +8,36 @@ package game;
  */
 
 public class Location {
-    private int row;
-    private int column;
+    //X and Y coordinates
+    private int x, y;
 
     /**
-     * Represents the row and the column on the board.
-     * @param row The row.
-     * @param column The column.
+     * Represents the X and Y coordinates on the board.
+     * @param x The X-coordinates.
+     * @param y The Y-coordinates.
      */
-    public Location(int row, int column)
+    public Location(int x, int y)
     {
-        this.row = row;
-        this.column = column;
+        this.x = x;
+        this.y = y;
     }
 
     /**
-     * Returns the row.
-     * @return The row.
+     * Returns the X-coordinates.
+     * @return The X-coordinates.
      */
-    public int getRow()
+    public int getX()
     {
-        return row;
+        return x;
     }
 
     /**
-     * Returns the column.
-     * @return The column.
+     * Returns the Y-coordinates.
+     * @return The Y-coordinates.
      */
-    public int getColumn()
+    public int getY()
     {
-        return column;
+        return y;
+    }
     }
 }

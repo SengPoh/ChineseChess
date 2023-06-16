@@ -27,15 +27,20 @@ public abstract class Piece {
         setLocation(location);
 
         if (board == null) {
-            throw new IllegalArgumentException("Board cannot be null");
+            throw new IllegalArgumentException("A piece must be assigned to a board.");
         }
         this.board = board;
     }
 
-    // Returns a list of legal moves.
+    /** Returns a list of legal moves.
+     * @return A list of legal moves.
+     */
     abstract public ArrayList<Location> getMoves();
 
-    //Set the location of the piece.
+    /**
+     * Set the location of the piece.
+     * @param newLocation The new location of the piece.
+     */
     protected void setLocation(Location newLocation)
     {
         location = newLocation;

@@ -5,7 +5,6 @@ import game.pieces.Piece;
 /**
  * Represents the game board.
  *
- *
  * @author Lee Seng Poh
  * @version 13-6-2023
  */
@@ -14,13 +13,13 @@ public class Board {
     //The length(vertical) and width(horizontal) of the board.
     private int length, width;
 
-    //Storage for game pieces in a row by column array.
+    //Storage for game pieces in a column by row array.
     private Piece[][] board;
 
-    public Board(int length, int width)
+    public Board(int width, int length)
     {
-        this.length = length;
         this.width = width;
+        this.length = length;
         board = new Piece[length][width];
     }
 
@@ -51,9 +50,9 @@ public class Board {
     {
         if (location == null) {
             return false;
-        } else if (location.getColumn() < 0 || location.getColumn() >= width) {
+        } else if (location.getX() < 0 || location.getX() >= width) {
             return false;
-        } else if (location.getRow() < 0 || location.getRow() >= length) {
+        } else if (location.getY() < 0 || location.getY() >= length) {
             return false;
         }
 
@@ -69,7 +68,7 @@ public class Board {
     {
         if (location == null || !isWithinBoard(location)) {
             return false;
-        } else if (board[location.getRow()][location.getColumn()] == null) {
+        } else if (board[location.getX()][location.getY()] == null) {
             return true;
         }
     }
