@@ -1,7 +1,7 @@
 package game;
 
 /**
- * Represents a location a game piece can be at on the board.
+ * Represents a location on the board that a game piece can be at.
  *
  * @author Lee Seng Poh
  * @version 13-6-2023
@@ -39,5 +39,16 @@ public class Location {
     {
         return y;
     }
+
+    /**
+     * Returns a location with the specified coordinates added to the
+     * coordinates of this location.
+     * @param x The X coordinate addition.
+     * @param y The Y coordinate addition.
+     * @return The location with added coordinates.
+     */
+    public Location add(int x, int y)
+    {
+        return new Location(getX() + x, getY() + y);
     }
 }
