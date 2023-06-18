@@ -27,6 +27,18 @@ public class Board {
     }
 
     /**
+     * Set piece at a location within the board.
+     * @param piece
+     * @param location
+     */
+    public void setPiece(Piece piece, Location location)
+    {
+        if (location != null || isWithinBoard(location)) {
+            board[location.getX()][location.getY()] = piece;
+        }
+    }
+
+    /**
      * Returns the horizontal width of the board.
      * @return The horizontal width of the board.
      */
