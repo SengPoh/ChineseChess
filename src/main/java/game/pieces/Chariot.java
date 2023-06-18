@@ -4,16 +4,26 @@ import game.Board;
 import game.Location;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
- * Represents game piece Chariot that moves in a straight line.
+ * Represents game piece Chariot that moves and captures any distance orthogonally,
+ * but may not jump over intervening pieces.
  *
  * @author Lee Seng Poh
- * @version 13-6-2023
+ * @version 18-6-2023
  */
 public class Chariot extends Piece{
     public Chariot(Location location, Board board) {
         super(location, board);
+
+        ArrayList<Location> moveSet = new ArrayList<>(Arrays.asList(
+                new Location(1, 0),
+                new Location(-1, 0),
+                new Location(0, 1),
+                new Location(0, -1)
+        ));
+        setMoveSet(moveSet);
     }
 
     @Override
