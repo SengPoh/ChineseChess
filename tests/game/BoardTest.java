@@ -14,6 +14,22 @@ class BoardTest {
     }
 
     @Test
+    public void testInvalidInit()
+    {
+        Exception exception = assertThrows(IllegalArgumentException.class,
+                () ->new Board(0, 0));
+        assertEquals("Width and length must be more than 1.", exception.getMessage());
+    }
+
+    @Test
+    public void testGetPiece()
+    {
+        Board board = new Board(9, 10);
+
+        
+    }
+
+    @Test
     public void testIsWithinBoard()
     {
         Board board = new Board(9, 10);

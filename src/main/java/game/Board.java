@@ -18,6 +18,9 @@ public class Board {
 
     public Board(int width, int length)
     {
+        if (width < 1 || length < 1) {
+            throw new IllegalArgumentException("Width and length must be more than 1.");
+        }
         this.width = width;
         this.length = length;
         board = new Piece[length][width];
