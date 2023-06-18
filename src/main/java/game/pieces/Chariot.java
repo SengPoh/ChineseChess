@@ -26,10 +26,23 @@ public class Chariot extends Piece{
         setMoveSet(moveSet);
     }
 
+    /** Returns a list of legal moves.
+     *  A chariot can move and capture enemy pieces in any direction orthogonally,
+     *  but it cannot jump over intervening pieces.
+     * @return A list of legal moves.
+     */
     @Override
     public ArrayList<Location> getMoves() {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
+        for (Location move : getMoveSet()) {
+            while (getBoard().isWithinBoard(move)) {
+                while (isLegalMove(move)) {
+                    legalMoves.add(move);
+                    move.add(move);         //incrementing the move to check all distance.
+                }
+            }
+        }
 
         return legalMoves;
     }
