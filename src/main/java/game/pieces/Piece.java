@@ -23,9 +23,12 @@ public abstract class Piece {
     private ArrayList<Location> moveSet = new ArrayList<>();
 
     /**
-     * Initialise the piece with its starting location.
+     * Initialise the piece with its starting location and the board it is on.
+     * The board cannot be null and the starting location must either be within the board or null.
      * @param location The starting location of the piece.
      * @param board The board that the piece is on.
+     *
+     * @throws IllegalArgumentException if the board parameter is null.
      */
     public Piece(Location location, Board board)
     {
@@ -38,11 +41,16 @@ public abstract class Piece {
     }
 
     /**
-     * Set the location of the piece.
-     * @param newLocation The new location of the piece.
+     * Set the location of this piece.
+     * @param newLocation The new location of this piece.
+     *
+     * @throws IllegalArgumentException if the location is neither null nor within the board.
      */
     protected void setLocation(Location newLocation)
     {
+        if (location != null && !getBoard().isWithinBoard(newLocation)) {
+            throw new IllegalArgumentException("location can only be either within the board or null.");
+        }
         location = newLocation;
     }
 
@@ -56,8 +64,8 @@ public abstract class Piece {
     }
 
     /**
-     * Return the board the piece is on.
-     * @return The board the piece is on.
+     * Return the board this piece is on.
+     * @return The board this piece is on.
      */
     protected Board getBoard()
     {
@@ -65,8 +73,8 @@ public abstract class Piece {
     }
 
     /**
-     * Return the location of the piece.
-     * @return The location of the piece.
+     * Return the location of  this piece.
+     * @return The location of  this piece.
      */
     protected Location getLocation()
     {
@@ -113,7 +121,7 @@ public abstract class Piece {
     }
 
     /**
-     * Returns true if the piece being compared has the same color as this piece.
+     * Returns true if  this piece being compared has the same color as this piece.
      * @param otherPiece The piece that is being compared to this piece.
      * @return True if both pieces have the same color.
      */
