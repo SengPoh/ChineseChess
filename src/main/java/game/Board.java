@@ -28,8 +28,8 @@ public class Board {
 
     /**
      * Set piece at a location within the board.
-     * @param piece
-     * @param location
+     * @param piece The piece to be placed.
+     * @param location The location of the piece.
      */
     public void setPiece(Piece piece, Location location)
     {
