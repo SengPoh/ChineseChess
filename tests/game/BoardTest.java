@@ -4,6 +4,11 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * Tests for Board.java.
+ * @author Lee Seng Poh
+ * @version 17-6-2023
+ */
 class BoardTest {
     @Test
     public void testInit()

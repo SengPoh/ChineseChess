@@ -10,13 +10,16 @@ import java.util.ArrayList;
  * Represents a game piece.
  *
  * @author Lee Seng Poh
- * @version 13-6-2023
+ * @version 18-6-2023
  */
 
 public abstract class Piece {
     private Location location;
     private Board board;
-    private boolean isBlack;    //to identify color of the piece.
+    //to identify color of the piece.
+    private boolean isBlack;
+    //the available move set of the piece.
+    private ArrayList<Location> moveSet = new ArrayList<>();
 
     /**
      * Initialise the piece with its starting location.
@@ -43,6 +46,15 @@ public abstract class Piece {
     }
 
     /**
+     * Sets a new move set to this piece.
+     * @param moveSet The new move set of this piece.
+     */
+    protected void setMoveSet(ArrayList<Location> moveSet)
+    {
+        this.moveSet = moveSet;
+    }
+
+    /**
      * Return the board the piece is on.
      * @return The board the piece is on.
      */
@@ -58,6 +70,15 @@ public abstract class Piece {
     protected Location getLocation()
     {
         return location;
+    }
+
+    /**
+     * Returns the move set of this piece.
+     * @return The move set of this piece.
+     */
+    protected ArrayList<Location> getMoveSet()
+    {
+        return moveSet;
     }
 
     /** Returns a list of legal moves.
@@ -76,11 +97,9 @@ public abstract class Piece {
     {
         if (location == null || !board.isWithinBoard(location)) {
             return false;
-        } else if (!board.isEmpty(location) && isSameColor(board.getPiece(location))) {
-            return false;
         }
 
-        return true;
+        return board.isEmpty(location) || !isSameColor(board.getPiece(location));
     }
 
     /**
