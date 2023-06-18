@@ -41,8 +41,8 @@ public class Location {
     }
 
     /**
-     * Returns a location with the specified coordinates added to the
-     * coordinates of this location.
+     * Returns a location with the specified coordinates added to the coordinates
+     * of this location.
      * @param x The X coordinate addition.
      * @param y The Y coordinate addition.
      * @return The location with added coordinates.
@@ -50,5 +50,16 @@ public class Location {
     public Location add(int x, int y)
     {
         return new Location(getX() + x, getY() + y);
+    }
+
+    /**
+     * Returns a location with the coordinates of the specified location added to the
+     * coordinates of this location.
+     * @param location The location whose coordinates are to be added
+     * @return The location with added coordinates.
+     */
+    public Location add(Location location)
+    {
+        return add(location.getX(), location.getY());
     }
 }
