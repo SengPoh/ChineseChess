@@ -23,21 +23,4 @@ public class Chariot extends Piece{
 
         return legalMoves;
     }
-
-    public ArrayList<Location> getLeftMoves() {
-        ArrayList<Location> legalMoves = new ArrayList<>();
-        boolean checking = true;
-        Location possibleLocation = new Location(getLocation().getX(), getLocation().getY() - 1);
-
-        while (checking) {
-            if (getBoard().isEmpty(possibleLocation)) {
-                legalMoves.add(possibleLocation);
-                possibleLocation = new Location(possibleLocation.getX(), getLocation().getY() - 1);
-            } else {
-                checking = false;
-            }
-        }
-
-        return legalMoves;
-    }
 }
