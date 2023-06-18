@@ -1,5 +1,8 @@
 package game;
 
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,9 +10,10 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Board.java.
  * @author Lee Seng Poh
- * @version 17-6-2023
+ * @version 18-6-2023
  */
 class BoardTest {
+
     @Test
     public void testInit()
     {
@@ -26,67 +30,76 @@ class BoardTest {
         assertEquals("Width and length must be more than 1.", exception.getMessage());
     }
 
-    @Test
-    public void testGetPiece()
-    {
-        Board board = new Board(9, 10);
+    @Nested
+    @DisplayName("Tests with chinese chessboard")
+    class chessBoardTests() {
 
-        
-    }
+        private Board board;
 
-    @Test
-    public void testIsWithinBoard()
-    {
-        Board board = new Board(9, 10);
-        Location loc = new Location(4, 5);
-        assertTrue(board.isWithinBoard(loc));
-    }
+        @BeforeEach
+        void setUp()
+        {
+            board = new Board(9, 10);
+        }
 
-    @Test
-    public void testIsWithinBoardXBoundValue()
-    {
-        Board board = new Board(9, 10);
+        @BeforeEach
+        void tearDown()
+        {
+            board = null;
+        }
 
-        Location loc = new Location(0, 5);
-        assertTrue(board.isWithinBoard(loc));
+        @Test
+        public void testGetPiece()
+        {
 
-        loc = new Location(8, 5);
-        assertTrue(board.isWithinBoard(loc));
-    }
+        }
 
-    @Test
-    public void testIsWithinBoardYBoundValue()
-    {
-        Board board = new Board(9, 10);
+        @Test
+        public void testIsWithinBoard()
+        {
 
-        Location loc = new Location(4, 0);
-        assertTrue(board.isWithinBoard(loc));
+            Location loc = new Location(4, 5);
+            assertTrue(board.isWithinBoard(loc));
+        }
 
-        loc = new Location(4, 9);
-        assertTrue(board.isWithinBoard(loc));
-    }
+        @Test
+        public void testIsWithinBoardXBoundValue()
+        {
+            Location loc = new Location(0, 5);
+            assertTrue(board.isWithinBoard(loc));
 
-    @Test
-    public void testIsWithinBoardBoundValues()
-    {
-        Board board = new Board(9, 10);
+            loc = new Location(8, 5);
+            assertTrue(board.isWithinBoard(loc));
+        }
 
-        Location loc = new Location(8, 9);
-        assertTrue(board.isWithinBoard(loc));
+        @Test
+        public void testIsWithinBoardYBoundValue()
+        {
+            Location loc = new Location(4, 0);
+            assertTrue(board.isWithinBoard(loc));
 
-        loc = new Location(0, 0);
-        assertTrue(board.isWithinBoard(loc));
-    }
+            loc = new Location(4, 9);
+            assertTrue(board.isWithinBoard(loc));
+        }
 
-    @Test
-    public void testIsWithinBoardXInvalidValue()
-    {
-        Board board = new Board(9, 10);
+        @Test
+        public void testIsWithinBoardBoundValues()
+        {
+            Location loc = new Location(8, 9);
+            assertTrue(board.isWithinBoard(loc));
 
-        Location loc = new Location(-12, 5);
-        assertFalse(board.isWithinBoard(loc), "smaller X value does not correctly ");
+            loc = new Location(0, 0);
+            assertTrue(board.isWithinBoard(loc));
+        }
 
-        loc = new Location(23, 5);
-        assertFalse(board.isWithinBoard(loc));
+        @Test
+        public void testIsWithinBoardXInvalidValue()
+        {
+            Location loc = new Location(-12, 5);
+            assertFalse(board.isWithinBoard(loc), "smaller X value does not correctly ");
+
+            loc = new Location(23, 5);
+            assertFalse(board.isWithinBoard(loc));
+        }
     }
 }

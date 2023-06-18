@@ -14,6 +14,7 @@ import java.util.ArrayList;
  */
 
 public abstract class Piece {
+
     private Location location;
     private Board board;
     //to identify color of the piece.

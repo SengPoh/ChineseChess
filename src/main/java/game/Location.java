@@ -8,6 +8,7 @@ package game;
  */
 
 public class Location {
+
     //X and Y coordinates
     private int x, y;
 

@@ -13,7 +13,8 @@ import java.util.Arrays;
  * @author Lee Seng Poh
  * @version 18-6-2023
  */
-public class Chariot extends Piece{
+public class Chariot extends Piece {
+
     public Chariot(Location location, Board board) {
         super(location, board);
 
