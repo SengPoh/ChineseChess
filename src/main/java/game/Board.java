@@ -83,16 +83,17 @@ public class Board {
      * Returns true if the location on the board does not contain a piece.
      * @param location The location to be checked.
      * @return True if the location does not contain a piece.
-     *          False if the location is null.
+     *
+     * @throws IllegalArgumentException if location is null or is not within the board.
      */
     public boolean isEmpty(Location location)
     {
         if (location == null) {
-            return false;
-        } else if (board[location.getX()][location.getY()] != null) {
-            return false;
+            throw new IllegalArgumentException("Location cannot be null.");
+        } else if (!isWithinBoard(location)) {
+            throw new IllegalArgumentException("This location is not within the board.");
         }
 
-        return true;
+        return board[location.getX()][location.getY()] == null;
     }
 }
