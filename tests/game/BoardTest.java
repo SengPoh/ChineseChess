@@ -32,7 +32,7 @@ class BoardTest {
 
     @Nested
     @DisplayName("Tests with chinese chessboard")
-    class chessBoardTests() {
+    class chessBoardTests {
 
         private Board board;
 
