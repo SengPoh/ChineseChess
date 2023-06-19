@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Represents a game piece.
  *
  * @author Lee Seng Poh
- * @version 18-6-2023
+ * @version 19-6-2023
  */
 
 public abstract class Piece {
@@ -48,8 +48,8 @@ public abstract class Piece {
      */
     protected void setLocation(Location newLocation)
     {
-        if (location != null && !getBoard().isWithinBoard(newLocation)) {
-            throw new IllegalArgumentException("location can only be either within the board or null.");
+        if (newLocation != null && !getBoard().isWithinBoard(newLocation)) {
+            throw new IllegalArgumentException("Location can only be either within the board or null.");
         }
         location = newLocation;
     }
