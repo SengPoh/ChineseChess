@@ -4,10 +4,8 @@ import game.Location;
 
 import org.junit.jupiter.api.*;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,22 +25,19 @@ class ChariotTest {
     void setUp()
     {
         board = new Board(9, 10);
-        location = new Location(4, 5);
     }
 
     @AfterEach
     void tearDown()
     {
         board = null;
-        location = null;
     }
 
     @Test
     public void testInit() {
-        Chariot chariot = new Chariot(board, location, true);
+        Chariot chariot = new Chariot(board, true);
 
         assertEquals(board, chariot.getBoard(), "the board is different from expected");
-        assertEquals(location, chariot.getLocation());
         assertTrue(chariot.isBlack(), "the color is different from expected");
 
         ArrayList<Location> expectedMoveSet = new ArrayList<>(Arrays.asList(
@@ -59,14 +54,14 @@ class ChariotTest {
     public void testInit_NullBoard_Exception()
     {
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Chariot(null, location, true));
+                () -> new Chariot(null, true));
         assertEquals("A piece must be assigned to a board.", exception.getMessage());
     }
 
     @Test
     public void setLocation_Null_Works()
     {
-        Chariot chariot = new Chariot(board, location, true);
+        Chariot chariot = new Chariot(board, true);
         chariot.setLocation(null);
         assertNull(chariot.getLocation());
     }
@@ -74,7 +69,7 @@ class ChariotTest {
     @Test
     public void setLocation_InvalidLocation_Exception()
     {
-        Chariot chariot = new Chariot(board, location, true);
+        Chariot chariot = new Chariot(board, true);
 
         Location invalidLocation = new Location(-1, -1);
         Exception exception = assertThrows(IllegalArgumentException.class,
@@ -85,7 +80,7 @@ class ChariotTest {
     @Test
     public void testIsBlack_Black_True()
     {
-        Chariot chariot = new Chariot(board, location, true);
+        Chariot chariot = new Chariot(board, true);
 
         assertTrue(chariot.isBlack());
     }
@@ -93,7 +88,7 @@ class ChariotTest {
     @Test
     public void testIsBlack_White_False()
     {
-        Chariot chariot = new Chariot(board, location, false);
+        Chariot chariot = new Chariot(board, false);
 
         assertFalse(chariot.isBlack());
     }
@@ -107,13 +102,19 @@ class ChariotTest {
         @BeforeEach
         void setUp()
         {
-            chariot = new Chariot(board, location, true);
+            chariot = new Chariot(board, true);
         }
 
         @AfterEach
         void tearDown()
         {
             chariot = null;
+        }
+
+        @Test
+        public void isLegalMove_LegalMove_True()
+        {
+
         }
     }
 }
