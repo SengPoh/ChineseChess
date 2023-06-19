@@ -74,7 +74,7 @@ public abstract class Piece {
      * Return the location of  this piece.
      * @return The location of  this piece.
      */
-    protected Location getLocation()
+    public Location getLocation()
     {
         return location;
     }
