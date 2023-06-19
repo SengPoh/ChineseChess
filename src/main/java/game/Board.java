@@ -27,16 +27,38 @@ public class Board {
     }
 
     /**
-     * Set piece at a location within the board.
-     * Set piece at a location within the board if the location is not null
-     * and is within the board.
+     * Set specified piece at a location within the board if the location is not null,
+     * is within the board and does not already have a piece.
      * @param piece The piece to be placed.
      * @param location The location of the piece.
      */
     public void setPiece(Piece piece, Location location)
     {
-        if (location != null && isWithinBoard(location)) {
+        if (location != null && isWithinBoard(location) && isEmpty(location)) {
             board[location.getX()][location.getY()] = piece;
+            piece.setLocation(location);
+        }
+    }
+
+    /**
+     * Remove any piece from the specified location on the board, if there are any is
+     * present on the board.
+     * @param location The location to be emptied.
+     * @return The piece that is removed is there is any
+     */
+    public Piece clearLocation(Location location)
+    {
+        Piece piece = null;
+        if (location != null && isWithinBoard(location)) {
+            piece = board[location.getX()][location.getY()];
+            if (piece != null) {
+                piece.setLocation(null);
+                board[location.getX()][location.getY()] = null;
+            }
+        }
+        return piece;
+    }
+
     /**
      * Returns true if this board contains the specified piece on it.
      * @param piece Piece whose presence in the board is to be tested.
