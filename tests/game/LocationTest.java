@@ -1,0 +1,57 @@
+package game;
+
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+/**
+ * Tests for Location.java.
+ *
+ * @author Lee Seng Poh
+ * @version 19-6-2023
+ */
+class LocationTest {
+
+
+    @Test
+    public void equals_EqualLocation_True() {
+        Location loc1 = new Location(5, 5);
+        Location loc2 = new Location(5, 5);
+        assertEquals(loc1, loc2);
+    }
+
+    @Test
+    public void equals_NonLocationObject_False() {
+        Location loc1 = new Location(5, 5);
+        Object obj = new Object();
+        assertNotEquals(loc1, obj);
+    }
+
+    @Test
+    public void equals_SameXDistinctY_False() {
+        Location loc1 = new Location(5, 1);
+        Location loc2 = new Location(5, 8);
+        assertNotEquals(loc1, loc2);
+    }
+
+    @Test
+    public void equals_DistinctXSameY_False() {
+        Location loc1 = new Location(3, 8);
+        Location loc2 = new Location(25, 8);
+        assertNotEquals(loc1, loc2);
+    }
+
+    @Test
+    public void hashCode_EqualLocation_Equals() {
+        Location loc1 = new Location(5, 5);
+        Location loc2 = new Location(5, 5);
+        assertEquals(loc1.hashCode(), loc2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal() {
+        Location loc1 = new Location(12, 3);
+        int hashCode = loc1.hashCode();
+        assertEquals(hashCode, loc1.hashCode());
+    }
+}
