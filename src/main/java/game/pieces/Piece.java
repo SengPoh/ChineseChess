@@ -3,7 +3,6 @@ package game.pieces;
 import game.Location;
 import game.Board;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -25,19 +24,18 @@ public abstract class Piece {
     /**
      * Initialise the piece with its starting location and the board it is on.
      * The board cannot be null and the starting location must either be within the board or null.
-     * @param board The board that the piece is on.
-     * @param location The starting location of the piece.
      *
+     * @param board The board that the piece is on.
      * @throws IllegalArgumentException if the board parameter is null.
      */
-    public Piece(Board board, Location location, boolean isBlack)
+    public Piece(Board board, boolean isBlack)
     {
         if (board == null) {
             throw new IllegalArgumentException("A piece must be assigned to a board.");
         }
         this.board = board;
-        setLocation(location);
         this.isBlack = isBlack;
+        this.location = null;
     }
 
     /**

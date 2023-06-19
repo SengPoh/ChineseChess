@@ -18,13 +18,12 @@ public class Chariot extends Piece {
     /**
      * Initialise the piece with its starting location and the board it is on.
      * The board cannot be null and the starting location must either be within the board or null.
-     * @param board The board that the piece is on.
-     * @param location The starting location of the piece.
      *
+     * @param board The board that the piece is on.
      * @throws IllegalArgumentException if the board parameter is null.
      */
-    public Chariot( Board board, Location location, boolean isBlack) {
-        super(board, location, isBlack);
+    public Chariot(Board board, boolean isBlack) {
+        super(board, isBlack);
 
         ArrayList<Location> moveSet = new ArrayList<>(Arrays.asList(
                 new Location(1, 0),
