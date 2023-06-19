@@ -90,10 +90,30 @@ class ChariotTest {
         assertTrue(chariot.isBlack());
     }
 
+    @Test
     public void testIsBlack_White_False()
     {
         Chariot chariot = new Chariot(board, location, false);
 
-        assertTrue(chariot.isBlack());
+        assertFalse(chariot.isBlack());
+    }
+
+    @Nested
+    @DisplayName("Testing methods of a preset initialised Chariot object")
+    class ChariotMethodTest {
+
+        private Chariot chariot;
+
+        @BeforeEach
+        void setUp()
+        {
+            chariot = new Chariot(board, location, true);
+        }
+
+        @AfterEach
+        void tearDown()
+        {
+            chariot = null;
+        }
     }
 }
