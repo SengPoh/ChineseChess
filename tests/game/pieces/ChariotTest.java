@@ -34,6 +34,7 @@ class ChariotTest {
     void tearDown()
     {
         board = null;
+        location = null;
     }
 
     @Test
