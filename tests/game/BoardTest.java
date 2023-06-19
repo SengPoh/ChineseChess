@@ -1,5 +1,7 @@
 package game;
 
+import game.pieces.Chariot;
+import game.pieces.Piece;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -7,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Board.java.
  * @author Lee Seng Poh
- * @version 18-6-2023
+ * @version 19-6-2023
  */
 class BoardTest {
 
@@ -70,105 +72,226 @@ class BoardTest {
         @Test
         public void isWithinBoard_ValidValues_True()
         {
-            Location loc = new Location(4, 5);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(4, 5);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_XLowerBoundValue_True()
         {
-            Location loc = new Location(0, 5);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(0, 5);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_XUpperBoundValue_True()
         {
-            Location loc = new Location(8, 5);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(board.getWidth() - 1, 5);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_YLowerBoundValue_True()
         {
-            Location loc = new Location(4, 0);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(4, 0);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_YUpperBoundValue_True()
         {
-            Location loc = new Location(4, 9);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(4, board.getLength() -1);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_LowerBoundValues_True()
         {
-            Location loc = new Location(0, 0);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(0, 0);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_UpperBoundValues_True()
         {
-            Location loc = new Location(8, 9);
-            assertTrue(board.isWithinBoard(loc));
+            Location location = new Location(board.getWidth() - 1, board.getLength() -1);
+            assertTrue(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_XTooSmallValue_False()
         {
-            Location loc = new Location(-1, 5);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(-1, 5);
+            assertFalse(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_XTooLargeValue_False()
         {
-            Location loc = new Location(9, 5);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(9, 5);
+            assertFalse(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_YTooSmallValue_False()
         {
-            Location loc = new Location(4, -1);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(4, -1);
+            assertFalse(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_YTooLargeValue_False()
         {
-            Location loc = new Location(4, 10);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(4, 10);
+            assertFalse(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_TooSmallValues_False()
         {
-            Location loc = new Location(-1, -1);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(-1, -1);
+            assertFalse(board.isWithinBoard(location));
         }
 
         @Test
         public void isWithinBoard_TooLargeValues_False()
         {
-            Location loc = new Location(9, 10);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(9, 10);
+            assertFalse(board.isWithinBoard(location));
+        }
+
+        @Test
+        public void setPiece_ValidLocation()
+        {
+            Location location = new Location(4, 5);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.getPiece(location));
+        }
+
+        @Test
+        public void setPiece_LowerBoundLocation()
+        {
+            Location location = new Location(0, 0);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.getPiece(location));
+        }
+
+        @Test
+        public void setPiece_UpperBoundLocation()
+        {
+            Location location = new Location(board.getWidth() - 1, board.getLength() - 1);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.getPiece(location));
+        }
+
+        @Test
+        public void setPiece_LocationWithAnotherPiece_PieceIsNotPlace()
+        {
+            Location location = new Location(4, 5);
+            Piece piece = new Chariot(board, true);
+            Piece newPiece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            board.setPiece(newPiece, location);
+            assertNotEquals(newPiece, board.getPiece(location));
+            assertEquals(piece, board.getPiece(location));
+        }
+
+        @Test
+        public void clearLocation_NullLocation_Null()
+        {
+            assertNull(board.clearLocation(null));
+        }
+
+        @Test
+        public void clearLocation_EmptyLocation_Null()
+        {
+            Location location = new Location(4, 5);
+            assertNull(board.clearLocation(location));
+        }
+
+        @Test
+        public void clearLocation_OutsideBoardTooSmallLocation_Null()
+        {
+            Location location = new Location(-1, -1);
+            assertNull(board.clearLocation(location));
+        }
+
+        @Test
+        public void clearLocation_OutsideBoardTooLargeLocation_Null()
+        {
+            Location location = new Location(8, 9);
+            assertNull(board.clearLocation(location));
+        }
+
+
+        @Test
+        public void clearLocation_NotEmptyLocation_PieceAtTheLocation()
+        {
+            Location location = new Location(4, 5);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location));
+            assertNull(piece.getLocation());
+        }
+
+        @Test
+        public void clearLocation_LowerBoundLocation_PieceAtTheLocation()
+        {
+            Location location = new Location(0, 0);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location));
+            assertNull(piece.getLocation());
+        }
+
+        @Test
+        public void clearLocation_UpperBoundLocation_PieceAtTheLocation()
+        {
+            Location location = new Location(8, 9);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertEquals(piece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location));
+            assertNull(piece.getLocation());
         }
 
         @Test
         public void isEmpty_EmptyLocation_True()
         {
-            Location loc = new Location(4, 5);
-            assertTrue(board.isEmpty(loc));
+            Location location = new Location(4, 5);
+            assertTrue(board.isEmpty(location));
         }
 
         @Test
         public void isEmpty_NotEmptyLocation_False()
         {
+            Location location = new Location(4, 5);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertFalse(board.isEmpty(location));
+        }
 
+        @Test
+        public void isEmpty_NotEmptyLowerBoundLocation_False()
+        {
+            Location location = new Location(0, 0);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertFalse(board.isEmpty(location));
+        }
+
+        @Test
+        public void isEmpty_NotEmptyUpperBoundLocation_False()
+        {
+            Location location = new Location(board.getWidth() - 1, board.getLength() - 1);
+            Piece piece = new Chariot(board, true);
+            board.setPiece(piece, location);
+            assertFalse(board.isEmpty(location));
         }
 
         @Test
@@ -182,10 +305,10 @@ class BoardTest {
         @Test
         public void isEmpty_OutOfBoardLocation_Exception()
         {
-            Location loc = new Location(9, 10);
-            assertFalse(board.isWithinBoard(loc));
+            Location location = new Location(9, 10);
+            assertFalse(board.isWithinBoard(location));
             Exception exception = assertThrows(IllegalArgumentException.class,
-                    () -> board.isEmpty(loc));
+                    () -> board.isEmpty(location));
             assertEquals("This location is not within the board.", exception.getMessage());
         }
     }
