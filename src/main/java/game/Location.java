@@ -4,7 +4,7 @@ package game;
  * Represents a location on the board that a game piece can be at.
  *
  * @author Lee Seng Poh
- * @version 13-6-2023
+ * @version 19-6-2023
  */
 
 public class Location {
@@ -62,5 +62,22 @@ public class Location {
     public Location add(Location location)
     {
         return add(location.getX(), location.getY());
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Location)) {
+            return false;
+        }
+
+        Location loc = (Location) obj;
+
+        // Compare the data members and return accordingly
+        return this.getX() == loc.getX()
+                && getY() == loc.getY();
     }
 }
