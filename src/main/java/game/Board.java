@@ -28,12 +28,14 @@ public class Board {
 
     /**
      * Set piece at a location within the board.
+     * Set piece at a location within the board if the location is not null
+     * and is within the board.
      * @param piece The piece to be placed.
      * @param location The location of the piece.
      */
     public void setPiece(Piece piece, Location location)
     {
-        if (location != null || isWithinBoard(location)) {
+        if (location != null && isWithinBoard(location)) {
             board[location.getX()][location.getY()] = piece;
         }
     }
