@@ -45,7 +45,7 @@ class BoardTest {
 
     @Nested
     @DisplayName("Tests with chinese chessboard")
-    class chessBoardTests {
+    class ChessBoardTests {
 
         private Board board;
 
