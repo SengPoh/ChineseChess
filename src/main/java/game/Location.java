@@ -1,5 +1,7 @@
 package game;
 
+import java.util.Objects;
+
 /**
  * Represents a location on the board that a game piece can be at.
  *
@@ -76,8 +78,15 @@ public class Location {
 
         Location loc = (Location) obj;
 
-        // Compare the data members and return accordingly
         return this.getX() == loc.getX()
                 && getY() == loc.getY();
+    }
+
+    @Override
+    public int hashCode() {
+        int result = 17;
+        result = 31 * x;
+        result = 31 * y;
+        return result;
     }
 }
