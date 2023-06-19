@@ -11,7 +11,7 @@ import java.util.Arrays;
  * but may not jump over intervening pieces.
  *
  * @author Lee Seng Poh
- * @version 18-6-2023
+ * @version 19-6-2023
  */
 public class Chariot extends Piece {
 
