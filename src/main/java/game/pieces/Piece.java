@@ -44,7 +44,7 @@ public abstract class Piece {
      *
      * @throws IllegalArgumentException if the location is neither null nor within the board.
      */
-    protected void setLocation(Location newLocation)
+    public void setLocation(Location newLocation)
     {
         if (newLocation != null && !getBoard().isWithinBoard(newLocation)) {
             throw new IllegalArgumentException("Location can only be either within the board or null.");
