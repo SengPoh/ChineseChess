@@ -8,10 +8,40 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Location.java.
  *
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 20-6-2023
  */
 class LocationTest {
 
+    @Test
+    public void init()
+    {
+        Location location = new Location(5, 10);
+        assertEquals(location.getX(), 5);
+        assertEquals(location.getY(), 10);
+    }
+
+    @Test
+    public void add_coordinates()
+    {
+        Location location = new Location(5, 10);
+        Location result = location.add(6, 12);
+        assertEquals(result.getX(), 11);
+        assertEquals(result.getY(), 22);
+        assertEquals(location.getX(), 5);
+        assertEquals(location.getY(), 10);
+    }
+
+    @Test
+    public void add_location()
+    {
+        Location location = new Location(5, 10);
+        Location location2 = new Location(3, 2);
+        Location result = location.add(location2);
+        assertEquals(result.getX(), 8);
+        assertEquals(result.getY(), 12);
+        assertEquals(location.getX(), 5);
+        assertEquals(location.getY(), 10);
+    }
 
     @Test
     public void equals_EqualLocation_True() {
