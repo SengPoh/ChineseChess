@@ -261,6 +261,100 @@ class BoardTest {
         }
 
         @Test
+        public void clearLocation_FilledBoardNotEmptyLocation_OnlyClearedLocationAffected()
+        {
+            Location location = new Location(4, 5);
+            Piece[][] expectedResult = new Piece[board.getWidth()][board.getLength()];
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    Piece piece = new Chariot(board, true);
+                    board.setPiece(piece, tempLoc);
+                    if (!tempLoc.equals(location)) {
+                        expectedResult[i][j] = piece;
+                    }
+                }
+            }
+
+            Piece resultPiece = board.getPiece(location);
+            assertEquals(resultPiece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location), "The location is not empty");
+            assertNull(resultPiece.getLocation(), "Clear piece does not have null location");
+
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    if (!location.equals(tempLoc)) {
+                        assertEquals(expectedResult[i][j], board.getPiece(tempLoc));
+                    }
+                }
+            }
+        }
+
+        @Test
+        public void clearLocation_FilledBoardNotEmptyLowerBoundLocation_OnlyClearedLocationAffected()
+        {
+            Location location = new Location(0, 0);
+            Piece[][] expectedResult = new Piece[board.getWidth()][board.getLength()];
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    Piece piece = new Chariot(board, true);
+                    board.setPiece(piece, tempLoc);
+                    if (!tempLoc.equals(location)) {
+                        expectedResult[i][j] = piece;
+                    }
+                }
+            }
+
+            Piece resultPiece = board.getPiece(location);
+            assertEquals(resultPiece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location), "The location is not empty");
+            assertNull(resultPiece.getLocation(), "Clear piece does not have null location");
+
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    if (!location.equals(tempLoc)) {
+                        assertEquals(expectedResult[i][j], board.getPiece(tempLoc));
+                    }
+                }
+            }
+        }
+
+        @Test
+        public void clearLocation_FilledBoardNotEmptyUpperBoundLocation_OnlyClearedLocationAffected()
+        {
+            Location location = new Location(8, 9);
+            Piece[][] expectedResult = new Piece[board.getWidth()][board.getLength()];
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    Piece piece = new Chariot(board, true);
+                    board.setPiece(piece, tempLoc);
+                    if (!tempLoc.equals(location)) {
+                        expectedResult[i][j] = piece;
+                    }
+                }
+            }
+
+            Piece resultPiece = board.getPiece(location);
+            assertEquals(resultPiece, board.clearLocation(location));
+            assertTrue(board.isEmpty(location), "The location is not empty");
+            assertNull(resultPiece.getLocation(), "Clear piece does not have null location");
+
+            for (int i = 0; i < board.getWidth(); i++) {
+                for (int j = 0; j < board.getLength(); j++) {
+                    Location tempLoc = new Location(i, j);
+                    if (!location.equals(tempLoc)) {
+                        assertEquals(expectedResult[i][j], board.getPiece(tempLoc));
+                    }
+                }
+            }
+        }
+
+
+        @Test
         public void isEmpty_EmptyLocation_True()
         {
             Location location = new Location(4, 5);
