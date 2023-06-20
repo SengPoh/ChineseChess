@@ -32,6 +32,18 @@ class LocationTest {
     }
 
     @Test
+    public void add_minusCoordinates()
+    {
+        Location location = new Location(5, 10);
+        Location result = location.add(-6, -12);
+        assertEquals(result.getX(), -1);
+        assertEquals(result.getY(), -2);
+        assertEquals(location.getX(), 5);
+        assertEquals(location.getY(), 10);
+    }
+
+
+    @Test
     public void add_location()
     {
         Location location = new Location(5, 10);
@@ -39,6 +51,18 @@ class LocationTest {
         Location result = location.add(location2);
         assertEquals(result.getX(), 8);
         assertEquals(result.getY(), 12);
+        assertEquals(location.getX(), 5);
+        assertEquals(location.getY(), 10);
+    }
+
+    @Test
+    public void add_minusLocation()
+    {
+        Location location = new Location(5, 10);
+        Location location2 = new Location(-3, -2);
+        Location result = location.add(location2);
+        assertEquals(result.getX(), 2);
+        assertEquals(result.getY(), 8);
         assertEquals(location.getX(), 5);
         assertEquals(location.getY(), 10);
     }
