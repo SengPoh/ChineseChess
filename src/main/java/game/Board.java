@@ -41,10 +41,25 @@ public class Board {
     }
 
     /**
+     * Returns the piece at the specified location on the board, if there are any is
+     * present there.
+     * @param location The location of the piece.
+     * @return The piece on the location.
+     */
+    public Piece getPiece(Location location)
+    {
+        if (location != null && isWithinBoard(location)) {
+            return board[location.getX()][location.getY()];
+        }
+
+        return null;
+    }
+
+    /**
      * Remove any piece from the specified location on the board, if there are any is
-     * present on the board.
+     * present there.
      * @param location The location to be emptied.
-     * @return The piece that is removed is there is any
+     * @return The piece that is removed is there is any.
      */
     public Piece clearLocation(Location location)
     {
@@ -92,11 +107,6 @@ public class Board {
     public int getLength()
     {
         return length;
-    }
-
-    public Piece getPiece(Location location)
-    {
-        return board[location.getX()][location.getY()];
     }
 
     /**
