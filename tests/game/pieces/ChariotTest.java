@@ -259,7 +259,7 @@ class ChariotTest {
     }
 
     @Test
-    public void getMoves_FullyEnemyBlocked_NoMoves()
+    public void getMoves_FullyEnemyBlocked_OnlyCaptureMoves()
     {
         Chariot chariot = new Chariot(board, true);
         Chariot enemyChariot1 = new Chariot(board, false);

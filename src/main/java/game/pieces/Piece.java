@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Represents a game piece.
  *
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 21-6-2023
  */
 
 public abstract class Piece {

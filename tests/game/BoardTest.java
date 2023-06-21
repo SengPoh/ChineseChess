@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Board.java.
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 21-6-2023
  */
 class BoardTest {
 
