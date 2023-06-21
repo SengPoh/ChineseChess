@@ -13,6 +13,10 @@ public class Location {
 
     //X and Y coordinates
     private int x, y;
+    //the edge of the river
+    private boolean isRiverEdge;
+    //the area where the general and advisors stay
+    private boolean isPalace;
 
     /**
      * Represents the X and Y coordinates on the board.
@@ -23,6 +27,8 @@ public class Location {
     {
         this.x = x;
         this.y = y;
+        isRiverEdge = false;
+        isPalace = false;
     }
 
     /**
@@ -64,6 +70,39 @@ public class Location {
     public Location add(Location location)
     {
         return add(location.getX(), location.getY());
+    }
+
+    /**
+     * Set whether this location is a palace location.
+     * @param palace Whether this location is a palace location.
+     */
+    public void setPalace(boolean palace) {
+        isPalace = palace;
+    }
+
+    /**
+     * Set wether this location is at the edge of the river.
+     * @param riverEdge Whether this location is on the edge of the river.
+     */
+    public void setRiverEdge(boolean riverEdge) {
+        isRiverEdge = riverEdge;
+    }
+
+    /**
+     * Returns true if this location is a palace location.
+     * @return True if this location is a palace location.
+     */
+    public boolean isPalace()
+    {
+        return isPalace;
+    }
+
+    /**
+     * Returns true if this location is a location on the edge of the river.
+     * @return True if this location is on the edge of the river.
+     */
+    public boolean isRiverEdge() {
+        return isRiverEdge;
     }
 
     @Override
