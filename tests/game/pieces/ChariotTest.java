@@ -34,7 +34,7 @@ class ChariotTest {
     }
 
     @Test
-    public void testInit() {
+    public void init() {
         Chariot chariot = new Chariot(board, true);
 
         assertEquals(board, chariot.getBoard(), "the board is different from expected");
@@ -51,7 +51,7 @@ class ChariotTest {
     }
 
     @Test
-    public void testInit_NullBoard_Exception()
+    public void init_NullBoard_Exception()
     {
         Exception exception = assertThrows(IllegalArgumentException.class,
                 () -> new Chariot(null, true));
@@ -78,7 +78,7 @@ class ChariotTest {
     }
 
     @Test
-    public void testIsBlack_Black_True()
+    public void isBlack_Black_True()
     {
         Chariot chariot = new Chariot(board, true);
 
@@ -86,11 +86,35 @@ class ChariotTest {
     }
 
     @Test
-    public void testIsBlack_White_False()
+    public void isBlack_White_False()
     {
         Chariot chariot = new Chariot(board, false);
 
         assertFalse(chariot.isBlack());
+    }
+
+    @Test
+    public void isSameColor_BothBlack_True()
+    {
+        Chariot chariot1 = new Chariot(board, true);
+        Chariot chariot2 = new Chariot(board, true);
+        assertTrue(chariot1.isSameColor(chariot2));
+    }
+
+    @Test
+    public void isSameColor_BothWhite_True()
+    {
+        Chariot chariot1 = new Chariot(board, false);
+        Chariot chariot2 = new Chariot(board, false);
+        assertTrue(chariot1.isSameColor(chariot2));
+    }
+
+    @Test
+    public void isSameColor_BlackAndWhite_False()
+    {
+        Chariot chariot1 = new Chariot(board, false);
+        Chariot chariot2 = new Chariot(board, true);
+        assertFalse(chariot1.isSameColor(chariot2));
     }
 
     @Nested
