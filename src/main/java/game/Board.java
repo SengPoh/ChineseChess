@@ -35,6 +35,10 @@ public class Board {
     public void setPiece(Piece piece, Location location)
     {
         if (location != null && isWithinBoard(location) && isEmpty(location)) {
+            //to ensure that one piece is not in two different location.
+            if (boardContains(piece)) {
+                clearLocation(piece.getLocation());
+            }
             board[location.getX()][location.getY()] = piece;
             piece.setLocation(location);
         }
