@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Chariot.java.
  *
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 21-6-2023
  */
 
 class ChariotTest {
@@ -117,28 +117,9 @@ class ChariotTest {
         assertFalse(chariot1.isSameColor(chariot2));
     }
 
-    @Nested
-    @DisplayName("Testing methods of a preset initialised Chariot object")
-    class ChariotMethodTest {
+    @Test
+    public void getMoves_centerLocation_OrthogonalUnblocked()
+    {
 
-        private Chariot chariot;
-
-        @BeforeEach
-        void setUp()
-        {
-            chariot = new Chariot(board, true);
-        }
-
-        @AfterEach
-        void tearDown()
-        {
-            chariot = null;
-        }
-
-        @Test
-        public void isLegalMove_LegalMove_True()
-        {
-
-        }
     }
 }
