@@ -44,13 +44,18 @@ public class Chariot extends Piece {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
         for (Location move : getMoveSet()) {
+            boolean captured = false;
             Location newLocation = getLocation().add(move);
-            while (isLegalMove(newLocation)) {
-                legalMoves.add(newLocation);
+            while (isLegalMove(newLocation) && !captured) {
+                if (!getBoard().isEmpty(newLocation) && !isSameColor(getBoard().getPiece(newLocation))) {
+                    legalMoves.add(newLocation);
+                    captured = true;
+                } else {
+                    legalMoves.add(newLocation);
+                }
                 newLocation = newLocation.add(move);         //incrementing the move to check all distance.
             }
         }
-
         return legalMoves;
     }
 }

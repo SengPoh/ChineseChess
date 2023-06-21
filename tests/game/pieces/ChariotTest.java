@@ -146,24 +146,86 @@ class ChariotTest {
     }
 
     @Test
-    public void getMoves_AllyBlocking_OrthogonalUnblocked()
+    public void getMoves_emptyBoardCorner_OrthogonalUnblocked()
     {
         Chariot chariot = new Chariot(board, true);
-        Location chariotLocation = new Location(4, 5);
+        Location chariotLocation = new Location(0, 0);
         board.setPiece(chariot, chariotLocation);
 
         ArrayList<Location> expectedResult = new ArrayList<>();
 
         //add vertical moves
         for (int i = 0; i < board.getLength(); i++) {
-            Location tempLoc = new Location(4, i);
+            Location tempLoc = new Location(chariotLocation.getX(), i);
             if (!chariotLocation.equals(tempLoc)) {
                 expectedResult.add(tempLoc);
             }
         }
         //add horizontal moves
         for (int i = 0; i < board.getWidth(); i++) {
-            Location tempLoc = new Location(i, 5);
+            Location tempLoc = new Location(i, chariotLocation.getY());
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        ArrayList<Location> actualResult = chariot.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(chariot.getMoves()));
+    }
+
+    @Test
+    public void getMoves_AllyBlocking_OrthogonalBlocked()
+    {
+        Chariot chariot = new Chariot(board, true);
+        Chariot allyChariot = new Chariot(board, true);
+        Location chariotLocation = new Location(4, 5);
+        Location allyLocation = new Location(4, 6);
+        board.setPiece(chariot, chariotLocation);
+        board.setPiece(allyChariot, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < allyLocation.getY(); i++) {
+            Location tempLoc = new Location(chariotLocation.getX(), i);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, chariotLocation.getY());
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        ArrayList<Location> actualResult = chariot.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(chariot.getMoves()));
+    }
+
+    @Test
+    public void getMoves_EnemyBlocking_OrthogonalBlocked()
+    {
+        Chariot chariot = new Chariot(board, true);
+        Chariot enemyChariot = new Chariot(board, false);
+        Location chariotLocation = new Location(4, 5);
+        Location allyLocation = new Location(4, 6);
+        board.setPiece(chariot, chariotLocation);
+        board.setPiece(enemyChariot, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i <= allyLocation.getY(); i++) {
+            Location tempLoc = new Location(chariotLocation.getX(), i);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, chariotLocation.getY());
             if (!chariotLocation.equals(tempLoc)) {
                 expectedResult.add(tempLoc);
             }
