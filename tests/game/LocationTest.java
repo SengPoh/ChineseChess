@@ -18,6 +18,8 @@ class LocationTest {
         Location location = new Location(5, 10);
         assertEquals(location.getX(), 5);
         assertEquals(location.getY(), 10);
+        assertFalse(location.isPalace(), "Initialised as a palace location");
+        assertFalse(location.isRiverEdge(), "Initialised as a river edge location");
     }
 
     @Test
@@ -65,6 +67,38 @@ class LocationTest {
         assertEquals(result.getY(), 8);
         assertEquals(location.getX(), 5);
         assertEquals(location.getY(), 10);
+    }
+
+    @Test
+    public void setPalace_True()
+    {
+        Location location = new Location(4, 1);
+        location.setPalace(true);
+        assertTrue(location.isPalace());
+    }
+
+    @Test
+    public void setPalace_False()
+    {
+        Location location = new Location(4, 1);
+        location.setPalace(false);
+        assertFalse(location.isPalace());
+    }
+
+    @Test
+    public void setRiverEdge_True()
+    {
+        Location location = new Location(3, 4);
+        location.setRiverEdge(true);
+        assertTrue(location.isRiverEdge());
+    }
+
+    @Test
+    public void setRiverEdge_False()
+    {
+        Location location = new Location(3, 4);
+        location.setRiverEdge(false);
+        assertFalse(location.isRiverEdge());
     }
 
     @Test
