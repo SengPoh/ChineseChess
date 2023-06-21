@@ -47,7 +47,7 @@ class ChariotTest {
                 new Location(0, -1)
         ));
         ArrayList<Location> actualMoveSet = chariot.getMoveSet();
-        assertArrayEquals(expectedMoveSet.toArray(), actualMoveSet.toArray());
+        assertArrayEquals(expectedMoveSet.toArray(), actualMoveSet.toArray(), "The move sets are different");
     }
 
     @Test
@@ -233,5 +233,28 @@ class ChariotTest {
         ArrayList<Location> actualResult = chariot.getMoves();
         assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
         assertTrue(expectedResult.containsAll(chariot.getMoves()));
+    }
+
+    @Test
+    public void getMoves_FullyAllyBlocked_NoMoves()
+    {
+        Chariot chariot = new Chariot(board, true);
+        Chariot enemyChariot1 = new Chariot(board, true);
+        Chariot enemyChariot2 = new Chariot(board, true);
+        Chariot enemyChariot3 = new Chariot(board, true);
+        Chariot enemyChariot4 = new Chariot(board, true);
+        Location chariotLocation = new Location(4, 5);
+        Location allyLocation1 = new Location(3, 5);
+        Location allyLocation2 = new Location(5, 5);
+        Location allyLocation3 = new Location(4, 6);
+        Location allyLocation4 = new Location(4, 4);
+        board.setPiece(chariot, chariotLocation);
+        board.setPiece(enemyChariot1, allyLocation1);
+        board.setPiece(enemyChariot2, allyLocation2);
+        board.setPiece(enemyChariot3, allyLocation3);
+        board.setPiece(enemyChariot4, allyLocation4);
+
+        ArrayList<Location> actualResult = chariot.getMoves();
+        assertTrue(chariot.getMoves().isEmpty(), "List of moves is not empty");
     }
 }
