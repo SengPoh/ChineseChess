@@ -118,8 +118,58 @@ class ChariotTest {
     }
 
     @Test
-    public void getMoves_centerLocation_OrthogonalUnblocked()
+    public void getMoves_emptyBoard_OrthogonalUnblocked()
     {
+        Chariot chariot = new Chariot(board, true);
+        Location chariotLocation = new Location(4, 5);
+        board.setPiece(chariot, chariotLocation);
 
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < board.getLength(); i++) {
+            Location tempLoc = new Location(4, i);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, 5);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        ArrayList<Location> actualResult = chariot.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(chariot.getMoves()));
+    }
+
+    @Test
+    public void getMoves_AllyBlocking_OrthogonalUnblocked()
+    {
+        Chariot chariot = new Chariot(board, true);
+        Location chariotLocation = new Location(4, 5);
+        board.setPiece(chariot, chariotLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < board.getLength(); i++) {
+            Location tempLoc = new Location(4, i);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, 5);
+            if (!chariotLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        ArrayList<Location> actualResult = chariot.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(chariot.getMoves()));
     }
 }
