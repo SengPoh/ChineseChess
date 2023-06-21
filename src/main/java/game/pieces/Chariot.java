@@ -11,7 +11,7 @@ import java.util.Arrays;
  * but may not jump over intervening pieces.
  *
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 21-6-2023
  */
 public class Chariot extends Piece {
 
@@ -44,11 +44,10 @@ public class Chariot extends Piece {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
         for (Location move : getMoveSet()) {
-            while (getBoard().isWithinBoard(move)) {
-                while (isLegalMove(move)) {
-                    legalMoves.add(move);
-                    move.add(move);         //incrementing the move to check all distance.
-                }
+            Location newLocation = getLocation().add(move);
+            while (isLegalMove(newLocation)) {
+                legalMoves.add(newLocation);
+                newLocation = newLocation.add(move);         //incrementing the move to check all distance.
             }
         }
 
