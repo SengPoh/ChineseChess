@@ -16,7 +16,7 @@ import java.util.Arrays;
 public class Chariot extends Piece {
 
     /**
-     * Initialise the piece with its starting location and the board it is on.
+     * Initialise this piece with its starting location and the board it is on.
      * The board cannot be null and the starting location must either be within the board or null.
      *
      * @param board The board that the piece is on.
@@ -36,7 +36,7 @@ public class Chariot extends Piece {
     }
 
     /** Returns a list of legal moves.
-     *  A chariot can move and capture enemy pieces in any direction orthogonally,
+     *  A chariot can move and capture enemy pieces any distance orthogonally,
      *  but it cannot jump over intervening pieces.
      * @return A list of legal moves.
      */

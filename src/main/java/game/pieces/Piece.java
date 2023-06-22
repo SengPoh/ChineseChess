@@ -22,7 +22,7 @@ public abstract class Piece {
     private ArrayList<Location> moveSet = new ArrayList<>();
 
     /**
-     * Initialise the piece with its starting location and the board it is on.
+     * Initialise this piece with its starting location and the board it is on.
      * The board cannot be null and the starting location must either be within the board or null.
      *
      * @param board The board that the piece is on.
