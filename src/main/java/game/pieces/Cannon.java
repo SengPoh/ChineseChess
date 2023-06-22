@@ -48,7 +48,7 @@ public class Cannon extends Piece{
         for (Location move : getMoveSet()) {
             boolean blocked = false;
             Location newLocation = getLocation().add(move);
-            while (isLegalMove(newLocation) && !blocked) {
+            while (getBoard().isWithinBoard(newLocation) && !blocked) {
                 if (!getBoard().isEmpty(newLocation)) {
                     blocked = true;
                 } else {
