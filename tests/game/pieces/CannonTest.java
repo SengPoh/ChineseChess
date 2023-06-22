@@ -298,7 +298,7 @@ public class CannonTest {
         ArrayList<Location> expectedResult = new ArrayList<>();
 
         //add vertical moves
-        for (int i = 0; i < cannonLocation.getY(); i++) {
+        for (int i = 0; i < allyLocation.getY(); i++) {
             Location tempLoc = new Location(cannonLocation.getX(), i);
             if (!cannonLocation.equals(tempLoc)) {
                 expectedResult.add(tempLoc);
@@ -312,6 +312,189 @@ public class CannonTest {
             }
         }
         expectedResult.add(enemyLocation);
+
+        ArrayList<Location> actualResult = cannon.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMovesCapture_JumpAllyWithSpace_JumpCapture()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Cannon allyCannon = new Cannon(board, true);
+        Cannon enemyCannon = new Cannon(board, false);
+        Location cannonLocation = new Location(4, 1);
+        Location allyLocation = new Location(4, 3);
+        Location enemyLocation = new Location(4, 9);
+        board.setPiece(cannon, cannonLocation);
+        board.setPiece(allyCannon, allyLocation);
+        board.setPiece(enemyCannon, enemyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < allyLocation.getY(); i++) {
+            Location tempLoc = new Location(cannonLocation.getX(), i);
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, cannonLocation.getY());
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        expectedResult.add(enemyLocation);
+
+        ArrayList<Location> actualResult = cannon.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMovesCapture_DoubleAlly_NoCapture()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Cannon allyCannon1 = new Cannon(board, true);
+        Cannon allyCannon2 = new Cannon(board, true);
+        Location cannonLocation = new Location(4, 1);
+        Location allyLocation1 = new Location(4, 3);
+        Location allyLocation2 = new Location(4, 9);
+        board.setPiece(cannon, cannonLocation);
+        board.setPiece(allyCannon1, allyLocation1);
+        board.setPiece(allyCannon2, allyLocation2);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < allyLocation1.getY(); i++) {
+            Location tempLoc = new Location(cannonLocation.getX(), i);
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, cannonLocation.getY());
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+
+        ArrayList<Location> actualResult = cannon.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMovesCapture_JumpEnemyNoSpace_JumpCapture()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Cannon enemyCannon1 = new Cannon(board, false);
+        Cannon enemyCannon2 = new Cannon(board, false);
+        Location cannonLocation = new Location(4, 5);
+        Location enemyLocation1 = new Location(4, 6);
+        Location enemyLocation2 = new Location(4, 7);
+        board.setPiece(cannon, cannonLocation);
+        board.setPiece(enemyCannon1, enemyLocation1);
+        board.setPiece(enemyCannon2, enemyLocation2);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < enemyLocation1.getY(); i++) {
+            Location tempLoc = new Location(cannonLocation.getX(), i);
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, cannonLocation.getY());
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        expectedResult.add(enemyLocation2);
+
+        ArrayList<Location> actualResult = cannon.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMovesCapture_JumpEnemyWithSpace_JumpCapture()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Cannon enemyCannon1 = new Cannon(board, false);
+        Cannon enemyCannon2 = new Cannon(board, false);
+        Location cannonLocation = new Location(4, 1);
+        Location enemyLocation1 = new Location(4, 3);
+        Location enemyLocation2 = new Location(4, 9);
+        board.setPiece(cannon, cannonLocation);
+        board.setPiece(enemyCannon1, enemyLocation1);
+        board.setPiece(enemyCannon2, enemyLocation2);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < enemyLocation1.getY(); i++) {
+            Location tempLoc = new Location(cannonLocation.getX(), i);
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, cannonLocation.getY());
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        expectedResult.add(enemyLocation2);
+
+        ArrayList<Location> actualResult = cannon.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMovesCapture_OneDirectionFilledEnemies_OnlyOneCapture()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Cannon enemyCannon1 = new Cannon(board, false);
+        Cannon target = new Cannon(board, false);
+        Location cannonLocation = new Location(4, 1);
+        Location enemyLocation1 = new Location(4, 2);
+        Location targetLocation = new Location(4, 3);
+        board.setPiece(cannon, cannonLocation);
+        board.setPiece(enemyCannon1, enemyLocation1);
+        board.setPiece(target, targetLocation);
+        for (int i = targetLocation.getY() + 1; i < board.getLength(); i++) {
+            board.setPiece(new Cannon(board, false),
+                    new Location(cannonLocation.getX(), i));
+        }
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        //add vertical moves
+        for (int i = 0; i < enemyLocation1.getY(); i++) {
+            Location tempLoc = new Location(cannonLocation.getX(), i);
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        //add horizontal moves
+        for (int i = 0; i < board.getWidth(); i++) {
+            Location tempLoc = new Location(i, cannonLocation.getY());
+            if (!cannonLocation.equals(tempLoc)) {
+                expectedResult.add(tempLoc);
+            }
+        }
+        expectedResult.add(targetLocation);
 
         ArrayList<Location> actualResult = cannon.getMoves();
         assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
