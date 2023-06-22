@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Represents a game piece.
  *
  * @author Lee Seng Poh
- * @version 21-6-2023
+ * @version 22-6-2023
  */
 
 public abstract class Piece {
@@ -26,6 +26,7 @@ public abstract class Piece {
      * The board cannot be null and the starting location must either be within the board or null.
      *
      * @param board The board that the piece is on.
+     * @param isBlack Whether this piece is black in color.
      * @throws IllegalArgumentException if the board parameter is null.
      */
     public Piece(Board board, boolean isBlack)

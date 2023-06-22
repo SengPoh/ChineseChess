@@ -11,7 +11,7 @@ import java.util.Arrays;
  * but may not jump over intervening pieces.
  *
  * @author Lee Seng Poh
- * @version 21-6-2023
+ * @version 22-6-2023
  */
 public class Chariot extends Piece {
 
@@ -20,6 +20,7 @@ public class Chariot extends Piece {
      * The board cannot be null and the starting location must either be within the board or null.
      *
      * @param board The board that the piece is on.
+     * @param isBlack Whether this piece is black in color.
      * @throws IllegalArgumentException if the board parameter is null.
      */
     public Chariot(Board board, boolean isBlack) {
