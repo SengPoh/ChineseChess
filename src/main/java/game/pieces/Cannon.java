@@ -22,7 +22,8 @@ public class Cannon extends Piece{
      * @param isBlack Whether this piece is black in color.
      * @throws IllegalArgumentException if the board parameter is null.
      */
-    public Cannon(Board board, boolean isBlack) {
+    public Cannon(Board board, boolean isBlack)
+    {
         super(board, isBlack);
 
         ArrayList<Location> moveSet = new ArrayList<>(Arrays.asList(
@@ -40,9 +41,53 @@ public class Cannon extends Piece{
      * @return A list of legal moves.
      */
     @Override
-    public ArrayList<Location> getMoves() {
+    public ArrayList<Location> getMoves()
+    {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
+        for (Location move : getMoveSet()) {
+            boolean blocked = false;
+            Location newLocation = getLocation().add(move);
+            while (isLegalMove(newLocation) && !blocked) {
+                if (!getBoard().isEmpty(newLocation)) {
+                    blocked = true;
+                } else {
+                    legalMoves.add(newLocation);
+                }
+                newLocation = newLocation.add(move);         //incrementing the move to check all distance.
+            }
+
+            if (blocked) {
+                Location captureTargetLocation = getCaptureLocation(move, newLocation);
+                if (captureTargetLocation != null) {
+                    legalMoves.add(captureTargetLocation);
+                }
+            }
+        }
+
         return legalMoves;
+    }
+
+    /**
+     * Returns location of an enemy piece that can be captured after this cannon is blocked by another piece,
+     * or null if no target can be found.
+     * @param direction The direction to search for target.
+     * @param location The starting location of the search.
+     * @return The location of a capture target, or null if no target can be found.
+     */
+    private Location getCaptureLocation(Location direction, Location location)
+    {
+        Location captureTargetLocation = null;
+        boolean found = false;
+
+        while (isLegalMove(location) && !found) {            //loop until illegal move or found a piece.
+            if (getBoard().isEmpty(location)) {
+                location = location.add(direction);       //continue if the location is empty
+            } else if (!isSameColor(getBoard().getPiece(location))) {        //if it is an enemy piece.
+                captureTargetLocation = location;
+                found = true;
+            }
+        }
+        return captureTargetLocation;
     }
 }

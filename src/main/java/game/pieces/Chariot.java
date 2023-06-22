@@ -23,7 +23,8 @@ public class Chariot extends Piece {
      * @param isBlack Whether this piece is black in color.
      * @throws IllegalArgumentException if the board parameter is null.
      */
-    public Chariot(Board board, boolean isBlack) {
+    public Chariot(Board board, boolean isBlack)
+    {
         super(board, isBlack);
 
         ArrayList<Location> moveSet = new ArrayList<>(Arrays.asList(
@@ -41,7 +42,8 @@ public class Chariot extends Piece {
      * @return A list of legal moves.
      */
     @Override
-    public ArrayList<Location> getMoves() {
+    public ArrayList<Location> getMoves()
+    {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
         for (Location move : getMoveSet()) {
