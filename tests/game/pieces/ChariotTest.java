@@ -19,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class ChariotTest {
 
     private Board board;
-    private Location location;
 
     @BeforeEach
     void setUp()
