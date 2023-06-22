@@ -204,25 +204,25 @@ class ChariotTest {
     }
 
     @Test
-    public void getMoves_EnemyBlocking_OrthogonalBlocked()
+    public void getMoves_EnemyBlocking_OrthogonalCapture()
     {
         Chariot chariot = new Chariot(board, true);
         Chariot enemyChariot = new Chariot(board, false);
         Location chariotLocation = new Location(4, 5);
-        Location allyLocation = new Location(4, 6);
+        Location enemyLocation = new Location(4, 6);
         board.setPiece(chariot, chariotLocation);
-        board.setPiece(enemyChariot, allyLocation);
+        board.setPiece(enemyChariot, enemyLocation);
 
         ArrayList<Location> expectedResult = new ArrayList<>();
 
         //add vertical moves
-        for (int i = 0; i <= allyLocation.getY(); i++) {
+        for (int i = 0; i <= enemyLocation.getY(); i++) {
             Location tempLoc = new Location(chariotLocation.getX(), i);
             if (!chariotLocation.equals(tempLoc)) {
                 expectedResult.add(tempLoc);
             }
         }
-        //add horizontal moves
+        //add horizontal moves to the left
         for (int i = 0; i < board.getWidth(); i++) {
             Location tempLoc = new Location(i, chariotLocation.getY());
             if (!chariotLocation.equals(tempLoc)) {
@@ -238,20 +238,20 @@ class ChariotTest {
     public void getMoves_FullyAllyBlocked_NoMoves()
     {
         Chariot chariot = new Chariot(board, true);
-        Chariot enemyChariot1 = new Chariot(board, true);
-        Chariot enemyChariot2 = new Chariot(board, true);
-        Chariot enemyChariot3 = new Chariot(board, true);
-        Chariot enemyChariot4 = new Chariot(board, true);
+        Chariot allyChariot1 = new Chariot(board, true);
+        Chariot allyChariot2 = new Chariot(board, true);
+        Chariot allyChariot3 = new Chariot(board, true);
+        Chariot allyChariot4 = new Chariot(board, true);
         Location chariotLocation = new Location(4, 5);
         Location allyLocation1 = new Location(3, 5);
         Location allyLocation2 = new Location(5, 5);
         Location allyLocation3 = new Location(4, 6);
         Location allyLocation4 = new Location(4, 4);
         board.setPiece(chariot, chariotLocation);
-        board.setPiece(enemyChariot1, allyLocation1);
-        board.setPiece(enemyChariot2, allyLocation2);
-        board.setPiece(enemyChariot3, allyLocation3);
-        board.setPiece(enemyChariot4, allyLocation4);
+        board.setPiece(allyChariot1, allyLocation1);
+        board.setPiece(allyChariot2, allyLocation2);
+        board.setPiece(allyChariot3, allyLocation3);
+        board.setPiece(allyChariot4, allyLocation4);
 
         ArrayList<Location> actualResult = chariot.getMoves();
         assertTrue(chariot.getMoves().isEmpty(), "List of moves is not empty");
