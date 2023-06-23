@@ -14,6 +14,7 @@ import java.util.Arrays;
  * @version 22-6-2023
  */
 public class Cannon extends Piece{
+
     /**
      * Initialise this piece with its starting location and the board it is on.
      * The board cannot be null and the starting location must either be within the board or null.
@@ -35,9 +36,10 @@ public class Cannon extends Piece{
         setMoveSet(moveSet);
     }
 
-    /** Returns a list of legal moves.
-     *  A cannon can move any distance orthogonally, but can only capture by
-     *  jumping a single piece of either colour along the path of attack.
+    /**
+     * Returns a list of legal moves.
+     * A cannon can move any distance orthogonally, but can only capture by
+     * jumping a single piece of either colour along the path of attack.
      * @return A list of legal moves.
      */
     @Override

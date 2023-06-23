@@ -89,7 +89,8 @@ public abstract class Piece {
         return moveSet;
     }
 
-    /** Returns a list of legal moves.
+    /**
+     * Returns a list of legal moves.
      * @return A list of legal moves.
      */
     abstract public ArrayList<Location> getMoves();

@@ -36,9 +36,10 @@ public class Chariot extends Piece {
         setMoveSet(moveSet);
     }
 
-    /** Returns a list of legal moves.
-     *  A chariot can move and capture enemy pieces any distance orthogonally,
-     *  but it cannot jump over intervening pieces.
+    /**
+     * Returns a list of legal moves.
+     * A chariot can move and capture enemy pieces any distance orthogonally,
+     * but it cannot jump over intervening pieces.
      * @return A list of legal moves.
      */
     @Override
