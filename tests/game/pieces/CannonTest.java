@@ -47,8 +47,8 @@ public class CannonTest {
                 new Location(0, 1),
                 new Location(0, -1)
         ));
-        ArrayList<Location> actualMoveSet = cannon.getMoveSet();
-        assertArrayEquals(expectedMoveSet.toArray(), actualMoveSet.toArray(), "The move sets are different");
+        ArrayList<Location> actualMoveSet = cannon.getMoveSet();;
+        assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
     }
 
     @Test

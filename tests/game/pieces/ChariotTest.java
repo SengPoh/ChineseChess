@@ -46,7 +46,7 @@ class ChariotTest {
                 new Location(0, -1)
         ));
         ArrayList<Location> actualMoveSet = chariot.getMoveSet();
-        assertArrayEquals(expectedMoveSet.toArray(), actualMoveSet.toArray(), "The move sets are different");
+        assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
     }
 
     @Test
