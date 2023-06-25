@@ -254,7 +254,7 @@ class ChariotTest {
         board.setPiece(allyChariot4, allyLocation4);
 
         ArrayList<Location> actualResult = chariot.getMoves();
-        assertTrue(chariot.getMoves().isEmpty(), "List of moves is not empty");
+        assertTrue(actualResult.isEmpty(), "List of moves is not empty");
     }
 
     @Test
@@ -283,5 +283,29 @@ class ChariotTest {
         ArrayList<Location> actualResult = chariot.getMoves();
         assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
         assertTrue(expectedResult.containsAll(chariot.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void move_LegalMove_True()
+    {
+        Chariot chariot = new Chariot(board, true);
+        Location location = new Location(4, 5);
+        board.setPiece(chariot, location);
+        Location newLocation = new Location(6,5);
+
+        assertTrue(chariot.move(newLocation));
+        assertEquals(newLocation, chariot.getLocation(), "This chariot was not moved to the correct location.");
+    }
+
+    @Test
+    public void move_IllegalMove_False() {
+        Chariot chariot = new Chariot(board, true);
+        Location location = new Location(4, 5);
+        board.setPiece(chariot, location);
+
+        Location newLocation = new Location(2, 1);
+
+        assertFalse(chariot.move(newLocation));
+        assertEquals(location, chariot.getLocation(), "This chariot's location was changed.");
     }
 }
