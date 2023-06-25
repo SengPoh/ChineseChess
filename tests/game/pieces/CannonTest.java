@@ -4,7 +4,6 @@ import game.Board;
 import game.Location;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -47,7 +46,7 @@ public class CannonTest {
                 new Location(0, 1),
                 new Location(0, -1)
         ));
-        ArrayList<Location> actualMoveSet = cannon.getMoveSet();;
+        ArrayList<Location> actualMoveSet = cannon.getMoveSet();
         assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
     }
 
@@ -256,7 +255,7 @@ public class CannonTest {
         board.setPiece(allyCannon4, allyLocation4);
 
         ArrayList<Location> actualResult = cannon.getMoves();
-        assertTrue(cannon.getMoves().isEmpty(), "List of moves is not empty");
+        assertTrue(actualResult.isEmpty(), "List of moves is not empty");
     }
 
     @Test
@@ -279,7 +278,7 @@ public class CannonTest {
         board.setPiece(enemyCannon4, enemyLocation4);
 
         ArrayList<Location> actualResult = cannon.getMoves();
-        assertTrue(cannon.getMoves().isEmpty(), "List of moves is not empty");
+        assertTrue(actualResult.isEmpty(), "List of moves is not empty");
     }
 
     @Test
@@ -499,5 +498,29 @@ public class CannonTest {
         ArrayList<Location> actualResult = cannon.getMoves();
         assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
         assertTrue(expectedResult.containsAll(cannon.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void move_LegalMove_True()
+    {
+        Cannon cannon = new Cannon(board, true);
+        Location location = new Location(4, 5);
+        board.setPiece(cannon, location);
+        Location newLocation = new Location(6,5);
+
+        assertTrue(cannon.move(newLocation));
+        assertEquals(newLocation, cannon.getLocation(), "This cannon was not moved to the correct location.");
+    }
+
+    @Test
+    public void move_IllegalMove_False() {
+        Cannon cannon = new Cannon(board, true);
+        Location location = new Location(4, 5);
+        board.setPiece(cannon, location);
+
+        Location newLocation = new Location(2, 1);
+
+        assertFalse(cannon.move(newLocation));
+        assertEquals(location, cannon.getLocation(), "This cannon's location was changed.");
     }
 }
