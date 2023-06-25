@@ -35,6 +35,30 @@ public class Soldier extends Piece{
     }
 
     /**
+     * Move this piece to a specified location if it is a legal move.
+     * Returns true if the piece is moved.
+     * @param location The location to be moved to.
+     * @return True if this piece is moved.
+     */
+    @Override
+    public boolean move(Location location)
+    {
+        if (getLocation() == null) {
+            return false;
+        }
+
+        Location oldLocation = getLocation();
+        boolean moved = super.move(location);
+        Location newLocation = getLocation();
+
+        if (oldLocation.isRiverEdge() && moved && newLocation.isRiverEdge()) {
+            crossRiver();
+        }
+
+        return moved;
+    }
+
+    /**
      * Returns a list of legal moves.
      * Before crossing the river, a soldier can only move and capture one space forward.
      * After crossing the river, a soldier can move and capture one space forward or horizontally.
@@ -61,7 +85,7 @@ public class Soldier extends Piece{
      * Changes the status of this soldier piece to having crossed the river.
      * The move set of this soldier is changed to being able to move forward and horizontally.
      */
-    public void crossRiver()
+    private void crossRiver()
     {
         ArrayList<Location> newMoveSet = new ArrayList<>(Arrays.asList(
                 new Location(1, 0),
