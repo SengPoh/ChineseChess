@@ -76,7 +76,9 @@ public class Soldier extends Piece{
 
         for (Location move : getMoveSet()) {
             Location newLocation = getLocation().add(move);
-            legalMoves.add(newLocation);
+            if (isLegalMove(newLocation)) {
+                legalMoves.add(newLocation);
+            }
         }
         return legalMoves;
     }
