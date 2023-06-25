@@ -90,6 +90,22 @@ public abstract class Piece {
     }
 
     /**
+     * Move this piece to a specified location if it is a legal move.
+     * Returns true if the piece is moved.
+     * @param location The location to be moved to.
+     * @return True if this piece is moved.
+     */
+    public boolean move(Location location)
+    {
+        boolean moved = false;
+        if (getMoves().contains(location)) {
+            getBoard().setPiece(this, location);
+            moved = true;
+        }
+        return moved;
+    }
+
+    /**
      * Returns a list of legal moves.
      * @return A list of legal moves.
      */
