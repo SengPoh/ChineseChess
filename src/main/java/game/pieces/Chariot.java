@@ -47,6 +47,11 @@ public class Chariot extends Piece {
     {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
+        //if this piece is not on the board.
+        if (getLocation() == null) {
+            return legalMoves;
+        }
+
         for (Location move : getMoveSet()) {
             boolean captured = false;
             Location newLocation = getLocation().add(move);

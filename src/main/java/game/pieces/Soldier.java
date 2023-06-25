@@ -45,6 +45,11 @@ public class Soldier extends Piece{
     {
         ArrayList<Location> legalMoves = new ArrayList<>();
 
+        //if this piece is not on the board.
+        if (getLocation() == null) {
+            return legalMoves;
+        }
+
         for (Location move : getMoveSet()) {
             Location newLocation = getLocation().add(move);
             legalMoves.add(newLocation);
