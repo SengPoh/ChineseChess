@@ -14,7 +14,7 @@ public class Board {
     private int  width, length;
 
     //Storage for game pieces in a column by row array.
-    private Piece[][] board;
+    private Location[][] board;
 
     public Board(int width, int length)
     {
@@ -23,7 +23,7 @@ public class Board {
         }
         this.width = width;
         this.length = length;
-        board = new Piece[width][length];
+        setupBoard();
     }
 
     /**
@@ -39,7 +39,7 @@ public class Board {
             if (boardContains(piece)) {
                 clearLocation(piece.getLocation());
             }
-            board[location.getX()][location.getY()] = piece;
+            board[location.getX()][location.getY()].setPiece(piece);
             piece.setLocation(location);
         }
     }
@@ -53,7 +53,7 @@ public class Board {
     public Piece getPiece(Location location)
     {
         if (location != null && isWithinBoard(location)) {
-            return board[location.getX()][location.getY()];
+            return board[location.getX()][location.getY()].getPiece();
         }
 
         return null;
@@ -69,11 +69,7 @@ public class Board {
     {
         Piece piece = null;
         if (location != null && isWithinBoard(location)) {
-            piece = board[location.getX()][location.getY()];
-            if (piece != null) {
-                piece.setLocation(null);
-                board[location.getX()][location.getY()] = null;
-            }
+            piece = board[location.getX()][location.getY()].removePiece();
         }
         return piece;
     }
@@ -87,7 +83,7 @@ public class Board {
     {
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < length; j++) {
-                 if (board[i][j] == piece) {
+                 if (board[i][j].getPiece() == piece) {
                      return true;
                  }
             }
@@ -146,6 +142,16 @@ public class Board {
             throw new IllegalArgumentException("This location is not within the board.");
         }
 
-        return board[location.getX()][location.getY()] == null;
+        return board[location.getX()][location.getY()].getPiece() == null;
+    }
+
+    private void setupBoard()
+    {
+        board = new Location[width][length];
+        for (int i = 0; i < width; i++) {
+            for (int j = 0; j < length; j++) {
+                board[i][j] = new Location(i, j);
+            }
+        }
     }
 }
