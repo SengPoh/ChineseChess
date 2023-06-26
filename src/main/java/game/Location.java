@@ -1,6 +1,6 @@
 package game;
 
-import java.util.Objects;
+import game.pieces.Piece;
 
 /**
  * Represents a location on the board that a game piece can be at.
@@ -17,6 +17,8 @@ public class Location {
     private boolean isRiverEdge;
     //the area where the general and advisors stay
     private boolean isPalace;
+
+    private Piece piece;
 
     /**
      * Represents the X and Y coordinates on the board.
@@ -70,6 +72,36 @@ public class Location {
     public Location add(Location location)
     {
         return add(location.getX(), location.getY());
+    }
+
+    /**
+     * Set specified piece on this location.
+     * @param piece The piece to be placed.
+     */
+    public void setPiece(Piece piece)
+    {
+        this.piece = piece;
+    }
+
+    /**
+     * Returns the piece on this location.
+     * @return The piece on this location, or null if there is no piece here.
+     */
+    public Piece getPiece()
+    {
+        return piece;
+    }
+
+    /**
+     * Remove any piece from the specified location on the board, if there are any is
+     * present there.
+     * @return The piece that is removed is there is any.
+     */
+    public Piece removePiece()
+    {
+        Piece piece = this.piece;
+        this.piece = null;
+        return piece;
     }
 
     /**
