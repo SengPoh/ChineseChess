@@ -1,5 +1,7 @@
 package game;
 
+import game.pieces.Chariot;
+import game.pieces.Piece;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -20,6 +22,7 @@ class LocationTest {
         assertEquals(location.getY(), 10);
         assertFalse(location.isPalace(), "Initialised as a palace location");
         assertFalse(location.isRiverEdge(), "Initialised as a river edge location");
+        assertNull(location.getPiece());
     }
 
     @Test
@@ -99,6 +102,33 @@ class LocationTest {
         Location location = new Location(3, 4);
         location.setRiverEdge(false);
         assertFalse(location.isRiverEdge());
+    }
+
+    @Test
+    public void setPiece()
+    {
+        Location location = new Location(3, 4);
+        Piece piece = new Chariot(new Board(8, 9), true);
+        location.setPiece(piece);
+        assertEquals(piece, location.getPiece());
+    }
+
+    @Test
+    public void removePiece_NotEmpty()
+    {
+        Location location = new Location(3, 4);
+        Piece piece = new Chariot(new Board(8, 9), true);
+        location.setPiece(piece);
+        assertEquals(piece, location.removePiece(),"The piece returned is not as expected.");
+        assertNull(location.getPiece(),"Location still has a piece");
+        assertNull(piece.getLocation(),"The piece still has a location assigned");
+    }
+
+    @Test
+    public void removePiece_Empty()
+    {
+        Location location = new Location(3, 4);
+        assertNull(location.removePiece());
     }
 
     @Test
