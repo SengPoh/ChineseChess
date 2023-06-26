@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Location.java.
  *
  * @author Lee Seng Poh
- * @version 20-6-2023
+ * @version 26-6-2023
  */
 class LocationTest {
 

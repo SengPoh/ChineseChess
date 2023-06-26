@@ -6,12 +6,13 @@ import game.pieces.Piece;
  * Represents the game board.
  *
  * @author Lee Seng Poh
- * @version 21-6-2023
+ * @version 26-6-2023
  */
 public class Board {
 
     //The width(horizontal) and length(vertical) of the board.
-    private int  width, length;
+    private final int  width;
+    private final int length;
 
     //Storage for game pieces in a column by row array.
     private Location[][] board;

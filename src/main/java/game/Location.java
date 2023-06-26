@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents a location on the board that a game piece can be at.
  *
  * @author Lee Seng Poh
- * @version 19-6-2023
+ * @version 26-6-2023
  */
 
 public class Location {
