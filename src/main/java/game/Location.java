@@ -17,7 +17,6 @@ public class Location {
     private boolean isRiverEdge;
     //the area where the general and advisors stay
     private boolean isPalace;
-
     private Piece piece;
 
     /**
@@ -31,6 +30,7 @@ public class Location {
         this.y = y;
         isRiverEdge = false;
         isPalace = false;
+        piece = null;
     }
 
     /**
@@ -74,35 +74,6 @@ public class Location {
         return add(location.getX(), location.getY());
     }
 
-    /**
-     * Set specified piece on this location.
-     * @param piece The piece to be placed.
-     */
-    public void setPiece(Piece piece)
-    {
-        this.piece = piece;
-    }
-
-    /**
-     * Returns the piece on this location.
-     * @return The piece on this location, or null if there is no piece here.
-     */
-    public Piece getPiece()
-    {
-        return piece;
-    }
-
-    /**
-     * Remove any piece from the specified location on the board, if there are any is
-     * present there.
-     * @return The piece that is removed is there is any.
-     */
-    public Piece removePiece()
-    {
-        Piece piece = this.piece;
-        this.piece = null;
-        return piece;
-    }
 
     /**
      * Set whether this location is a palace location.
@@ -135,6 +106,39 @@ public class Location {
      */
     public boolean isRiverEdge() {
         return isRiverEdge;
+    }
+
+    /**
+     * Set specified piece on this location.
+     * @param piece The piece to be placed.
+     */
+    public void setPiece(Piece piece)
+    {
+        this.piece = piece;
+    }
+
+    /**
+     * Returns the piece on this location.
+     * @return The piece on this location, or null if there is no piece here.
+     */
+    public Piece getPiece()
+    {
+        return piece;
+    }
+
+    /**
+     * Remove any piece from the specified location on the board, if there are any is
+     * present there.
+     * @return The piece that is removed is there is any.
+     */
+    public Piece removePiece()
+    {
+        Piece piece = this.piece;
+        if (piece != null) {
+            piece.setLocation(null);
+        }
+        this.piece = null;
+        return piece;
     }
 
     @Override
