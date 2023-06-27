@@ -40,8 +40,9 @@ public class Board {
             if (boardContains(piece)) {
                 clearLocation(piece.getLocation());
             }
-            board[location.getX()][location.getY()].setPiece(piece);
-            piece.setLocation(location);
+            Location boardLocation = board[location.getX()][location.getY()];
+            boardLocation.setPiece(piece);
+            piece.setLocation(boardLocation);
         }
     }
 
