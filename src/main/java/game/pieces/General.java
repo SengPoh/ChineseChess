@@ -10,7 +10,7 @@ import java.util.Arrays;
  * Represents game piece General that moves and captures one space orthogonally and
  * must stay within the palace, with the following exception.
  * If the two generals face each other along the same file with no intervening pieces,
- * the general crosses the board to capture the enemy general
+ * the general crosses the board to capture the enemy general.(Flying General move)
  *
  * @author Lee Seng Poh
  * @version 26-6-2023
@@ -56,5 +56,37 @@ public class General extends Piece{
         }
 
         return legalMoves;
+    }
+
+    /**
+     * Returns the location of the enemy general if flying general move if available.
+     * Otherwise, return null.
+     * @return Location of the enemy general if flying general move if available.
+     *          Otherwise, null.
+     */
+    private Location flyTarget()
+    {
+        Location increment;
+        // to check which side of the board this general is on
+        if (getLocation().getY() < (getBoard().getLength() / 2)) {
+            increment = new Location(0, 1);
+        } else {
+            increment = new Location(0, -1);
+        }
+        Location target = null;
+        boolean blocked = false;
+        Location newLocation = getLocation().add(increment);
+        while (getBoard().isWithinBoard(newLocation) && !blocked) {
+            if (getBoard().isEmpty(newLocation)) {
+                newLocation = newLocation.add(increment);
+            }
+            Piece piece = getBoard().getPiece(newLocation);
+            if (piece instanceof General && !isSameColor(piece)) {          //if it is the enemy general
+                target = newLocation;
+            } else {
+                blocked = true;
+            }
+        }
+        return target;
     }
 }
