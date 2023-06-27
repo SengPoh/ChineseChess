@@ -156,4 +156,21 @@ public class Board {
             }
         }
     }
+
+    /**
+     * Returns the location stored within the board that is equivalent to
+     * the specified location, if it is within the board.
+     * @param location The location with the same x and y coordinates to the location to be obtained.
+     * @return The location in the board equivalent to the specified location, if it is within
+     *          the board.
+     * @throws IllegalArgumentException if location is null or is not within the board.
+     */
+    private Location getLocation(Location location) {
+        if (location == null) {
+            throw new IllegalArgumentException("Location cannot be null.");
+        } else if (!isWithinBoard(location)) {
+            throw new IllegalArgumentException("This location is not within the board.");
+        }
+        return board[location.getX()][location.getY()];
+    }
 }
