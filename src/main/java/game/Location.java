@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents a location on the board that a game piece can be at.
  *
  * @author Lee Seng Poh
- * @version 26-6-2023
+ * @version 27-6-2023
  */
 
 public class Location {
@@ -84,7 +84,7 @@ public class Location {
     }
 
     /**
-     * Set wether this location is at the edge of the river.
+     * Set whether this location is at the edge of the river.
      * @param isRiverEdge Whether this location is on the edge of the river.
      */
     public void setRiverEdge(boolean isRiverEdge) {
