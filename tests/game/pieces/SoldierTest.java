@@ -134,10 +134,10 @@ class SoldierTest {
     {
         Soldier soldier = new Soldier(board, true);
         Location location = new Location(4, 4);
-        location.setRiverEdge(true);
+        board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
         Location newLocation = new Location(4, 5);
-        newLocation.setRiverEdge(true);
+        board.setRiverEdge(newLocation, true);
 
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
@@ -189,10 +189,10 @@ class SoldierTest {
     {
         Soldier soldier = new Soldier(board, true);
         Location location = new Location(4, 4);
-        location.setRiverEdge(true);
+        board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
         Location newLocation = new Location(4, 5);
-        newLocation.setRiverEdge(true);
+        board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
         Soldier allySoldier = new Soldier(board, true);
@@ -213,10 +213,10 @@ class SoldierTest {
     {
         Soldier soldier = new Soldier(board, true);
         Location location = new Location(4, 4);
-        location.setRiverEdge(true);
+        board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
         Location newLocation = new Location(4, 5);
-        newLocation.setRiverEdge(true);
+        board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
         Soldier enemySoldier = new Soldier(board, false);
@@ -265,10 +265,10 @@ class SoldierTest {
     {
         Soldier soldier = new Soldier(board, true);
         Location location = new Location(4, 4);
-        location.setRiverEdge(true);
+        board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
         Location newLocation = new Location(4, 5);
-        newLocation.setRiverEdge(true);
+        board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
         Soldier enemySoldier1 = new Soldier(board, false);
