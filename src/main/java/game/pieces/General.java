@@ -55,6 +55,17 @@ public class General extends Piece{
             return legalMoves;
         }
 
+        for (Location move : getMoveSet()) {
+            Location newLocation = getLocation().add(move);
+            if (isLegalMove(newLocation) && newLocation.isPalace()) {
+                legalMoves.add(newLocation);
+            }
+        }
+        // add flying general move if available
+        Location flyTarget = flyTarget();
+        if (flyTarget != null) {
+            legalMoves.add(flyTarget);
+        }
         return legalMoves;
     }
 
