@@ -40,7 +40,7 @@ public class Board {
             if (boardContains(piece)) {
                 clearLocation(piece.getLocation());
             }
-            Location boardLocation = board[location.getX()][location.getY()];
+            Location boardLocation = getLocation(location);
             boardLocation.setPiece(piece);
             piece.setLocation(boardLocation);
         }
@@ -55,7 +55,7 @@ public class Board {
     public Piece getPiece(Location location)
     {
         if (location != null && isWithinBoard(location)) {
-            return board[location.getX()][location.getY()].getPiece();
+            return getLocation(location).getPiece();
         }
 
         return null;
@@ -71,7 +71,7 @@ public class Board {
     {
         Piece piece = null;
         if (location != null && isWithinBoard(location)) {
-            piece = board[location.getX()][location.getY()].removePiece();
+            piece = getLocation(location).removePiece();
         }
         return piece;
     }
@@ -133,18 +133,10 @@ public class Board {
      * Returns true if the location on the board does not contain a piece.
      * @param location The location to be checked.
      * @return True if the location does not contain a piece.
-     *
-     * @throws IllegalArgumentException if location is null or is not within the board.
      */
     public boolean isEmpty(Location location)
     {
-        if (location == null) {
-            throw new IllegalArgumentException("Location cannot be null.");
-        } else if (!isWithinBoard(location)) {
-            throw new IllegalArgumentException("This location is not within the board.");
-        }
-
-        return board[location.getX()][location.getY()].getPiece() == null;
+        return getLocation(location).getPiece() == null;
     }
 
     private void setupBoard()
