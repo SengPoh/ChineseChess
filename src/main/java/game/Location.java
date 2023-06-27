@@ -77,18 +77,18 @@ public class Location {
 
     /**
      * Set whether this location is a palace location.
-     * @param palace Whether this location is a palace location.
+     * @param isPalace Whether this location is a palace location.
      */
-    public void setPalace(boolean palace) {
-        isPalace = palace;
+    public void setPalace(boolean isPalace) {
+        this.isPalace = isPalace;
     }
 
     /**
      * Set wether this location is at the edge of the river.
-     * @param riverEdge Whether this location is on the edge of the river.
+     * @param isRiverEdge Whether this location is on the edge of the river.
      */
-    public void setRiverEdge(boolean riverEdge) {
-        isRiverEdge = riverEdge;
+    public void setRiverEdge(boolean isRiverEdge) {
+        this.isRiverEdge = isRiverEdge;
     }
 
     /**
