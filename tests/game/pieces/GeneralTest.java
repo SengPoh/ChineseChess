@@ -338,5 +338,31 @@ class GeneralTest {
             assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
             assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
         }
+
+        @Test
+        public void move_LegalMove_True()
+        {
+            General general = new General(board, true);
+            Location location = new Location(4, 1);
+            board.setPiece(general, location);
+            Location newLocation = new Location(4,2);
+
+            assertTrue(general.move(newLocation));
+            assertEquals(newLocation, general.getLocation(), "This general was not moved to the correct location.");
+        }
+
+        @Test
+        public void move_IllegalMove_False() {
+            General general = new General(board, true);
+            Location location = new Location(4, 1);
+            board.setPiece(general, location);
+
+            Location newLocation = new Location(2, 1);
+
+            assertFalse(general.move(newLocation));
+            assertEquals(location, general.getLocation(), "This general's location was changed.");
+        }
     }
+    
+    
 }
