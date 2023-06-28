@@ -208,6 +208,32 @@ class GeneralTest {
             assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
             assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
         }
+
+        @Test
+        public void getMoves_FullyAllyBlocking_OrthogonalBlocked()
+        {
+            General general = new General(board, true);
+            Chariot allyChariot1 = new Chariot(board, true);
+            Chariot allyChariot2 = new Chariot(board, true);
+            Chariot allyChariot3 = new Chariot(board, true);
+            Chariot allyChariot4 = new Chariot(board, true);
+            Location generalLocation = new Location(4, 1);
+            Location allyLocation1 = new Location(3, 1);
+            Location allyLocation2 = new Location(5, 1);
+            Location allyLocation3 = new Location(4, 0);
+            Location allyLocation4 = new Location(4, 2);
+            board.setPiece(general, generalLocation);
+            board.setPiece(allyChariot1, allyLocation1);
+            board.setPiece(allyChariot2, allyLocation2);
+            board.setPiece(allyChariot3, allyLocation3);
+            board.setPiece(allyChariot4, allyLocation4);
+
+            ArrayList<Location> expectedResult = new ArrayList<>();
+
+            ArrayList<Location> actualResult = general.getMoves();
+            assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+            assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
+        }
     }
 
 }
