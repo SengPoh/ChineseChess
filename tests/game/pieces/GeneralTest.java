@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for General.java.
  *
  * @author Lee Seng Poh
- * @version 27-6-2023
+ * @version 28-6-2023
  */
 
 class GeneralTest {
@@ -115,6 +115,39 @@ class GeneralTest {
         General general1 = new General(board, false);
         General general2 = new General(board, true);
         assertFalse(general1.isSameColor(general2));
+    }
+
+    @Nested
+    @DisplayName("Tests in palace")
+    class GeneralPalaceTest {
+        @BeforeEach
+        void setup()
+        {
+            for (int i = 3; i <= 5; i++) {
+                for (int j = 0; j < 3; j++) {
+                    board.setPalace(new Location(i, j), true);
+                }
+            }
+        }
+
+        @Test
+        public void getMoves_emptyPalace_OrthogonalUnblocked()
+        {
+            General general = new General(board, true);
+            Location generalLocation = new Location(4, 1);
+            board.setPiece(general, generalLocation);
+
+            ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                    new Location(3, 1),
+                    new Location(5, 1),
+                    new Location(4, 0),
+                    new Location(4, 2)
+            ));
+
+            ArrayList<Location> actualResult = general.getMoves();
+            assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+            assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
+        }
     }
 
 }
