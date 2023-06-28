@@ -363,6 +363,4 @@ class GeneralTest {
             assertEquals(location, general.getLocation(), "This general's location was changed.");
         }
     }
-    
-    
 }
