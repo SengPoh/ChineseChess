@@ -57,7 +57,7 @@ public class General extends Piece{
 
         for (Location move : getMoveSet()) {
             Location newLocation = getLocation().add(move);
-            if (isLegalMove(newLocation) && newLocation.isPalace()) {
+            if (isLegalMove(newLocation) && getBoard().isPalace(newLocation)) {
                 legalMoves.add(newLocation);
             }
         }
