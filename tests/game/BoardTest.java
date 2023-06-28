@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Board.java.
  * @author Lee Seng Poh
- * @version 21-6-2023
+ * @version 28-6-2023
  */
 class BoardTest {
 
@@ -61,12 +61,6 @@ class BoardTest {
         void tearDown()
         {
             board = null;
-        }
-
-        @Test
-        public void testGetPiece()
-        {
-
         }
 
         @Test
@@ -404,6 +398,38 @@ class BoardTest {
             Exception exception = assertThrows(IllegalArgumentException.class,
                     () -> board.isEmpty(location));
             assertEquals("This location is not within the board.", exception.getMessage());
+        }
+
+        @Test
+        public void setPalace_True()
+        {
+            Location location = new Location(1, 4);
+            board.setPalace(location, true);
+            assertTrue(board.isPalace(location));
+        }
+
+        @Test
+        public void setPalace_False()
+        {
+            Location location = new Location(1, 4);
+            board.setPalace(location, false);
+            assertFalse(board.isPalace(location));
+        }
+
+        @Test
+        public void setRiverEdge_True()
+        {
+            Location location = new Location(1, 4);
+            board.setRiverEdge(location, true);
+            assertTrue(board.isRiverEdge(location));
+        }
+
+        @Test
+        public void setRiverEdge_False()
+        {
+            Location location = new Location(1, 4);
+            board.setRiverEdge(location, false);
+            assertFalse(board.isRiverEdge(location));
         }
     }
 }
