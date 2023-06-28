@@ -90,10 +90,9 @@ public class General extends Piece{
         while (getBoard().isWithinBoard(newLocation) && !blocked) {
             if (getBoard().isEmpty(newLocation)) {
                 newLocation = newLocation.add(increment);
-            }
-            Piece piece = getBoard().getPiece(newLocation);
-            if (piece instanceof General && !isSameColor(piece)) {          //if it is the enemy general
-                target = newLocation;
+            } else if (getBoard().getPiece(newLocation) instanceof General && !isSameColor(getBoard().getPiece(newLocation))) {
+                    target = newLocation;                               //if it is the enemy general
+                    blocked = true;
             } else {
                 blocked = true;
             }
