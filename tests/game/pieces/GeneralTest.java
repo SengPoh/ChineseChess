@@ -131,7 +131,7 @@ class GeneralTest {
         }
 
         @Test
-        public void getMoves_emptyPalace_OrthogonalUnblocked()
+        public void getMoves_EmptyPalace_OrthogonalUnblocked()
         {
             General general = new General(board, true);
             Location generalLocation = new Location(4, 1);
@@ -142,6 +142,23 @@ class GeneralTest {
                     new Location(5, 1),
                     new Location(4, 0),
                     new Location(4, 2)
+            ));
+
+            ArrayList<Location> actualResult = general.getMoves();
+            assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+            assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
+        }
+
+        @Test
+        public void getMoves_EmptyPalaceCorner_OrthogonalUnblocked()
+        {
+            General general = new General(board, true);
+            Location generalLocation = new Location(3, 0);
+            board.setPiece(general, generalLocation);
+
+            ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                    new Location(3, 1),
+                    new Location(4, 0)
             ));
 
             ArrayList<Location> actualResult = general.getMoves();
