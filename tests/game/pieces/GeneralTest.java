@@ -288,5 +288,55 @@ class GeneralTest {
             assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
             assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
         }
+
+        @Test
+        public void getMoves_AllyBlockingFlying_OrthogonalUnblockedWithoutFly()
+        {
+            General general = new General(board, true);
+            General enemyGeneral = new General(board, false);
+            Chariot allyChariot = new Chariot(board, true);
+            Location generalLocation = new Location(4, 1);
+            Location enemyGeneralLocation = new Location(4, 9);
+            Location allyChariotLocation = new Location(4, 5);
+            board.setPiece(general, generalLocation);
+            board.setPiece(enemyGeneral, enemyGeneralLocation);
+            board.setPiece(allyChariot, allyChariotLocation);
+
+            ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                    new Location(3, 1),
+                    new Location(5, 1),
+                    new Location(4, 0),
+                    new Location(4, 2)
+            ));
+
+            ArrayList<Location> actualResult = general.getMoves();
+            assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+            assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
+        }
+
+        @Test
+        public void getMoves_EnemyBlockingFlying_OrthogonalUnblockedWithoutFly()
+        {
+            General general = new General(board, true);
+            General enemyGeneral = new General(board, false);
+            Chariot enemyChariot = new Chariot(board, false);
+            Location generalLocation = new Location(4, 1);
+            Location enemyGeneralLocation = new Location(4, 9);
+            Location enemyChariotLocation = new Location(4, 5);
+            board.setPiece(general, generalLocation);
+            board.setPiece(enemyGeneral, enemyGeneralLocation);
+            board.setPiece(enemyChariot, enemyChariotLocation);
+
+            ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                    new Location(3, 1),
+                    new Location(5, 1),
+                    new Location(4, 0),
+                    new Location(4, 2)
+            ));
+
+            ArrayList<Location> actualResult = general.getMoves();
+            assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+            assertTrue(expectedResult.containsAll(general.getMoves()), "The lists of moves are different");
+        }
     }
 }
