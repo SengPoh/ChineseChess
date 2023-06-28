@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents the game board.
  *
  * @author Lee Seng Poh
- * @version 27-6-2023
+ * @version 28-6-2023
  */
 public class Board {
 
@@ -158,6 +158,24 @@ public class Board {
     {
         getLocation(location).setRiverEdge(isRiverEdge);
     }
+
+    /**
+     * Returns true if this location is a palace location.
+     * @return True if this location is a palace location.
+     */
+    public boolean isPalace(Location location)
+    {
+        return getLocation(location).isPalace();
+    }
+
+    /**
+     * Returns true if this location is a location on the edge of the river.
+     * @return True if this location is on the edge of the river.
+     */
+    public boolean isRiverEdge(Location location) {
+        return getLocation(location).isRiverEdge();
+    }
+
 
     private void setupBoard()
     {
