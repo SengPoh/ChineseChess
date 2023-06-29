@@ -189,11 +189,11 @@ class GeneralTest {
         public void getMoves_EnemyBlocking_OrthogonalCapture()
         {
             General general = new General(board, true);
-            Chariot allyChariot = new Chariot(board, false);
+            Chariot enemyChariot = new Chariot(board, false);
             Location generalLocation = new Location(4, 1);
-            Location allyLocation = new Location(3, 1);
+            Location enemyLocation = new Location(3, 1);
             board.setPiece(general, generalLocation);
-            board.setPiece(allyChariot, allyLocation);
+            board.setPiece(enemyChariot, enemyLocation);
 
             ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
                     new Location(3, 1),
@@ -237,20 +237,20 @@ class GeneralTest {
         public void getMoves_FullEnemyBlocking_OrthogonalCapture()
         {
             General general = new General(board, true);
-            Chariot allyChariot1 = new Chariot(board, false);
-            Chariot allyChariot2 = new Chariot(board, false);
-            Chariot allyChariot3 = new Chariot(board, false);
-            Chariot allyChariot4 = new Chariot(board, false);
+            Chariot enemyChariot1 = new Chariot(board, false);
+            Chariot enemyChariot2 = new Chariot(board, false);
+            Chariot enemyChariot3 = new Chariot(board, false);
+            Chariot enemyChariot4 = new Chariot(board, false);
             Location generalLocation = new Location(4, 1);
-            Location allyLocation1 = new Location(3, 1);
-            Location allyLocation2 = new Location(5, 1);
-            Location allyLocation3 = new Location(4, 0);
-            Location allyLocation4 = new Location(4, 2);
+            Location enemyLocation1 = new Location(3, 1);
+            Location enemyLocation2 = new Location(5, 1);
+            Location enemyLocation3 = new Location(4, 0);
+            Location enemyLocation4 = new Location(4, 2);
             board.setPiece(general, generalLocation);
-            board.setPiece(allyChariot1, allyLocation1);
-            board.setPiece(allyChariot2, allyLocation2);
-            board.setPiece(allyChariot3, allyLocation3);
-            board.setPiece(allyChariot4, allyLocation4);
+            board.setPiece(enemyChariot1, enemyLocation1);
+            board.setPiece(enemyChariot2, enemyLocation2);
+            board.setPiece(enemyChariot3, enemyLocation3);
+            board.setPiece(enemyChariot4, enemyLocation4);
 
             ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
                     new Location(3, 1),
