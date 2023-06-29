@@ -48,8 +48,6 @@ class GeneralTest {
         assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
     }
 
-
-
     @Test
     public void init_NullBoard_Exception()
     {
