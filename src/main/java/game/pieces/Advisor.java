@@ -37,8 +37,27 @@ public class Advisor extends Piece{
         setMoveSet(moveSet);
     }
 
+    /**
+     * Returns a list of legal moves.
+     * An advisor may move and capture one space diagonal, as long as it remains within
+     * the palace.
+     * @return A list of legal moves.
+     */
     @Override
     public ArrayList<Location> getMoves() {
-        return null;
+        ArrayList<Location> legalMoves = new ArrayList<>();
+
+        //if this piece is not on the board.
+        if (getLocation() == null) {
+            return legalMoves;
+        }
+
+        for (Location move : getMoveSet()) {
+            Location newLocation = getLocation().add(move);
+            if (isLegalMove(newLocation) && getBoard().isPalace(newLocation)) {
+                legalMoves.add(newLocation);
+            }
+        }
+        return legalMoves;
     }
 }
