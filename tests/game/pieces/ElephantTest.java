@@ -113,4 +113,227 @@ class ElephantTest {
         Elephant elephant2 = new Elephant(board, true);
         assertFalse(elephant1.isSameColor(elephant2));
     }
+
+    @Test
+    public void getMoves_EmptyBoard_DiagonalUnblocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Location elephantLocation = new Location(2, 2);
+        board.setPiece(elephant, elephantLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 0),
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_EmptyBoardCorner_DiagonalUnblocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Location elephantLocation = new Location(0, 0);
+        board.setPiece(elephant, elephantLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+        expectedResult.add(new Location(2, 2));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_AllyBlocking_DiagonalBlocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot allyChariot = new Chariot(board, true);
+        Location elephantLocation = new Location(2, 2);
+        Location allyLocation = new Location(0,0);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(allyChariot, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_EnemyBlocking_DiagonalCapture()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot enemyChariot = new Chariot(board, false);
+        Location elephantLocation = new Location(2, 2);
+        Location enemyLocation = new Location(0,0);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(enemyChariot, enemyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 0),
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_FullyAllyBlocking_DiagonalBlocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot allyChariot1 = new Chariot(board, true);
+        Chariot allyChariot2 = new Chariot(board, true);
+        Chariot allyChariot3 = new Chariot(board, true);
+        Chariot allyChariot4 = new Chariot(board, true);
+        Location elephantLocation = new Location(2, 2);
+        Location allyLocation1 = new Location(0, 0);
+        Location allyLocation2 = new Location(0, 4);
+        Location allyLocation3 = new Location(4, 0);
+        Location allyLocation4 = new Location(4, 4);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(allyChariot1, allyLocation1);
+        board.setPiece(allyChariot2, allyLocation2);
+        board.setPiece(allyChariot3, allyLocation3);
+        board.setPiece(allyChariot4, allyLocation4);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_FullEnemyBlocking_DiagonalCapture()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot enemyChariot1 = new Chariot(board, false);
+        Chariot enemyChariot2 = new Chariot(board, false);
+        Chariot enemyChariot3 = new Chariot(board, false);
+        Chariot enemyChariot4 = new Chariot(board, false);
+        Location elephantLocation = new Location(2, 2);
+        Location enemyLocation1 = new Location(0, 0);
+        Location enemyLocation2 = new Location(0, 4);
+        Location enemyLocation3 = new Location(4, 0);
+        Location enemyLocation4 = new Location(4, 4);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(enemyChariot1, enemyLocation1);
+        board.setPiece(enemyChariot2, enemyLocation2);
+        board.setPiece(enemyChariot3, enemyLocation3);
+        board.setPiece(enemyChariot4, enemyLocation4);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 0),
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_MidpointAllyBlocking_DiagonalBlocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot allyChariot = new Chariot(board, true);
+        Location elephantLocation = new Location(2, 2);
+        Location allyLocation = new Location(1,1);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(allyChariot, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_MidpointEnemyBlocking_DiagonalBlocked()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Chariot enemyChariot = new Chariot(board, false);
+        Location elephantLocation = new Location(2, 2);
+        Location enemyLocation = new Location(1,1);
+        board.setPiece(elephant, elephantLocation);
+        board.setPiece(enemyChariot, enemyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 4),
+                new Location(4, 0),
+                new Location(4, 4)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RiverEdgeUnblocked_CannotCrossRiver()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Location elephantLocation = new Location(2, 4);
+
+        for (int i = 0; i < board.getWidth(); i++) {
+            board.setRiverEdge(new Location(i, 4), true);
+            board.setRiverEdge(new Location(i, 5), true);
+        }
+
+        board.setPiece(elephant, elephantLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(0, 2),
+                new Location(4, 2)
+        ));
+
+        ArrayList<Location> actualResult = elephant.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(elephant.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void move_LegalMove_True()
+    {
+        Elephant elephant = new Elephant(board, true);
+        Location location = new Location(2, 2);
+        board.setPiece(elephant, location);
+        Location newLocation = new Location(0,0);
+
+        assertTrue(elephant.move(newLocation));
+        assertEquals(newLocation, elephant.getLocation(), "This elephant was not moved to the correct location.");
+    }
+
+    @Test
+    public void move_IllegalMove_False() {
+        Elephant elephant = new Elephant(board, true);
+        Location location = new Location(2, 2);
+        board.setPiece(elephant, location);
+
+        Location newLocation = new Location(2, 1);
+
+        assertFalse(elephant.move(newLocation));
+        assertEquals(location, elephant.getLocation(), "This elephant's location was changed.");
+    }
 }
