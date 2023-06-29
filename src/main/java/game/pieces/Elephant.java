@@ -61,4 +61,33 @@ public class Elephant extends Piece{
         }
         return legalMoves;
     }
+
+    /**
+     * Returns true if moving this piece to the specified location is a legal move.
+     * It is a legal move if the location is within the board and there is no other
+     * piece of the same color on the location.
+     * Additionally, it is only legal if the new location is not across the river and
+     * the midpoint from current location to the new location is not blocked by a piece.
+     * @param location The location this piece wants to move to.
+     * @return True if it is a legal move.
+     */
+    @Override
+    protected boolean isLegalMove(Location location)
+    {
+        if (!super.isLegalMove(location)) {
+            return false;
+        }
+        Location currentLocation = getLocation();
+        Location sum = currentLocation.add(location);
+        Location midPoint = new Location(sum.getX() / 2, sum.getY() / 2);
+        //is blocked
+        if (!getBoard().isEmpty(midPoint)) {
+            return false;
+        }
+        //is across the river.
+        if (getBoard().isRiverEdge(currentLocation) && getBoard().isRiverEdge(midPoint)) {
+            return false;
+        }
+        return true;
+    }
 }
