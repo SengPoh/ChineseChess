@@ -54,10 +54,24 @@ public class Advisor extends Piece{
 
         for (Location move : getMoveSet()) {
             Location newLocation = getLocation().add(move);
-            if (isLegalMove(newLocation) && getBoard().isPalace(newLocation)) {
+            if (isLegalMove(newLocation)) {
                 legalMoves.add(newLocation);
             }
         }
         return legalMoves;
+    }
+
+    /**
+     * Returns true if moving this piece to the specified location is a legal move.
+     * It is a legal move if the location is within the board and there is no other
+     * piece of the same color on the location.
+     * Additionally, it is only legal if the new location within the palace.
+     * @param location The location this piece wants to move to.
+     * @return True if it is a legal move.
+     */
+    @Override
+    protected boolean isLegalMove(Location location)
+    {
+        return super.isLegalMove(location) && getBoard().isPalace(location);
     }
 }
