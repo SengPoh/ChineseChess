@@ -205,7 +205,7 @@ class AdvisorTest {
         }
         
         @Test
-        public void getMoves_FullyAllyBlocking_OrthogonalBlocked()
+        public void getMoves_FullyAllyBlocking_DiagonalBlocked()
         {
             Advisor advisor = new Advisor(board, true);
             Chariot allyChariot1 = new Chariot(board, true);
@@ -231,7 +231,7 @@ class AdvisorTest {
         }
 
         @Test
-        public void getMoves_FullEnemyBlocking_OrthogonalCapture()
+        public void getMoves_FullEnemyBlocking_DiagonalCapture()
         {
             Advisor advisor = new Advisor(board, true);
             Chariot enemyChariot1 = new Chariot(board, false);
