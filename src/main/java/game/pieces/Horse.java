@@ -46,4 +46,19 @@ public class Horse extends Piece {
         return null;
     }
 
+    /**
+     * Return the location where the specified move can be blocked by another piece.
+     * @param move The move that is being attempted.
+     * @return The location where the specified move can be blocked.
+     */
+    private Location getBlockingPoint(Location move)
+    {
+        Location blockingPoint;
+        if (move.getX() == 2) {
+            blockingPoint = getLocation().add(1, 0);
+        } else {
+            blockingPoint = getLocation().add(0, 1);
+        }
+        return blockingPoint;
+    }
 }
