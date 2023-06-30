@@ -7,9 +7,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents game piece Elephant that moves and captures two space diagonally and
- * may not jump over intervening pieces.
- * Elephants may not cross the river.
+ * Represents game piece Horse that moves and captures in an "L" shape:
+ * two squares vertically and one square horizontally, or two squares horizontally and one square vertically.
+ * A horse may be blocked by a piece next to it vertically or horizontally if it is in the horse's path.
  *
  * @author Lee Seng Poh
  * @version 30-6-2023
