@@ -84,12 +84,6 @@ public class Horse extends Piece {
      */
     private Location getBlockingPoint(Location move)
     {
-        Location blockingPoint;
-        if (move.getX() == 2) {
-            blockingPoint = getLocation().add(1, 0);
-        } else {
-            blockingPoint = getLocation().add(0, 1);
-        }
-        return blockingPoint;
+        return getLocation().add(move.getX() / 2, move.getY() /2);
     }
 }
