@@ -15,7 +15,7 @@ import java.util.Arrays;
  * @version 23-6-2023
  */
 
-public class Soldier extends Piece{
+public class Soldier extends Piece {
 
     /**
      * Initialise this piece with its starting location and the board it is on.

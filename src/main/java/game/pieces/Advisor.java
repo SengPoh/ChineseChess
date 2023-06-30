@@ -14,7 +14,7 @@ import java.util.Arrays;
  * @version 29-6-2023
  */
 
-public class Advisor extends Piece{
+public class Advisor extends Piece {
 
     /**
      * Initialise this piece with its starting location and the board it is on.

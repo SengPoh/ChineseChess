@@ -15,7 +15,7 @@ import java.util.Arrays;
  * @author Lee Seng Poh
  * @version 26-6-2023
  */
-public class General extends Piece{
+public class General extends Piece {
 
     /**
      * Initialise this piece with its starting location and the board it is on.

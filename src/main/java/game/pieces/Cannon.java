@@ -13,7 +13,7 @@ import java.util.Arrays;
  * @author Lee Seng Poh
  * @version 22-6-2023
  */
-public class Cannon extends Piece{
+public class Cannon extends Piece {
 
     /**
      * Initialise this piece with its starting location and the board it is on.
