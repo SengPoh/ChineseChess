@@ -43,7 +43,20 @@ public class Horse extends Piece {
     }
 
     public ArrayList<Location> getMoves(){
-        return null;
+        ArrayList<Location> legalMoves = new ArrayList<>();
+
+        //If this piece is not on the board.
+        if (getLocation() == null) {
+            return legalMoves;
+        }
+
+        for (Location move : getMoveSet()) {
+            Location newLocation = getLocation().add(move);
+            if (isLegalMove(newLocation, move)) {
+                legalMoves.add(newLocation);
+            }
+        }
+        return legalMoves;
     }
 
     /**
