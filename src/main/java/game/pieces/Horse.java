@@ -47,6 +47,24 @@ public class Horse extends Piece {
     }
 
     /**
+     * Returns true if moving this piece to the specified location is a legal move.
+     * It is a legal move if the location is within the board and there is no other
+     * piece of the same color on the location.
+     * Additionally, it is only legal if the move is not blocked by another piece.
+     * @param location The location this piece wants to move to.
+     * @param move The path this piece takes to get to the location.
+     * @return True if it is a legal move.
+     */
+    protected boolean isLegalMove(Location location, Location move)
+    {
+        if (!super.isLegalMove(location)) {
+            return false;
+        }
+        //whether it is blocked
+        return getBoard().isEmpty(getBlockingPoint(move));
+    }
+
+    /**
      * Return the location where the specified move can be blocked by another piece.
      * @param move The move that is being attempted.
      * @return The location where the specified move can be blocked.
