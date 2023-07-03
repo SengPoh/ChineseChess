@@ -21,4 +21,14 @@ public class Player {
         pastMoves = new Stack<>();
         pieces = new ArrayList<>();
     }
+
+    private void addPiece(Piece piece)
+    {
+        pieces.add(piece);
+    }
+
+    private boolean removePiece(Piece piece)
+    {
+        return pieces.remove(piece);
+    }
 }
