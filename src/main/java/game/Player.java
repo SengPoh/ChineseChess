@@ -50,5 +50,23 @@ public class Player {
         return pieces.remove(piece);
     }
 
+    /**
+     * Record a move that this player made.
+     * @param move The move to be recorded.
+     */
+    public void recordMove(Location move)
+    {
+        if (move != null) {
+            pastMoves.add(move);
+        }
+    }
 
+    /**
+     * Undo the previous move this player made and returns the move.
+     * @return The previous move/
+     */
+    public Location undo()
+    {
+        return pastMoves.pop();
+    }
 }
