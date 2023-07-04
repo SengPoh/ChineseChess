@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Player.java.
  * @author Lee Seng Poh
- * @version 28-6-2023
+ * @version 4-7-2023
  */
 
 class PlayerTest {
