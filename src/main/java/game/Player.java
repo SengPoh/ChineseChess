@@ -30,17 +30,25 @@ public class Player {
      * @param piece The piece to be added.
      * @return True if the piece is successfully added.
      */
+    public boolean addPiece(Piece piece)
     {
-        pieces.add(piece);
+        boolean sameColor = false;
+        if (piece != null && piece.isBlack() ==  this.isBlack) {
+            pieces.add(piece);
+            sameColor = true;
+        }
+        return sameColor;
     }
 
-    private boolean removePiece(Piece piece)
     /**
      * Remove a specified piece from this player.
      * @param piece The piece to be removed.
      * @return True if the piece is removed.
      */
+    public boolean removePiece(Piece piece)
     {
         return pieces.remove(piece);
     }
+
+
 }
