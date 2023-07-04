@@ -5,6 +5,9 @@ import game.pieces.Piece;
 import java.util.ArrayList;
 import java.util.Stack;
 
+/**
+ * Represents the player.
+ */
 public class Player {
     private boolean isBlack;
 
@@ -13,8 +16,8 @@ public class Player {
     private ArrayList<Piece> pieces;
 
     /**
-     * 
-     * @param isBlack
+     * Initialise the player with their color.
+     * @param isBlack Whether this player is playing black side.
      */
     public Player(boolean isBlack) {
         this.isBlack = isBlack;
@@ -22,12 +25,21 @@ public class Player {
         pieces = new ArrayList<>();
     }
 
-    private void addPiece(Piece piece)
+    /**
+     * Add a specified piece of the same color to this player.
+     * @param piece The piece to be added.
+     * @return True if the piece is successfully added.
+     */
     {
         pieces.add(piece);
     }
 
     private boolean removePiece(Piece piece)
+    /**
+     * Remove a specified piece from this player.
+     * @param piece The piece to be removed.
+     * @return True if the piece is removed.
+     */
     {
         return pieces.remove(piece);
     }
