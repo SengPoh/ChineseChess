@@ -7,6 +7,9 @@ import java.util.Stack;
 
 /**
  * Represents the player.
+
+ * @author Lee Seng Poh
+ * @version 4-7-2023
  */
 public class Player {
     private boolean isBlack;
@@ -23,6 +26,15 @@ public class Player {
         this.isBlack = isBlack;
         pastMoves = new Stack<>();
         pieces = new ArrayList<>();
+    }
+
+    /**
+     * Returns whether this player is on the black side.
+     * @return True if this player is on the black side.
+     */
+    public boolean isBlack()
+    {
+        return isBlack;
     }
 
     /**
