@@ -1,5 +1,7 @@
 package game;
 
+import game.pieces.*;
+
 import java.util.Queue;
 
 /**
@@ -18,16 +20,99 @@ public class Game {
         setup();
     }
 
+    /**
+     * Set up the game with 2 players and the board.
+     */
     public void setup()
     {
-
+        Player redPlayer = new Player(false);
+        Player blackPlayer = new Player(true);
+        players.add(redPlayer);
+        players.add(blackPlayer);
+        setupBoard();
     }
 
-    private void setBoard()
+    /**
+     * Cycle to the next player.
+     */
+    private void nextPlayer()
+    {
+        players.add(players.remove());
+    }
+
+    /**
+     * Set up the board with pieces on it.
+     */
+    private void setupBoard()
     {
         board = new Board(9, 10);
         setPalace();
         setRiver();
+        setRedPieces();
+        setBlackPieces();
+    }
+
+    /**
+     * Set the red pieces on the board. Red pieces are set on the bottom half of the board.
+     */
+    private void setRedPieces()
+    {
+        setPiece(new Chariot(board, false), new Location(0, 0));
+        setPiece(new Horse(board, false), new Location(1, 0));
+        setPiece(new Elephant(board, false), new Location(2, 0));
+        setPiece(new Advisor(board, false), new Location(3, 0));
+        setPiece(new General(board, false), new Location(4, 0));
+        setPiece(new Advisor(board, false), new Location(5, 0));
+        setPiece(new Elephant(board, false), new Location(6, 0));
+        setPiece(new Horse(board, false), new Location(7, 0));
+        setPiece(new Chariot(board, false), new Location(8, 0));
+        setPiece(new Cannon(board, false), new Location(1, 2));
+        setPiece(new Cannon(board, false), new Location(7, 2));
+        for (int i = 0; i < board.getLength(); i = i + 2) {
+            setPiece(new Soldier(board, false), new Location(i, 3));
+        }
+    }
+
+    /**
+     * Set the black pieces on the board. Black pieces are set on the upper half of the board.
+     */
+    private void setBlackPieces()
+    {
+        setPiece(new Chariot(board, true), new Location(0, 9));
+        setPiece(new Horse(board, true), new Location(1, 9));
+        setPiece(new Elephant(board, true), new Location(2, 9));
+        setPiece(new Advisor(board, true), new Location(3, 9));
+        setPiece(new General(board, true), new Location(4, 9));
+        setPiece(new Advisor(board, true), new Location(5, 9));
+        setPiece(new Elephant(board, true), new Location(6, 9));
+        setPiece(new Horse(board, true), new Location(7, 9));
+        setPiece(new Chariot(board, true), new Location(8, 9));
+        setPiece(new Cannon(board, true), new Location(1, 7));
+        setPiece(new Cannon(board, true), new Location(7, 7));
+        for (int i = 0; i < board.getLength(); i = i + 2) {
+            setPiece(new Soldier(board, true), new Location(i, 6));
+        }
+    }
+
+    /**
+     * Sets a specified piece on the specified location on the board and add it
+     * to the player with the same color as the piece.
+     * @param piece The piece to be set.
+     * @param location The location to be set on.
+     */
+    private void setPiece(Piece piece, Location location)
+    {
+        board.setPiece(piece, location);
+        boolean added = false;
+        while(!added) {
+            Player currentPlayer = players.peek();
+            if (currentPlayer.isBlack() == piece.isBlack()) {
+                currentPlayer.addPiece(piece);
+                added = true;
+            } else {
+                nextPlayer();
+            }
+        }
     }
 
     /**
