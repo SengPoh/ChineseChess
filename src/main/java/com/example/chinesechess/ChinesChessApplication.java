@@ -18,18 +18,15 @@ import javafx.stage.StageStyle;
  */
 public class ChinesChessApplication extends Application {
 
-    public static void main(String[] args) {
+    public static void main(String[] args)
+    {
         launch(args);
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        //Load the image
-        Image image = new Image(ChinesChessApplication.class.getResource("/texture/Board.png").toString());
-        ImageView boardImage = new ImageView();
-        boardImage.setImage(image);
-        boardImage.setPreserveRatio(true);
-        boardImage.setFitWidth(300);
+    public void start(Stage primaryStage)
+    {
+        ImageView boardImage = createBoardImageView();
 
         StackPane root = new StackPane();
         root.getChildren().add(boardImage);
@@ -49,4 +46,18 @@ public class ChinesChessApplication extends Application {
         boardImage.fitWidthProperty().bind(root.widthProperty());
     }
 
+    /**
+     * Creates an image view of the chinese chess board.
+     * @return ImageView of the chinese chess board.
+     */
+    private ImageView createBoardImageView()
+    {
+        //Load the image
+        Image image = new Image(ChinesChessApplication.class.getResource("/texture/Board.png").toString());
+        ImageView boardImage = new ImageView();
+        boardImage.setImage(image);
+        boardImage.setPreserveRatio(true);
+        boardImage.setFitWidth(300);
+        return boardImage;
+    }
 }
