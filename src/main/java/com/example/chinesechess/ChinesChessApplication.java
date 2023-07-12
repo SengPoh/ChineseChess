@@ -5,10 +5,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -17,11 +14,12 @@ import javafx.stage.StageStyle;
  * This class launches the chinese chess application.
  *
  * @author Lee Seng Poh
- * @version 10-7-2023
+ * @version 12-7-2023
  */
 public class ChinesChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 13.0;
+    private ImageView boardView;
 
     public static void main(String[] args)
     {
@@ -31,10 +29,10 @@ public class ChinesChessApplication extends Application {
     @Override
     public void start(Stage primaryStage)
     {
-        ImageView boardImage = createBoardImageView();
+        boardView = createBoardImageView();
 
         StackPane root = new StackPane();
-        root.getChildren().add(boardImage);
+        root.getChildren().add(boardView);
         populateBoardLocations(root);
 
         Scene scene = new Scene(root);
@@ -48,8 +46,8 @@ public class ChinesChessApplication extends Application {
         primaryStage.setMinHeight(primaryStage.getHeight());
 
         //Resize the board according to window size
-        boardImage.fitHeightProperty().bind(root.heightProperty());
-        boardImage.fitWidthProperty().bind(root.widthProperty());
+        boardView.fitHeightProperty().bind(root.heightProperty());
+        boardView.fitWidthProperty().bind(root.widthProperty());
     }
 
     /**
@@ -69,8 +67,8 @@ public class ChinesChessApplication extends Application {
 
     private void populateBoardLocations(Pane parent)
     {
-        Pane anchorPane = new Pane();
-        parent.getChildren().add(anchorPane);
+        Pane pane = new Pane();
+        parent.getChildren().add(pane);
 
         double ratio = INIT_LOCATION_RADIUS / INIT_BOARD_WIDTH;
         //spacing between each circle
@@ -87,9 +85,11 @@ public class ChinesChessApplication extends Application {
                 Circle circle = new Circle(INIT_LOCATION_RADIUS);
                 circle.setLayoutX(currentX);
                 circle.setLayoutY(currentY);
-                anchorPane.getChildren().add(circle);
+                pane.getChildren().add(circle);
 
                 circle.radiusProperty().bind(parent.heightProperty().multiply(ratio));
+                circle.layoutXProperty().bind(boardView.fitWidthProperty().multiply(currentX / INIT_BOARD_WIDTH));
+                circle.layoutYProperty().bind(boardView.fitHeightProperty().multiply(currentY / boardView.getFitHeight()));
 
                 currentY = currentY + spacingY;
             }
