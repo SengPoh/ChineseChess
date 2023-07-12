@@ -35,8 +35,9 @@ public class ChineseChessApplication extends Application {
 
         StackPane stack = new StackPane(boardView);
         stack.setMinHeight(0);
+        stack.setMinWidth(0);
         VBox root = new VBox();
-        VBox.setVgrow(stack, Priority.SOMETIMES);
+        VBox.setVgrow(stack, Priority.ALWAYS);
 
         createMenuBar(root);
         root.getChildren().add(stack);
