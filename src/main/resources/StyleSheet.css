@@ -1,0 +1,9 @@
+.vbox {
+    -fx-alignment: center
+}
+
+.tile-pane {
+    -fx-padding: 10.0 3.0 5.0 0.0;
+    -fx-hgap: 20;
+    -fx-alignment: center;
+}
