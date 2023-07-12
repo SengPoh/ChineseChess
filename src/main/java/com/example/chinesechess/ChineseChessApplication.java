@@ -1,14 +1,16 @@
 package com.example.chinesechess;
 
-import game.Location;
 import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  * This class launches the chinese chess application.
@@ -16,7 +18,7 @@ import javafx.stage.StageStyle;
  * @author Lee Seng Poh
  * @version 12-7-2023
  */
-public class ChinesChessApplication extends Application {
+public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 13.0;
     private ImageView boardView;
@@ -31,11 +33,17 @@ public class ChinesChessApplication extends Application {
     {
         boardView = createBoardImageView();
 
-        StackPane root = new StackPane();
-        root.getChildren().add(boardView);
-        populateBoardLocations(root);
+        StackPane stack = new StackPane(boardView);
+        stack.setMinHeight(0);
+        VBox root = new VBox();
+        VBox.setVgrow(stack, Priority.SOMETIMES);
+
+        createMenuBar(root);
+        root.getChildren().add(stack);
+        createMenuBar(root);
 
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(ChineseChessApplication.class.getResource("/StyleSheet.css").toString());
 
         primaryStage.setTitle("Xiang Qi");
         primaryStage.setScene(scene);
@@ -46,8 +54,10 @@ public class ChinesChessApplication extends Application {
         primaryStage.setMinHeight(primaryStage.getHeight());
 
         //Resize the board according to window size
-        boardView.fitHeightProperty().bind(root.heightProperty());
-        boardView.fitWidthProperty().bind(root.widthProperty());
+        boardView.fitHeightProperty().bind(stack.heightProperty());
+        boardView.fitWidthProperty().bind(stack.widthProperty());
+
+        populateBoardLocations(stack);
     }
 
     /**
@@ -57,7 +67,7 @@ public class ChinesChessApplication extends Application {
     private ImageView createBoardImageView()
     {
         //Load the image
-        Image image = new Image(ChinesChessApplication.class.getResource("/texture/Board.png").toString());
+        Image image = new Image(ChineseChessApplication.class.getResource("/texture/Board.png").toString());
         ImageView boardImage = new ImageView();
         boardImage.setImage(image);
         boardImage.setPreserveRatio(true);
@@ -96,5 +106,23 @@ public class ChinesChessApplication extends Application {
             currentX = currentX + spacingX;
             currentY = initialY;
         }
+    }
+
+    private void createMenuBar(Pane parent)
+    {
+        TilePane pane = new TilePane();
+        pane.getStyleClass().add("tile-pane");
+        pane.prefWidthProperty().bind(boardView.fitWidthProperty());
+        pane.setPrefHeight(pane.getHeight());
+        parent.getChildren().add(pane);
+
+        Button undoButton = new Button("Undo");
+        undoButton.setMaxWidth(Double.MAX_VALUE);
+        Button resignButton = new Button("Resign");
+        resignButton.setMaxWidth(Double.MAX_VALUE);
+        Button helpButton = new Button("Help");
+        helpButton.setMaxWidth(Double.MAX_VALUE);
+
+        pane.getChildren().addAll(undoButton, resignButton, helpButton);
     }
 }
