@@ -1,11 +1,8 @@
 package com.example.chinesechess;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -62,8 +59,6 @@ public class ChineseChessApplication extends Application {
         boardView.fitWidthProperty().bind(stack.widthProperty());
 
         populateBoardLocations(stack);
-
-        primaryStage.show();
     }
 
     /**
@@ -88,14 +83,13 @@ public class ChineseChessApplication extends Application {
     private void populateBoardLocations(Pane parent)
     {
         Pane pane = new Pane();
-        HBox hBox = new HBox(pane);
+        parent.getChildren().add(pane);
 
         //set the pane to be of same size as boardView
         pane.maxWidthProperty().bind(getActualWidthProperty(boardView));
         pane.minWidthProperty().bind(getActualWidthProperty(boardView));
         pane.maxHeightProperty().bind(getActualHeightProperty(boardView));
         pane.minHeightProperty().bind(getActualHeightProperty(boardView));
-        parent.getChildren().add(pane);
 
         double locToBoardRatio = INIT_LOCATION_RADIUS / INIT_BOARD_WIDTH;
         //spacing between each circle
@@ -132,11 +126,10 @@ public class ChineseChessApplication extends Application {
      */
     private DoubleBinding getActualWidthProperty(ImageView imageView)
     {
-        Image image = boardView.getImage();
-        Double aspectRatio = image.getHeight() / image.getWidth();
-        DoubleBinding actualWidth = (DoubleBinding) Bindings.min(boardView.fitWidthProperty(), boardView.fitHeightProperty().divide(aspectRatio));
+        Image image = imageView.getImage();
+        double aspectRatio = image.getHeight() / image.getWidth();
 
-        return actualWidth;
+        return (DoubleBinding) Bindings.min(imageView.fitWidthProperty(), imageView.fitHeightProperty().divide(aspectRatio));
     }
 
     /**
@@ -146,11 +139,10 @@ public class ChineseChessApplication extends Application {
      */
     private DoubleBinding getActualHeightProperty(ImageView imageView)
     {
-        Image image = boardView.getImage();
-        Double aspectRatio = image.getHeight() / image.getWidth();
-        DoubleBinding actualHeight = (DoubleBinding) Bindings.min(boardView.fitHeightProperty(), boardView.fitWidthProperty().multiply(aspectRatio));
+        Image image = imageView.getImage();
+        double aspectRatio = image.getHeight() / image.getWidth();
 
-        return actualHeight;
+        return (DoubleBinding) Bindings.min(imageView.fitHeightProperty(), imageView.fitWidthProperty().multiply(aspectRatio));
     }
 
 
