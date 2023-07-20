@@ -81,6 +81,10 @@ public class ChineseChessApplication extends Application {
         return boardView;
     }
 
+    /**
+     * Populate the board with circles to indicate the locations on the board.
+     * @param parent The pane to place these locations in.
+     */
     private void populateBoardLocations(Pane parent)
     {
         Pane pane = new Pane();
@@ -121,6 +125,11 @@ public class ChineseChessApplication extends Application {
         }
     }
 
+    /**
+     * Get the actual width property instead of just fit width property of an ImageView in the form of DoubleBinding.
+     * @param imageView The ImageView whose actual width is being queried.
+     * @return The actual width of the ImageView in the form of DoubleBinding.
+     */
     private DoubleBinding getActualWidthProperty(ImageView imageView)
     {
         Image image = boardView.getImage();
@@ -130,6 +139,11 @@ public class ChineseChessApplication extends Application {
         return actualWidth;
     }
 
+    /**
+     * Get the actual height property instead of just fit height property of an ImageView in the form of DoubleBinding.
+     * @param imageView The ImageView whose actual height is being queried.
+     * @return The actual height of the ImageView in the form of DoubleBinding.
+     */
     private DoubleBinding getActualHeightProperty(ImageView imageView)
     {
         Image image = boardView.getImage();
