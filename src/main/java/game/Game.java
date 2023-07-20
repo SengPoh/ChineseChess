@@ -14,10 +14,12 @@ public class Game {
 
     private Queue<Player> players;
     private Board board;
+    private boolean isOngoing;
 
     public Game()
     {
         setup();
+        isOngoing = true;
     }
 
     /**
@@ -33,11 +35,28 @@ public class Game {
     }
 
     /**
+     * Get the current player.
+     * @return The current player.
+     */
+    public Player getCurrentPlayer(){
+        return players.peek();
+    }
+
+    /**
      * Cycle to the next player.
      */
     private void nextPlayer()
     {
         players.add(players.remove());
+    }
+
+    /**
+     * Returns true if the game is ongoing.
+     * @return True if the game is ongoing.
+     */
+    public boolean isOngoing()
+    {
+        return isOngoing;
     }
 
     /**
