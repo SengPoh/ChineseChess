@@ -1,11 +1,14 @@
 package com.example.chinesechess;
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
+import javafx.application.Platform;
+import javafx.beans.binding.Bindings;
+import javafx.beans.binding.DoubleBinding;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -16,7 +19,7 @@ import javafx.stage.Stage;
  * This class launches the chinese chess application.
  *
  * @author Lee Seng Poh
- * @version 12-7-2023
+ * @version 20-7-2023
  */
 public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
@@ -34,11 +37,11 @@ public class ChineseChessApplication extends Application {
         boardView = createBoardImageView();
 
         StackPane stack = new StackPane(boardView);
-        stack.setMinHeight(0);
-        stack.setMinWidth(0);
+        stack.setAlignment(Pos.CENTER);
+        stack.setMinSize(0, 0);
+
         VBox root = new VBox();
         VBox.setVgrow(stack, Priority.ALWAYS);
-
         createMenuBar(root);
         root.getChildren().add(stack);
         createMenuBar(root);
@@ -59,6 +62,8 @@ public class ChineseChessApplication extends Application {
         boardView.fitWidthProperty().bind(stack.widthProperty());
 
         populateBoardLocations(stack);
+
+        primaryStage.show();
     }
 
     /**
@@ -69,19 +74,26 @@ public class ChineseChessApplication extends Application {
     {
         //Load the image
         Image image = new Image(ChineseChessApplication.class.getResource("/texture/Board.png").toString());
-        ImageView boardImage = new ImageView();
-        boardImage.setImage(image);
-        boardImage.setPreserveRatio(true);
-        boardImage.setFitWidth(INIT_BOARD_WIDTH);
-        return boardImage;
+        ImageView boardView = new ImageView();
+        boardView.setImage(image);
+        boardView.setPreserveRatio(true);
+        boardView.setFitWidth(INIT_BOARD_WIDTH);
+        return boardView;
     }
 
     private void populateBoardLocations(Pane parent)
     {
         Pane pane = new Pane();
+        HBox hBox = new HBox(pane);
+
+        //set the pane to be of same size as boardView
+        pane.maxWidthProperty().bind(getActualWidthProperty(boardView));
+        pane.minWidthProperty().bind(getActualWidthProperty(boardView));
+        pane.maxHeightProperty().bind(getActualHeightProperty(boardView));
+        pane.minHeightProperty().bind(getActualHeightProperty(boardView));
         parent.getChildren().add(pane);
 
-        double ratio = INIT_LOCATION_RADIUS / INIT_BOARD_WIDTH;
+        double locToBoardRatio = INIT_LOCATION_RADIUS / INIT_BOARD_WIDTH;
         //spacing between each circle
         double spacingX = 33.0;
         double spacingY = 34.0;
@@ -98,9 +110,9 @@ public class ChineseChessApplication extends Application {
                 circle.setLayoutY(currentY);
                 pane.getChildren().add(circle);
 
-                circle.radiusProperty().bind(parent.heightProperty().multiply(ratio));
-                circle.layoutXProperty().bind(boardView.fitWidthProperty().multiply(currentX / INIT_BOARD_WIDTH));
-                circle.layoutYProperty().bind(boardView.fitHeightProperty().multiply(currentY / boardView.getFitHeight()));
+                circle.radiusProperty().bind(pane.heightProperty().multiply(locToBoardRatio));
+                circle.layoutXProperty().bind(pane.widthProperty().multiply(currentX / INIT_BOARD_WIDTH));
+                circle.layoutYProperty().bind(pane.heightProperty().multiply(currentY / boardView.getFitHeight()));
 
                 currentY = currentY + spacingY;
             }
@@ -126,6 +138,12 @@ public class ChineseChessApplication extends Application {
 
         return actualHeight;
     }
+
+
+    /**
+     * Create the menu bar for a player.
+     * @param parent The parent pane this menu bar should be placed in.
+     */
     private void createMenuBar(Pane parent)
     {
         TilePane pane = new TilePane();
