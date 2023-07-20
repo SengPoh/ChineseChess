@@ -109,6 +109,23 @@ public class ChineseChessApplication extends Application {
         }
     }
 
+    private DoubleBinding getActualWidthProperty(ImageView imageView)
+    {
+        Image image = boardView.getImage();
+        Double aspectRatio = image.getHeight() / image.getWidth();
+        DoubleBinding actualWidth = (DoubleBinding) Bindings.min(boardView.fitWidthProperty(), boardView.fitHeightProperty().divide(aspectRatio));
+
+        return actualWidth;
+    }
+
+    private DoubleBinding getActualHeightProperty(ImageView imageView)
+    {
+        Image image = boardView.getImage();
+        Double aspectRatio = image.getHeight() / image.getWidth();
+        DoubleBinding actualHeight = (DoubleBinding) Bindings.min(boardView.fitHeightProperty(), boardView.fitWidthProperty().multiply(aspectRatio));
+
+        return actualHeight;
+    }
     private void createMenuBar(Pane parent)
     {
         TilePane pane = new TilePane();
