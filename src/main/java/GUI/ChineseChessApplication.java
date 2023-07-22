@@ -1,5 +1,6 @@
 package GUI;
 
+import game.Location;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
@@ -103,7 +104,8 @@ public class ChineseChessApplication extends Application {
 
         for (int i = 0; i < 9; i++) {
             for (int j = 0; j < 10; j++) {
-                Circle circle = new Circle(INIT_LOCATION_RADIUS);
+                Location location = new Location(i, j);
+                LocationCircle circle = new LocationCircle(location, INIT_LOCATION_RADIUS);
                 circle.setLayoutX(currentX);
                 circle.setLayoutY(currentY);
                 pane.getChildren().add(circle);
@@ -167,4 +169,6 @@ public class ChineseChessApplication extends Application {
 
         pane.getChildren().addAll(undoButton, resignButton, helpButton);
     }
+
+    private void 
 }
