@@ -1,4 +1,4 @@
-package com.example.chinesechess;
+package GUI;
 
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
