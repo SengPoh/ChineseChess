@@ -135,6 +135,28 @@ public class Game {
     }
 
     /**
+     * Returns the piece at the specified location on the board, if there are any is
+     * present there.
+     * @param location The location of the piece.
+     * @return The piece on the location.
+     */
+    public Piece getPiece(Location location)
+    {
+        return board.getPiece(location);
+    }
+
+    /**
+     * Remove any piece from the specified location on the board, if there are any is
+     * present there.
+     * @param location The location to be emptied.
+     * @return The piece that is removed is there is any.
+     */
+    public Piece clearLocation(Location location)
+    {
+        return board.clearLocation(location);
+    }
+
+    /**
      * Set the palace locations on the board.
      */
     private void setPalace()
