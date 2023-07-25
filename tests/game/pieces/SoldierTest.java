@@ -33,11 +33,25 @@ class SoldierTest {
     }
 
     @Test
-    public void init() {
+    public void init_Black() {
         Soldier soldier = new Soldier(board, true);
 
         assertEquals(board, soldier.getBoard(), "the board is different from expected");
         assertTrue(soldier.isBlack(), "the color is different from expected");
+
+        ArrayList<Location> expectedMoveSet = new ArrayList<>();
+        expectedMoveSet.add(new Location(0, -1));
+
+        ArrayList<Location> actualMoveSet = soldier.getMoveSet();
+        assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
+    }
+
+    @Test
+    public void init_Red() {
+        Soldier soldier = new Soldier(board, false);
+
+        assertEquals(board, soldier.getBoard(), "the board is different from expected");
+        assertFalse(soldier.isBlack(), "the color is different from expected");
 
         ArrayList<Location> expectedMoveSet = new ArrayList<>();
         expectedMoveSet.add(new Location(0, 1));
@@ -45,8 +59,6 @@ class SoldierTest {
         ArrayList<Location> actualMoveSet = soldier.getMoveSet();
         assertTrue(actualMoveSet.containsAll(expectedMoveSet), "The move sets are different");
     }
-
-
 
     @Test
     public void init_NullBoard_Exception()
@@ -118,7 +130,7 @@ class SoldierTest {
     @Test
     public void getMoves_BeforeRiverUnblocked_OneSpaceForward()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 5);
         board.setPiece(soldier, location);
 
@@ -132,7 +144,7 @@ class SoldierTest {
     @Test
     public void getMoves_AfterRiverUnblocked_ForwardHorizontal()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
         board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
@@ -154,8 +166,8 @@ class SoldierTest {
     @Test
     public void getMoves_BeforeRiverAllyBlocking_OneSpaceForward()
     {
-        Soldier soldier = new Soldier(board, true);
-        Soldier allySoldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
+        Soldier allySoldier = new Soldier(board, false);
         Location location = new Location(4, 5);
         Location allyLocation = new Location(4, 6);
         board.setPiece(soldier, location);
@@ -170,8 +182,8 @@ class SoldierTest {
     @Test
     public void getMoves_BeforeRiverEnemyBlocking_OneSpaceForward()
     {
-        Soldier soldier = new Soldier(board, true);
-        Soldier enemySoldier = new Soldier(board, false);
+        Soldier soldier = new Soldier(board, false);
+        Soldier enemySoldier = new Soldier(board, true);
         Location location = new Location(4, 5);
         Location enemyLocation = new Location(4, 6);
         board.setPiece(soldier, location);
@@ -187,7 +199,7 @@ class SoldierTest {
     @Test
     public void getMoves_AfterRiverAllyBlocking_HorizontalMoves()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
         board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
@@ -195,7 +207,7 @@ class SoldierTest {
         board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
-        Soldier allySoldier = new Soldier(board, true);
+        Soldier allySoldier = new Soldier(board, false);
         Location allyLocation = new Location(4, 6);
         board.setPiece(allySoldier, allyLocation);
 
@@ -211,7 +223,7 @@ class SoldierTest {
     @Test
     public void getMoves_AfterRiverEnemyBlocking_ForwardHorizontal()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
         board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
@@ -219,7 +231,7 @@ class SoldierTest {
         board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
-        Soldier enemySoldier = new Soldier(board, false);
+        Soldier enemySoldier = new Soldier(board, true);
         Location enemyLocation = new Location(4, 6);
         board.setPiece(enemySoldier, enemyLocation);
 
@@ -236,7 +248,7 @@ class SoldierTest {
     @Test
     public void getMoves_AfterRiverFullyAllyBlocked_HorizontalMoves()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
         location.setRiverEdge(true);
         board.setPiece(soldier, location);
@@ -244,9 +256,9 @@ class SoldierTest {
         newLocation.setRiverEdge(true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
-        Soldier allySoldier1 = new Soldier(board, true);
-        Soldier allySoldier2 = new Soldier(board, true);
-        Soldier allySoldier3 = new Soldier(board, true);
+        Soldier allySoldier1 = new Soldier(board, false);
+        Soldier allySoldier2 = new Soldier(board, false);
+        Soldier allySoldier3 = new Soldier(board, false);
         Location allyLocation1 = new Location(4, 6);
         Location allyLocation2 = new Location(3, 5);
         Location allyLocation3 = new Location(5, 5);
@@ -263,7 +275,7 @@ class SoldierTest {
     @Test
     public void getMoves_AfterRiverFullyEnemyBlocked_ForwardHorizontal()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
         board.setRiverEdge(location, true);
         board.setPiece(soldier, location);
@@ -271,9 +283,9 @@ class SoldierTest {
         board.setRiverEdge(newLocation, true);
         assertTrue(soldier.move(newLocation), "This piece did not move to new location");
 
-        Soldier enemySoldier1 = new Soldier(board, false);
-        Soldier enemySoldier2 = new Soldier(board, false);
-        Soldier enemySoldier3 = new Soldier(board, false);
+        Soldier enemySoldier1 = new Soldier(board, true);
+        Soldier enemySoldier2 = new Soldier(board, true);
+        Soldier enemySoldier3 = new Soldier(board, true);
         Location enemyLocation1 = new Location(4, 6);
         Location enemyLocation2 = new Location(3, 5);
         Location enemyLocation3 = new Location(5, 5);
@@ -294,7 +306,7 @@ class SoldierTest {
     @Test
     public void move_LegalMove_True()
     {
-        Soldier soldier = new Soldier(board, true);
+        Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 5);
         board.setPiece(soldier, location);
         Location newLocation = new Location(4,6);
