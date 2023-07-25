@@ -1,9 +1,12 @@
 package GUI;
 
+import game.Game;
 import game.Location;
+import game.pieces.Piece;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
+import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -23,6 +26,8 @@ public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 13.0;
     private ImageView boardView;
+    private Game game;
+    private Piece selectedPiece;        //The piece currently selected.
 
     public static void main(String[] args)
     {
@@ -32,6 +37,8 @@ public class ChineseChessApplication extends Application {
     @Override
     public void start(Stage primaryStage)
     {
+        Game game = new Game();
+
         boardView = createBoardImageView();
 
         StackPane stack = new StackPane(boardView);
