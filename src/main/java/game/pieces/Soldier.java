@@ -30,7 +30,12 @@ public class Soldier extends Piece {
         super(board, isBlack);
 
         ArrayList<Location> moveSet = new ArrayList<>();
-        moveSet.add(new Location(0, 1));
+        if (isBlack)
+        {
+            moveSet.add(new Location(0, -1));
+        } else {
+            moveSet.add(new Location(0, 1));
+        }
         setMoveSet(moveSet);
     }
 
@@ -89,11 +94,20 @@ public class Soldier extends Piece {
      */
     private void crossRiver()
     {
-        ArrayList<Location> newMoveSet = new ArrayList<>(Arrays.asList(
-                new Location(1, 0),
-                new Location(-1, 0),
-                new Location(0, 1)
-        ));
+        ArrayList<Location> newMoveSet;
+        if (isBlack()) {
+            newMoveSet = new ArrayList<>(Arrays.asList(
+                    new Location(1, 0),
+                    new Location(-1, 0),
+                    new Location(0, -1)
+            ));
+        } else {
+            newMoveSet = new ArrayList<>(Arrays.asList(
+                    new Location(1, 0),
+                    new Location(-1, 0),
+                    new Location(0, 1)
+            ));
+        }
         setMoveSet(newMoveSet);
     }
 }
