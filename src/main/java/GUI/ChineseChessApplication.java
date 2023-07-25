@@ -177,5 +177,24 @@ public class ChineseChessApplication extends Application {
         pane.getChildren().addAll(undoButton, resignButton, helpButton);
     }
 
-    private void 
+    private void displayBoard()
+    {
+
+    }
+
+    /**
+     * What happens when a LocationCircle is clicked.
+     * @param event The ActionEvent(mouse click) that is triggered.
+     */
+    private void locationCircleClick(ActionEvent event)
+    {
+        LocationCircle circle = (LocationCircle) event.getSource();
+        Location location = circle.getLocation();
+        if (selectedPiece == null) {        //if no piece has been selected
+            selectedPiece = game.getPiece(location);
+        } else {
+            game.move(selectedPiece, location);
+            selectedPiece = null;
+        }
+    }
 }
