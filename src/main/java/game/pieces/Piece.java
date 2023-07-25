@@ -6,10 +6,11 @@ import game.Board;
 import java.util.ArrayList;
 
 /**
- * Represents a game piece.
+ * Represents a game piece. In this implementation, black pieces should be setup on the side of the river where
+ * y-coordinates are greater than 4.
  *
  * @author Lee Seng Poh
- * @version 22-6-2023
+ * @version 25-6-2023
  */
 
 public abstract class Piece {

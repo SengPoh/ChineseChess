@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents the game board.
  *
  * @author Lee Seng Poh
- * @version 28-6-2023
+ * @version 25-7-2023
  */
 public class Board {
 
