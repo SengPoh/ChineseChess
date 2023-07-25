@@ -28,6 +28,18 @@ public class Board {
     }
 
     /**
+     * Move a piece to a specified location if it is a legal move.
+     * Returns true if the piece is moved.
+     * @param piece The piece to be moved.
+     * @param location The location to be moved to.
+     * @return True if this piece is moved.
+     */
+    public boolean move(Piece piece, Location location)
+    {
+        return piece.move(location);
+    }
+
+    /**
      * Set specified piece at a location within the board if the location is not null,
      * is within the board and does not already have a piece.
      * @param piece The piece to be placed.

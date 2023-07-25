@@ -114,6 +114,18 @@ public class Game {
     }
 
     /**
+     * Move a piece to a specified location if it is a legal move.
+     * Returns true if the piece is moved.
+     * @param piece The piece to be moved.
+     * @param location The location to be moved to.
+     * @return True if this piece is moved.
+     */
+    public boolean move(Piece piece, Location location)
+    {
+        return board.move(piece, location);
+    }
+
+    /**
      * Sets a specified piece on the specified location on the board and add it
      * to the player with the same color as the piece.
      * @param piece The piece to be set.
