@@ -128,10 +128,24 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_BeforeRiverUnblocked_OneSpaceForward()
+    public void getMoves_BlackBeforeRiverUnblocked_OneSpaceForward()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        board.setPiece(soldier, location);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+        expectedResult.add(location.add(0, -1));
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedBeforeRiverUnblocked_OneSpaceForward()
     {
         Soldier soldier = new Soldier(board, false);
-        Location location = new Location(4, 5);
+        Location location = new Location(4, 4);
         board.setPiece(soldier, location);
 
         ArrayList<Location> expectedResult = new ArrayList<>();
@@ -142,7 +156,29 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_AfterRiverUnblocked_ForwardHorizontal()
+    public void getMoves_BlackAfterRiverUnblocked_ForwardHorizontal()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        board.setRiverEdge(location, true);
+        board.setPiece(soldier, location);
+        Location newLocation = new Location(4, 4);
+        board.setRiverEdge(newLocation, true);
+
+        assertTrue(soldier.move(newLocation), "This piece did not move to new location");
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(4,3),
+                new Location(3,4),
+                new Location(5,4)
+        ));
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedAfterRiverUnblocked_ForwardHorizontal()
     {
         Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
@@ -158,6 +194,22 @@ class SoldierTest {
                 new Location(3,5),
                 new Location(5,5)
         ));
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_BlackBeforeRiverAllyBlocking_OneSpaceForward()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Soldier allySoldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        Location allyLocation = new Location(4, 4);
+        board.setPiece(soldier, location);
+        board.setPiece(allySoldier, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
         ArrayList<Location> actualResult = soldier.getMoves();
         assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
         assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
@@ -180,7 +232,24 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_BeforeRiverEnemyBlocking_OneSpaceForward()
+    public void getMoves_BlackBeforeRiverEnemyBlocking_OneSpaceForward()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Soldier enemySoldier = new Soldier(board, false);
+        Location location = new Location(4, 5);
+        Location enemyLocation = new Location(4, 4);
+        board.setPiece(soldier, location);
+        board.setPiece(enemySoldier, enemyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+        expectedResult.add(enemyLocation);
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedBeforeRiverEnemyBlocking_OneSpaceForward()
     {
         Soldier soldier = new Soldier(board, false);
         Soldier enemySoldier = new Soldier(board, true);
@@ -197,7 +266,31 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_AfterRiverAllyBlocking_HorizontalMoves()
+    public void getMoves_BlackAfterRiverAllyBlocking_HorizontalMoves()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        board.setRiverEdge(location, true);
+        board.setPiece(soldier, location);
+        Location newLocation = new Location(4, 4);
+        board.setRiverEdge(newLocation, true);
+        assertTrue(soldier.move(newLocation), "This piece did not move to new location");
+
+        Soldier allySoldier = new Soldier(board, true);
+        Location allyLocation = new Location(4, 3);
+        board.setPiece(allySoldier, allyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(3, 4),
+                new Location(5, 4)
+        ));
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedAfterRiverAllyBlocking_HorizontalMoves()
     {
         Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
@@ -221,7 +314,32 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_AfterRiverEnemyBlocking_ForwardHorizontal()
+    public void getMoves_BlackAfterRiverEnemyBlocking_ForwardHorizontal()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        board.setRiverEdge(location, true);
+        board.setPiece(soldier, location);
+        Location newLocation = new Location(4, 4);
+        board.setRiverEdge(newLocation, true);
+        assertTrue(soldier.move(newLocation), "This piece did not move to new location");
+
+        Soldier enemySoldier = new Soldier(board, false);
+        Location enemyLocation = new Location(4, 3);
+        board.setPiece(enemySoldier, enemyLocation);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(4,3),
+                new Location(3,4),
+                new Location(5,4))
+        );
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedAfterRiverEnemyBlocking_ForwardHorizontal()
     {
         Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
@@ -246,7 +364,34 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_AfterRiverFullyAllyBlocked_HorizontalMoves()
+    public void getMoves_BlackAfterRiverFullyAllyBlocked_HorizontalMoves()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        location.setRiverEdge(true);
+        board.setPiece(soldier, location);
+        Location newLocation = new Location(4, 4);
+        newLocation.setRiverEdge(true);
+        assertTrue(soldier.move(newLocation), "This piece did not move to new location");
+
+        Soldier allySoldier1 = new Soldier(board, true);
+        Soldier allySoldier2 = new Soldier(board, true);
+        Soldier allySoldier3 = new Soldier(board, true);
+        Location allyLocation1 = new Location(4, 3);
+        Location allyLocation2 = new Location(3, 4);
+        Location allyLocation3 = new Location(5, 4);
+        board.setPiece(allySoldier1, allyLocation1);
+        board.setPiece(allySoldier2, allyLocation2);
+        board.setPiece(allySoldier3, allyLocation3);
+
+        ArrayList<Location> expectedResult = new ArrayList<>();
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedAfterRiverFullyAllyBlocked_HorizontalMoves()
     {
         Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
@@ -273,7 +418,38 @@ class SoldierTest {
     }
 
     @Test
-    public void getMoves_AfterRiverFullyEnemyBlocked_ForwardHorizontal()
+    public void getMoves_BlackAfterRiverFullyEnemyBlocked_ForwardHorizontal()
+    {
+        Soldier soldier = new Soldier(board, true);
+        Location location = new Location(4, 5);
+        board.setRiverEdge(location, true);
+        board.setPiece(soldier, location);
+        Location newLocation = new Location(4, 4);
+        board.setRiverEdge(newLocation, true);
+        assertTrue(soldier.move(newLocation), "This piece did not move to new location");
+
+        Soldier enemySoldier1 = new Soldier(board, false);
+        Soldier enemySoldier2 = new Soldier(board, false);
+        Soldier enemySoldier3 = new Soldier(board, false);
+        Location enemyLocation1 = new Location(4, 3);
+        Location enemyLocation2 = new Location(3, 4);
+        Location enemyLocation3 = new Location(5, 4);
+        board.setPiece(enemySoldier1, enemyLocation1);
+        board.setPiece(enemySoldier2, enemyLocation2);
+        board.setPiece(enemySoldier3, enemyLocation3);
+
+        ArrayList<Location> expectedResult = new ArrayList<>(Arrays.asList(
+                new Location(4,3),
+                new Location(3,4),
+                new Location(5,4))
+        );
+        ArrayList<Location> actualResult = soldier.getMoves();
+        assertEquals(expectedResult.size(), actualResult.size(), "List of moves does not have the same size");
+        assertTrue(expectedResult.containsAll(soldier.getMoves()), "The lists of moves are different");
+    }
+
+    @Test
+    public void getMoves_RedAfterRiverFullyEnemyBlocked_ForwardHorizontal()
     {
         Soldier soldier = new Soldier(board, false);
         Location location = new Location(4, 4);
