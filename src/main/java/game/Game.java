@@ -114,7 +114,7 @@ public class Game {
     }
 
     /**
-     * Move a piece to a specified location if it is a legal move.
+     * Move a piece to a specified location if it is a legal move and it is a piece of the current player.
      * Returns true if the piece is moved.
      * @param piece The piece to be moved.
      * @param location The location to be moved to.
@@ -122,7 +122,12 @@ public class Game {
      */
     public boolean move(Piece piece, Location location)
     {
-        return board.move(piece, location);
+        boolean moved = false;
+        if (piece != null && getCurrentPlayer().isBlack() == piece.isBlack()) {
+            moved = board.move(piece, location);
+            nextPlayer();
+        }
+        return moved;
     }
 
     /**

@@ -36,7 +36,11 @@ public class Board {
      */
     public boolean move(Piece piece, Location location)
     {
-        return piece.move(location);
+        boolean moved = false;
+        if (piece != null && boardContains(piece)) {
+            moved = piece.move(location);
+        }
+        return moved;
     }
 
     /**
