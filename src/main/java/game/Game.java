@@ -2,7 +2,7 @@ package game;
 
 import game.pieces.*;
 
-import java.util.Queue;
+import java.util.LinkedList;
 
 /**
  * Represents the match being played.
@@ -12,7 +12,7 @@ import java.util.Queue;
  */
 public class Game {
 
-    private Queue<Player> players;
+    private LinkedList<Player> players;
     private Board board;
     private boolean isOngoing;
 
@@ -29,6 +29,7 @@ public class Game {
     {
         Player redPlayer = new Player(false);
         Player blackPlayer = new Player(true);
+        players = new LinkedList<>();
         players.add(redPlayer);
         players.add(blackPlayer);
         setupBoard();
@@ -153,9 +154,9 @@ public class Game {
 
     /**
      * Returns the piece at the specified location on the board, if there are any is
-     * present there.
+     * present there. Returns null if there is no piece found.
      * @param location The location of the piece.
-     * @return The piece on the location.
+     * @return he piece on the location or null if there is none.
      */
     public Piece getPiece(Location location)
     {

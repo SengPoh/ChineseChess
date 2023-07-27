@@ -64,9 +64,9 @@ public class Board {
 
     /**
      * Returns the piece at the specified location on the board, if there are any is
-     * present there.
+     * present there. Returns null if no piece is found.
      * @param location The location of the piece.
-     * @return The piece on the location.
+     * @return The piece on the location or null if there is none.
      */
     public Piece getPiece(Location location)
     {
