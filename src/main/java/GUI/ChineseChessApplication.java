@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
@@ -26,8 +27,10 @@ public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 13.0;
     private ImageView boardView;
+    private LocationCircle[][] locationCircles;
     private Game game;
     private Piece selectedPiece;        //The piece currently selected.
+
 
     public static void main(String[] args)
     {
@@ -37,7 +40,7 @@ public class ChineseChessApplication extends Application {
     @Override
     public void start(Stage primaryStage)
     {
-        Game game = new Game();
+        game = new Game();
 
         boardView = createBoardImageView();
 
@@ -67,6 +70,7 @@ public class ChineseChessApplication extends Application {
         boardView.fitWidthProperty().bind(stack.widthProperty());
 
         populateBoardLocations(stack);
+        updateBoard();
     }
 
     /**
@@ -99,6 +103,8 @@ public class ChineseChessApplication extends Application {
         pane.maxHeightProperty().bind(getActualHeightProperty(boardView));
         pane.minHeightProperty().bind(getActualHeightProperty(boardView));
 
+        locationCircles = new LocationCircle[9][10];
+
         double locToBoardRatio = INIT_LOCATION_RADIUS / INIT_BOARD_WIDTH;
         //spacing between each circle
         double spacingX = 33.0;
@@ -109,13 +115,14 @@ public class ChineseChessApplication extends Application {
         double currentX = initialX;
         double currentY = initialY;
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 10; j++) {
+        for (int i = 0; i < game.getBoardWidth(); i++) {
+            for (int j = 0; j < game.getBoardLength(); j++) {
                 Location location = new Location(i, j);
                 LocationCircle circle = new LocationCircle(location, INIT_LOCATION_RADIUS);
                 circle.setLayoutX(currentX);
                 circle.setLayoutY(currentY);
                 pane.getChildren().add(circle);
+                locationCircles[i][j] = circle;
 
                 circle.radiusProperty().bind(pane.heightProperty().multiply(locToBoardRatio));
                 circle.layoutXProperty().bind(pane.widthProperty().multiply(currentX / INIT_BOARD_WIDTH));
@@ -177,9 +184,24 @@ public class ChineseChessApplication extends Application {
         pane.getChildren().addAll(undoButton, resignButton, helpButton);
     }
 
-    private void displayBoard()
+    private void updateBoard()
     {
+        for (int i = 0; i < game.getBoardWidth(); i++) {
+            for (int j = 0; j < game.getBoardLength(); j++) {
+                Location location = new Location(i, j);
+                Piece piece = game.getPiece(location);
+                if (piece != null) {
+                    loadPieceImage(piece, location);
+                }
+            }
+        }
+    }
 
+    private void loadPieceImage(Piece piece, Location location)
+    {
+        LocationCircle circle = locationCircles[location.getX()][location.getY()];
+        Image image = new Image(ChineseChessApplication.class.getResource("/texture/General_Black.png").toString());
+        circle.setFill(new ImagePattern(image));
     }
 
     /**
