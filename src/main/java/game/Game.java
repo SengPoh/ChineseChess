@@ -175,6 +175,24 @@ public class Game {
     }
 
     /**
+     * Returns the horizontal width of the board.
+     * @return The horizontal width of the board.
+     */
+    public int getBoardWidth()
+    {
+        return board.getWidth();
+    }
+
+    /**
+     * Returns the vertical length of the board.
+     * @return The vertical length of the board.
+     */
+    public int getBoardLength()
+    {
+        return board.getLength();
+    }
+
+    /**
      * Set the palace locations on the board.
      */
     private void setPalace()
