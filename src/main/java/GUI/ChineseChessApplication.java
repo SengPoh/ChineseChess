@@ -200,8 +200,22 @@ public class ChineseChessApplication extends Application {
     private void loadPieceImage(Piece piece, Location location)
     {
         LocationCircle circle = locationCircles[location.getX()][location.getY()];
-        Image image = new Image(ChineseChessApplication.class.getResource("/texture/General_Black.png").toString());
+        Image image = new Image(getPieceTexturePath(piece));
         circle.setFill(new ImagePattern(image));
+    }
+
+    private String getPieceTexturePath(Piece piece)
+    {
+        String texturePath = "/texture/" + piece.getClass().getSimpleName() + "_";
+
+        if (piece.isBlack()) {
+            texturePath = texturePath + "Black";
+        } else {
+            texturePath = texturePath + "Red";
+        }
+        texturePath = texturePath + ".png";
+
+        return ChineseChessApplication.class.getResource(texturePath).toString();
     }
 
     /**
