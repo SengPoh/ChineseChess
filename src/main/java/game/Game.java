@@ -8,7 +8,7 @@ import java.util.LinkedList;
  * Represents the match being played.
  *
  * @author Lee Seng Poh
- * @version 25-7-2023
+ * @version 31-7-2023
  */
 public class Game {
 
@@ -49,15 +49,6 @@ public class Game {
     private void nextPlayer()
     {
         players.add(players.remove());
-    }
-
-    /**
-     * Returns true if the game is ongoing.
-     * @return True if the game is ongoing.
-     */
-    public boolean isOngoing()
-    {
-        return isOngoing;
     }
 
     /**
@@ -116,7 +107,7 @@ public class Game {
 
     /**
      * Move a piece to a specified location if it is a legal move and it is a piece of the current player.
-     * Returns true if the piece is moved.
+     * Returns true if the piece is moved. The game ends if the move captures a general.
      * @param piece The piece to be moved.
      * @param location The location to be moved to.
      * @return True if this piece is moved.
@@ -125,10 +116,41 @@ public class Game {
     {
         boolean moved = false;
         if (piece != null && getCurrentPlayer().isBlack() == piece.isBlack()) {
+            Piece locationPiece = null;
+            if (!board.isEmpty(location)) {
+                locationPiece = getPiece(location);
+            }
+
             moved = board.move(piece, location);
-            nextPlayer();
+            if (moved) {
+                Player currentPlayer = getCurrentPlayer();
+                currentPlayer.removePiece(locationPiece);
+                checkOngoing();
+                nextPlayer();
+            }
         }
         return moved;
+    }
+
+    /**
+     * Checks whether the game is ongoing. If a player has lost, the game is over.
+     * Returns true if the game is ongoing.
+     * @return True if the game is ongoing.
+     */
+    private boolean checkOngoing()
+    {
+        if (!isOngoing) {
+            return isOngoing;
+        }
+
+        //check players for a loser.
+        for (int i = 0; i < players.size(); i++) {
+            if (getCurrentPlayer().lost()) {
+                isOngoing = false;
+            }
+            nextPlayer();
+        }
+        return isOngoing;
     }
 
     /**

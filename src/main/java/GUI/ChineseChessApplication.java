@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * This class launches the chinese chess application.
  *
  * @author Lee Seng Poh
- * @version 20-7-2023
+ * @version 31-7-2023
  */
 public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
