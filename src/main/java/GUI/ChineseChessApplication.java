@@ -247,6 +247,7 @@ public class ChineseChessApplication extends Application {
         } else {
             game.move(selectedPiece, location);
             selectedPiece = null;
+            updateBoard();
         }
     }
 }
