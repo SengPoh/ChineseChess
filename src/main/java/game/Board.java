@@ -192,7 +192,9 @@ public class Board {
         return getLocation(location).isRiverEdge();
     }
 
-
+    /**
+     * Fill board with the respective locations.
+     */
     private void setupBoard()
     {
         board = new Location[width][length];

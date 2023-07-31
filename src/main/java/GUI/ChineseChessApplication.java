@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
@@ -184,26 +185,41 @@ public class ChineseChessApplication extends Application {
         pane.getChildren().addAll(undoButton, resignButton, helpButton);
     }
 
+    /**
+     * Update the view of the board based on its current condition.
+     */
     private void updateBoard()
     {
         for (int i = 0; i < game.getBoardWidth(); i++) {
             for (int j = 0; j < game.getBoardLength(); j++) {
                 Location location = new Location(i, j);
                 Piece piece = game.getPiece(location);
-                if (piece != null) {
-                    loadPieceImage(piece, location);
-                }
+                loadPieceImage(piece, location);
             }
         }
     }
 
+    /**
+     * Load the texture of the piece on the location given.
+     * @param piece The piece whose image is loaded.
+     * @param location The location of the piece.
+     */
     private void loadPieceImage(Piece piece, Location location)
     {
         LocationCircle circle = locationCircles[location.getX()][location.getY()];
-        Image image = new Image(getPieceTexturePath(piece));
-        circle.setFill(new ImagePattern(image));
+        if (piece == null) {
+            circle.setFill(Color.TRANSPARENT);
+        } else {
+            Image image = new Image(getPieceTexturePath(piece));
+            circle.setFill(new ImagePattern(image));
+        }
     }
 
+    /**
+     * Get the String path of the specified piece's texture.
+     * @param piece The piece whose texture is to be found.
+     * @return The path of the texture.
+     */
     private String getPieceTexturePath(Piece piece)
     {
         String texturePath = "/texture/" + piece.getClass().getSimpleName() + "_";
