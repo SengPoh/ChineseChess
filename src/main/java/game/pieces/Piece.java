@@ -100,6 +100,7 @@ public abstract class Piece {
     {
         boolean moved = false;
         if (getMoves().contains(location)) {
+            getBoard().clearLocation(location);
             getBoard().setPiece(this, location);
             moved = true;
         }

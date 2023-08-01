@@ -114,6 +114,10 @@ public class Game {
      */
     public boolean move(Piece piece, Location location)
     {
+        if (!isOngoing) {
+            return false;       //does not move if the game is over
+        }
+
         boolean moved = false;
         if (piece != null && getCurrentPlayer().isBlack() == piece.isBlack()) {
             Piece locationPiece = null;
