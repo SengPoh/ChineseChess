@@ -94,4 +94,19 @@ public class Player {
     {
         return pastMoves.pop();
     }
+
+    /**
+     * Returns the color of the player in String format.
+     * @return The color of the player in String format.
+     */
+    public String getColorString()
+    {
+        String color = "";
+        if (isBlack) {
+            color = "Black";
+        } else {
+            color = "Red";
+        }
+        return color;
+    }
 }
