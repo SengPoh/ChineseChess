@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
@@ -119,11 +120,12 @@ public class ChineseChessApplication extends Application {
             for (int j = 0; j < game.getBoardLength(); j++) {
                 Location location = new Location(i, j);
                 LocationCircle circle = new LocationCircle(location, INIT_LOCATION_RADIUS);
-                circle.setLayoutX(currentX);
-                circle.setLayoutY(currentY);
                 pane.getChildren().add(circle);
                 locationCircles[i][j] = circle;
+                circle.setOnMouseClicked(this::locationCircleClick);
 
+                circle.setLayoutX(currentX);
+                circle.setLayoutY(currentY);
                 circle.radiusProperty().bind(pane.heightProperty().multiply(locToBoardRatio));
                 circle.layoutXProperty().bind(pane.widthProperty().multiply(currentX / INIT_BOARD_WIDTH));
                 circle.layoutYProperty().bind(pane.heightProperty().multiply(currentY / boardView.getFitHeight()));
@@ -134,6 +136,7 @@ public class ChineseChessApplication extends Application {
             currentY = initialY;
         }
     }
+
 
     /**
      * Get the actual width property instead of just fit width property of an ImageView in the form of DoubleBinding.
@@ -237,7 +240,7 @@ public class ChineseChessApplication extends Application {
      * What happens when a LocationCircle is clicked.
      * @param event The ActionEvent(mouse click) that is triggered.
      */
-    private void locationCircleClick(ActionEvent event)
+    private void locationCircleClick(MouseEvent event)
     {
         LocationCircle circle = (LocationCircle) event.getSource();
         Location location = circle.getLocation();
