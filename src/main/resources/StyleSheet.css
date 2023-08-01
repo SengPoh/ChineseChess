@@ -9,6 +9,11 @@
 }
 
 #winner-pane {
-    -fx-background-color: beige;
+    -fx-background-color: white;
+    -fx-alignment: center;
+}
 
+#winner-text {
+    -fx-font-size: 40;
+    -fx-font-weight: bolder;
 }
