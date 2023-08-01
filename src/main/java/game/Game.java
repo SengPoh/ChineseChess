@@ -140,7 +140,7 @@ public class Game {
     private boolean checkOngoing()
     {
         if (!isOngoing) {
-            return isOngoing;
+            return false;
         }
 
         //check players for a loser.
@@ -165,7 +165,7 @@ public class Game {
         boolean added = false;
         while(!added) {
             Player currentPlayer = players.peek();
-            if (currentPlayer.isBlack() == piece.isBlack()) {
+            if (currentPlayer!= null && currentPlayer.isBlack() == piece.isBlack()) {
                 currentPlayer.addPiece(piece);
                 added = true;
             } else {

@@ -1,4 +1,4 @@
-module com.example.chinesechess {
+module chinesechess {
     requires javafx.controls;
     requires javafx.fxml;
 
