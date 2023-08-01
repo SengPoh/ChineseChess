@@ -149,12 +149,33 @@ public class Game {
 
         //check players for a loser.
         for (int i = 0; i < players.size(); i++) {
-            if (getCurrentPlayer().lost()) {
+            if (players.get(i).lost()) {
                 isOngoing = false;
             }
-            nextPlayer();
         }
         return isOngoing;
+    }
+
+    /**
+     * Returns the winner of the match, or null if the match is still ongoing.
+     * @return The winner of the match, or null if the match is still ongoing.
+     */
+    public Player getWinner()
+    {
+        if (isOngoing) {
+           return null;
+        }
+
+        Player winner = null;
+        int i = 0;
+        while (winner == null && i < players.size()) {
+            Player player = players.get(i);
+            if (!player.lost()) {
+                winner = player;
+            }
+            i++;
+        }
+        return winner;
     }
 
     /**
