@@ -8,7 +8,9 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -16,6 +18,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -268,6 +271,25 @@ public class ChineseChessApplication extends Application {
         }
     }
 
+    private void displayWinner()
+    {
+        BorderPane winnerPane = new BorderPane();
+        boardPane.getChildren().add(winnerPane);
+        winnerPane.setMaxSize(300, 200);
+        winnerPane.setId("winner-pane");
+
+        Text winnerText = new Text(game.getWinner().getColorString().toUpperCase() + " WINS");
+        winnerPane.setCenter(winnerText);
+        winnerText.setId("winner-text");
+
+        TilePane buttons = new TilePane();
+        buttons.getStyleClass().add("tile-pane");
+        buttons.setPrefHeight(100);
+        winnerPane.setBottom(buttons);
+        Button rematchButton = new Button("Rematch");
+        buttons.getChildren().add(rematchButton);
+    }
+
     /**
      * What happens when a LocationCircle is clicked.
      * @param event The ActionEvent(mouse click) that is triggered.
@@ -288,5 +310,9 @@ public class ChineseChessApplication extends Application {
             updateBoard();
         }
         displayMoves();
+
+        if (game.getWinner() != null) {
+            displayWinner();
+        }
     }
 }
