@@ -267,7 +267,7 @@ public class ChineseChessApplication extends Application {
             }
         }
     }
-    
+
     /**
      * What happens when a LocationCircle is clicked.
      * @param event The ActionEvent(mouse click) that is triggered.
@@ -279,7 +279,10 @@ public class ChineseChessApplication extends Application {
         Piece piece = game.getPiece(location);
         if (selectedPiece == null && piece.isBlack() == game.getCurrentPlayer().isBlack()) {
             selectedPiece = game.getPiece(location);
-        } else {
+            locationCircles[location.getX()][location.getY()].setStroke(Color.YELLOW);
+        } else if (selectedPiece != null) {
+            Location pieceLocation = selectedPiece.getLocation();
+            locationCircles[pieceLocation.getX()][pieceLocation.getY()].setStroke(Color.TRANSPARENT);
             game.move(selectedPiece, location);
             selectedPiece = null;
             updateBoard();
