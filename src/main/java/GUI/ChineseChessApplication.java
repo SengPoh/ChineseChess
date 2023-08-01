@@ -6,7 +6,6 @@ import game.pieces.Piece;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
-import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -16,18 +15,23 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
+
+import java.util.ArrayList;
 
 /**
  * This class launches the chinese chess application.
  *
  * @author Lee Seng Poh
- * @version 31-7-2023
+ * @version 1-8-2023
  */
 public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 13.0;
     private ImageView boardView;
+    private StackPane boardPane;        //The pane for the chess board view.
+    private Pane movesPane;
     private LocationCircle[][] locationCircles;
     private Game game;
     private Piece selectedPiece;        //The piece currently selected.
@@ -45,14 +49,14 @@ public class ChineseChessApplication extends Application {
 
         boardView = createBoardImageView();
 
-        StackPane stack = new StackPane(boardView);
-        stack.setAlignment(Pos.CENTER);
-        stack.setMinSize(0, 0);
+        boardPane = new StackPane(boardView);
+        boardPane.setAlignment(Pos.CENTER);
+        boardPane.setMinSize(0, 0);
 
         VBox root = new VBox();
-        VBox.setVgrow(stack, Priority.ALWAYS);
+        VBox.setVgrow(boardPane, Priority.ALWAYS);
         createMenuBar(root);
-        root.getChildren().add(stack);
+        root.getChildren().add(boardPane);
         createMenuBar(root);
 
         Scene scene = new Scene(root);
@@ -67,10 +71,10 @@ public class ChineseChessApplication extends Application {
         primaryStage.setMinHeight(primaryStage.getHeight());
 
         //Resize the board according to window size
-        boardView.fitHeightProperty().bind(stack.heightProperty());
-        boardView.fitWidthProperty().bind(stack.widthProperty());
+        boardView.fitHeightProperty().bind(boardPane.heightProperty());
+        boardView.fitWidthProperty().bind(boardPane.widthProperty());
 
-        populateBoardLocations(stack);
+        populateBoardLocations();
         updateBoard();
     }
 
@@ -91,12 +95,11 @@ public class ChineseChessApplication extends Application {
 
     /**
      * Populate the board with circles to indicate the locations on the board.
-     * @param parent The pane to place these locations in.
      */
-    private void populateBoardLocations(Pane parent)
+    private void populateBoardLocations()
     {
         Pane pane = new Pane();
-        parent.getChildren().add(pane);
+        boardPane.getChildren().add(pane);
 
         //set the pane to be of same size as boardView
         pane.maxWidthProperty().bind(getActualWidthProperty(boardView));
@@ -136,7 +139,6 @@ public class ChineseChessApplication extends Application {
             currentY = initialY;
         }
     }
-
 
     /**
      * Get the actual width property instead of just fit width property of an ImageView in the form of DoubleBinding.
@@ -237,6 +239,36 @@ public class ChineseChessApplication extends Application {
     }
 
     /**
+     * Display the moves available when a piece is selected.
+     */
+    private void displayMoves()
+    {
+        boardPane.getChildren().remove(movesPane);
+        if (selectedPiece != null) {
+            movesPane = new Pane();
+            movesPane.setMouseTransparent(true);
+            boardPane.getChildren().add(movesPane);
+
+            movesPane.maxWidthProperty().bind(getActualWidthProperty(boardView));
+            movesPane.minWidthProperty().bind(getActualWidthProperty(boardView));
+            movesPane.maxHeightProperty().bind(getActualHeightProperty(boardView));
+            movesPane.minHeightProperty().bind(getActualHeightProperty(boardView));
+
+            ArrayList<Location> moves = selectedPiece.getMoves();
+            for (Location move : moves) {
+                Circle circle = new Circle();
+                circle.setOpacity(0.1);
+                movesPane.getChildren().add(circle);
+                LocationCircle locationCircle = locationCircles[move.getX()][move.getY()];
+
+                circle.radiusProperty().bind(locationCircle.radiusProperty().multiply(0.5));
+                circle.layoutXProperty().bind(locationCircle.layoutXProperty());
+                circle.layoutYProperty().bind(locationCircle.layoutYProperty());
+            }
+        }
+    }
+    
+    /**
      * What happens when a LocationCircle is clicked.
      * @param event The ActionEvent(mouse click) that is triggered.
      */
@@ -244,12 +276,14 @@ public class ChineseChessApplication extends Application {
     {
         LocationCircle circle = (LocationCircle) event.getSource();
         Location location = circle.getLocation();
-        if (selectedPiece == null) {        //if no piece has been selected
+        Piece piece = game.getPiece(location);
+        if (selectedPiece == null && piece.isBlack() == game.getCurrentPlayer().isBlack()) {
             selectedPiece = game.getPiece(location);
         } else {
             game.move(selectedPiece, location);
             selectedPiece = null;
             updateBoard();
         }
+        displayMoves();
     }
 }
