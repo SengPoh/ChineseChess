@@ -7,3 +7,8 @@
     -fx-hgap: 20;
     -fx-alignment: center;
 }
+
+#winner-pane {
+    -fx-background-color: beige;
+
+}
