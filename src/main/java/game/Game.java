@@ -30,8 +30,8 @@ public class Game {
         Player redPlayer = new Player(false);
         Player blackPlayer = new Player(true);
         players = new LinkedList<>();
-        players.add(redPlayer);
         players.add(blackPlayer);
+        players.add(redPlayer);
         setupBoard();
     }
 
