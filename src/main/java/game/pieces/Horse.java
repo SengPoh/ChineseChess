@@ -86,4 +86,13 @@ public class Horse extends Piece {
     {
         return getLocation().add(move.getX() / 2, move.getY() /2);
     }
+
+    @Override
+    public Piece copy() {
+        Horse copy = new Horse(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

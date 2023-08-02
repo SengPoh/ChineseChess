@@ -88,6 +88,7 @@ public class Soldier extends Piece {
         return legalMoves;
     }
 
+
     /**
      * Changes the status of this soldier piece to having crossed the river.
      * The move set of this soldier is changed to being able to move forward and horizontally.
@@ -109,5 +110,14 @@ public class Soldier extends Piece {
             ));
         }
         setMoveSet(newMoveSet);
+    }
+
+    @Override
+    public Piece copy() {
+        Soldier copy = new Soldier(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
     }
 }

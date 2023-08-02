@@ -90,4 +90,13 @@ public class Elephant extends Piece {
         }
         return true;
     }
+
+    @Override
+    public Piece copy() {
+        Elephant copy = new Elephant(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

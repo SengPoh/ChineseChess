@@ -67,4 +67,13 @@ public class Chariot extends Piece {
         }
         return legalMoves;
     }
+
+    @Override
+    public Piece copy() {
+        Chariot copy = new Chariot(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

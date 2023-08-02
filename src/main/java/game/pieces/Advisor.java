@@ -74,4 +74,13 @@ public class Advisor extends Piece {
     {
         return super.isLegalMove(location) && getBoard().isPalace(location);
     }
+
+    @Override
+    public Piece copy() {
+        Advisor copy = new Advisor(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

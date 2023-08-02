@@ -33,6 +33,15 @@ public class Location {
         piece = null;
     }
 
+    public Location(Location location)
+    {
+        this.x = location.x;
+        this.y = location.y;
+        this.isRiverEdge = location.isRiverEdge;
+        this.isPalace = location.isPalace;
+        this.piece = location.getPiece().copy();
+    }
+
     /**
      * Returns the X-coordinates.
      * @return The X-coordinates.
@@ -142,7 +151,8 @@ public class Location {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(Object obj)
+    {
         if (obj == this) {
             return true;
         }
@@ -158,7 +168,8 @@ public class Location {
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode()
+    {
         int result = 17;
         result = 31 * x;
         result = 31 * y;

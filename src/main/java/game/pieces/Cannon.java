@@ -97,4 +97,13 @@ public class Cannon extends Piece {
         }
         return captureTargetLocation;
     }
+
+    @Override
+    public Piece copy() {
+        Cannon copy = new Cannon(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

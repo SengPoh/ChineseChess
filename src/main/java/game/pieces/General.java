@@ -113,4 +113,13 @@ public class General extends Piece {
         }
         return target;
     }
+
+    @Override
+    public Piece copy() {
+        General copy = new General(this.getBoard(), this.isBlack());
+        copy.setLocation(this.getLocation());
+        copy.setMoveSet(this.getMoveSet());
+
+        return copy;
+    }
 }

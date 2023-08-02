@@ -147,4 +147,10 @@ public abstract class Piece {
     {
         return isBlack() == otherPiece.isBlack();
     }
+
+    /**
+     * Returns a copy of this piece.
+     * @return A copy of this piece.
+     */
+    abstract public Piece copy();
 }
