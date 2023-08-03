@@ -151,6 +151,31 @@ public class Game {
     }
 
     /**
+    /**
+     * Undo the last move of a specified player. Returns true if the undo was successful and
+     * false if the player has no move to undo.
+     * @param player The player whose move to undo.
+     * @return boolean True if the undo was successful and false if the player has no move to undo.
+     */
+    private boolean undoPlayer(Player player)
+    {
+        Location[] locations = player.popPreviousMove();
+
+        if (locations == null) {
+            return false;
+        }
+
+        for (Location oldLocation : locations) {            //location before the move
+            Location currentLocation = board.getLocation(oldLocation);      //location after the move.
+            //restore the piece to its previous state
+            player.removePiece(currentLocation.getPiece());
+            player.addPiece(oldLocation.getPiece());
+            board.setLocation(oldLocation);
+        }
+        return true;
+    }
+
+    /**
      * Checks whether the game is ongoing. If a player has lost, the game is over.
      * Returns true if the game is ongoing.
      * @return True if the game is ongoing.
