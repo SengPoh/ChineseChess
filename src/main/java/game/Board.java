@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents the game board.
  *
  * @author Lee Seng Poh
- * @version 25-7-2023
+ * @version 4-8-2023
  */
 public class Board {
 
@@ -51,7 +51,7 @@ public class Board {
      */
     public void setPiece(Piece piece, Location location)
     {
-        if (location != null && isWithinBoard(location) && isEmpty(location)) {
+        if (isWithinBoard(location) && isEmpty(location)) {
             //to ensure that one piece is not in two different location.
             if (boardContains(piece)) {
                 clearLocation(piece.getLocation());
@@ -70,7 +70,7 @@ public class Board {
      */
     public Piece getPiece(Location location)
     {
-        if (location != null && isWithinBoard(location)) {
+        if (isWithinBoard(location)) {
             return getLocation(location).getPiece();
         }
 
@@ -86,7 +86,7 @@ public class Board {
     public Piece clearLocation(Location location)
     {
         Piece piece = null;
-        if (location != null && isWithinBoard(location)) {
+        if (isWithinBoard(location)) {
             piece = getLocation(location).removePiece();
         }
         return piece;
@@ -213,12 +213,23 @@ public class Board {
      *          the board.
      * @throws IllegalArgumentException if location is null or is not within the board.
      */
-    private Location getLocation(Location location) {
+    public Location getLocation(Location location) {
         if (location == null) {
             throw new IllegalArgumentException("Location cannot be null.");
         } else if (!isWithinBoard(location)) {
             throw new IllegalArgumentException("This location is not within the board.");
         }
         return board[location.getX()][location.getY()];
+    }
+
+    /**
+     * Replaces the location that has the same coordinates on the board with the specified location.
+     * @param location The location to be stored.
+     */
+    public void setLocation(Location location)
+    {
+        if (isWithinBoard(location)) {
+            board[location.getX()][location.getY()] = location;
+        }
     }
 }
