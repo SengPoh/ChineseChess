@@ -2,17 +2,19 @@ package game;
 
 import game.pieces.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 /**
  * Represents the match being played.
  *
  * @author Lee Seng Poh
- * @version 31-7-2023
+ * @version 4-8-2023
  */
 public class Game {
 
-    private LinkedList<Player> players;
+    private ArrayList<Player> players;
+    private int currentPlayerIndex;
     private Board board;
     private boolean isOngoing;
 
@@ -29,9 +31,10 @@ public class Game {
     {
         Player redPlayer = new Player(false);
         Player blackPlayer = new Player(true);
-        players = new LinkedList<>();
-        players.add(blackPlayer);
+        players = new ArrayList<>();
+        currentPlayerIndex = 0;
         players.add(redPlayer);
+        players.add(blackPlayer);
         setupBoard();
     }
 
@@ -40,7 +43,7 @@ public class Game {
      * @return The current player.
      */
     public Player getCurrentPlayer(){
-        return players.peek();
+        return players.get(currentPlayerIndex);
     }
 
     /**
@@ -48,7 +51,18 @@ public class Game {
      */
     private void nextPlayer()
     {
-        players.add(players.remove());
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
+    }
+
+    /**
+     * Cycle to the previous player.
+     */
+    private void previousPlayer()
+    {
+        if (currentPlayerIndex == 0) {
+            currentPlayerIndex = players.size();
+        }
+        currentPlayerIndex = currentPlayerIndex - 1;
     }
 
     /**
@@ -187,15 +201,10 @@ public class Game {
     private void setPiece(Piece piece, Location location)
     {
         board.setPiece(piece, location);
-        boolean added = false;
-        while(!added) {
-            Player currentPlayer = players.peek();
-            if (currentPlayer!= null && currentPlayer.isBlack() == piece.isBlack()) {
-                currentPlayer.addPiece(piece);
-                added = true;
-            } else {
-                nextPlayer();
-            }
+        if (getCurrentPlayer().isBlack() == piece.isBlack()) {
+            getCurrentPlayer().addPiece(piece);
+        } else {
+            players.get((currentPlayerIndex + 1) % players.size()).addPiece(piece);
         }
     }
 
