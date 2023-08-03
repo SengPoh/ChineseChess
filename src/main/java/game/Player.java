@@ -97,6 +97,10 @@ public class Player {
      */
     public Location[] popPreviousMove()
     {
+        if (pastMoves.isEmpty()) {
+            return null;
+        }
+
         return pastMoves.pop();
     }
 
