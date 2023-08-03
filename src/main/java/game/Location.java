@@ -6,7 +6,7 @@ import game.pieces.Piece;
  * Represents a location on the board that a game piece can be at.
  *
  * @author Lee Seng Poh
- * @version 27-6-2023
+ * @version 3-8-2023
  */
 
 public class Location {
@@ -39,7 +39,10 @@ public class Location {
         this.y = location.y;
         this.isRiverEdge = location.isRiverEdge;
         this.isPalace = location.isPalace;
-        this.piece = location.getPiece().copy();
+
+        if (location.getPiece() != null) {
+            this.piece = location.getPiece().copy();
+        }
     }
 
     /**
