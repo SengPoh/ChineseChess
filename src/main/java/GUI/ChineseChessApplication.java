@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
-    public static final double INIT_LOCATION_RADIUS = 13.0;
+    public static final double INIT_LOCATION_RADIUS = 15.0;
     private ImageView boardView;
     private StackPane boardPane;        //The pane for the chess board view.
     private Pane movesPane;
@@ -219,6 +219,9 @@ public class ChineseChessApplication extends Application {
         } else {
             Image image = new Image(getPieceTexturePath(piece));
             circle.setFill(new ImagePattern(image));
+            if (!piece.isBlack()) {
+                circle.setRotate(180);
+            }
         }
     }
 
@@ -299,7 +302,7 @@ public class ChineseChessApplication extends Application {
         LocationCircle circle = (LocationCircle) event.getSource();
         Location location = circle.getLocation();
         Piece piece = game.getPiece(location);
-        if (selectedPiece == null && piece.isBlack() == game.getCurrentPlayer().isBlack()) {
+        if (selectedPiece == null && piece != null && piece.isBlack() == game.getCurrentPlayer().isBlack()) {
             selectedPiece = game.getPiece(location);
             locationCircles[location.getX()][location.getY()].setStroke(Color.YELLOW);
         } else if (selectedPiece != null) {
