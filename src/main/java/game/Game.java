@@ -151,6 +151,26 @@ public class Game {
     }
 
     /**
+     * Undo moves until the last move of the specified player is undone.
+     * @param player The specified player whose last move to undo.
+     */
+    public void undo(Player player)
+    {
+        previousPlayer();
+        boolean undid = false;
+
+        while (!undid) {
+            Player currentPlayer = getCurrentPlayer();
+            if (currentPlayer != player) {
+                undoPlayer(currentPlayer);
+                previousPlayer();
+            } else {
+                undoPlayer(currentPlayer);
+                undid = false;
+            }
+        }
+    }
+
     /**
      * Undo the last move of a specified player. Returns true if the undo was successful and
      * false if the player has no move to undo.
