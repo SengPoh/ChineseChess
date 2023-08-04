@@ -47,6 +47,20 @@ public class Game {
     }
 
     /**
+     * Return the player with the same color as specified.
+     * @param isBlack True if the player wanted is black.
+     * @return The player with the specified color.
+     */
+    public Player getPlayer(boolean isBlack)
+    {
+        for (Player player : players) {
+            if (player.isBlack() == isBlack) {
+                return player;
+            }
+        }
+    }
+
+    /**
      * Cycle to the next player.
      */
     private void nextPlayer()
