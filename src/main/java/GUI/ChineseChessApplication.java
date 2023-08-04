@@ -2,6 +2,7 @@ package GUI;
 
 import game.Game;
 import game.Location;
+import game.Player;
 import game.pieces.Piece;
 import javafx.application.Application;
 import javafx.beans.binding.Bindings;
@@ -58,9 +59,9 @@ public class ChineseChessApplication extends Application {
 
         VBox root = new VBox();
         VBox.setVgrow(boardPane, Priority.ALWAYS);
-        createMenuBar(root);
+        createMenuBar(root, game.getPlayer(false));
         root.getChildren().add(boardPane);
-        createMenuBar(root);
+        createMenuBar(root, game.getPlayer(true));
 
         Scene scene = new Scene(root);
         scene.getStylesheets().add(ChineseChessApplication.class.getResource("/StyleSheet.css").toString());
@@ -174,9 +175,9 @@ public class ChineseChessApplication extends Application {
      * Create the menu bar for a player.
      * @param parent The parent pane this menu bar should be placed in.
      */
-    private void createMenuBar(Pane parent)
+    private void createMenuBar(Pane parent, Player player)
     {
-        TilePane pane = new TilePane();
+        PlayerTilePane pane = new PlayerTilePane(player);
         pane.getStyleClass().add("tile-pane");
         pane.prefWidthProperty().bind(boardView.fitWidthProperty());
         pane.setPrefHeight(pane.getHeight());
