@@ -236,15 +236,26 @@ public class Game {
     }
 
     /**
+     * Resign the specified player.
+     * @param player The player that is resigning.
+     */
+    public void resign(Player player)
+    {
+        player.setLost(true);
+        isOngoing = false;
+    }
+
+    /**
      * Checks whether the game is ongoing. If a player has lost, the game is over.
      * Returns true if the game is ongoing.
      * @return True if the game is ongoing.
      */
-    private boolean checkOngoing()
+    public boolean checkOngoing()
     {
         boolean hasLoser = false;
         //check players for a loser.
         for (Player player : players) {
+            player.checkLost();
             if (player.lost()) {
                 hasLoser = true;
             }

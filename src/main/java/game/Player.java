@@ -49,6 +49,29 @@ public class Player {
     }
 
     /**
+     * Set whether this player has lost.
+     * @param lost True if this player lost.
+     */
+    public void setLost(boolean lost)
+    {
+        this.lost = lost;
+    }
+
+    /**
+     * Checks whether this player lost. If this player does not have a general, they lost.
+     */
+    public void checkLost()
+    {
+        boolean hasGeneral = false;
+        for (Piece piece : pieces) {
+            if (piece instanceof General) {
+                hasGeneral = true;
+            }
+        }
+        lost = !hasGeneral;
+    }
+
+    /**
      * Add a specified piece of the same color to this player.
      * @param piece The piece to be added.
      * @return True if the piece is successfully added.
@@ -70,9 +93,6 @@ public class Player {
      */
     public boolean removePiece(Piece piece)
     {
-        if (piece instanceof General) {
-            lost = true;
-        }
         return pieces.remove(piece);
     }
 

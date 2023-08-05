@@ -186,6 +186,7 @@ public class ChineseChessApplication extends Application {
         undoButton.setOnMouseClicked(this::undoButtonClick);
         Button resignButton = new Button("Resign");
         resignButton.setMaxWidth(Double.MAX_VALUE);
+        resignButton.setOnMouseClicked(this::resignButtonCLick);
         Button helpButton = new Button("Help");
         helpButton.setMaxWidth(Double.MAX_VALUE);
 
@@ -316,7 +317,7 @@ public class ChineseChessApplication extends Application {
         }
         displayMoves();
 
-        if (game.getWinner() != null) {
+        if (!game.checkOngoing()) {
             displayWinner();
         }
     }
@@ -332,5 +333,19 @@ public class ChineseChessApplication extends Application {
         Player player = pane.getPlayer();
         game.undo(player);
         updateBoard();
+    }
+
+    private void resignButtonCLick(MouseEvent event)
+    {
+        Button resignButton = (Button) event.getSource();
+        PlayerTilePane pane = (PlayerTilePane) resignButton.getParent();
+        Player player = pane.getPlayer();
+        game.resign(player);
+        displayWinner();
+    }
+
+    private void rematchButtonClick(MouseEvent)
+    {
+
     }
 }
