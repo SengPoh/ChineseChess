@@ -195,23 +195,18 @@ public class Game {
      */
     public void undo(Player player)
     {
+        previousPlayer();
         boolean undid = false;
-        boolean currentTurn = true;
 
         while (!undid) {
             Player currentPlayer = getCurrentPlayer();
-            if (currentPlayer == player) {
-                if (currentTurn) {          //the player has not moved this turn.
-                    previousPlayer();
-                } else {
-                    undoPlayer(currentPlayer);
-                    undid = true;
-                }
-            } else {
+            if (currentPlayer != player) {
                 undoPlayer(currentPlayer);
                 previousPlayer();
+            } else {
+                undoPlayer(currentPlayer);
+                undid = true;
             }
-            currentTurn = false;
             checkOngoing();
         }
     }
