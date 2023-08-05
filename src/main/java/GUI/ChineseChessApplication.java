@@ -183,6 +183,7 @@ public class ChineseChessApplication extends Application {
 
         Button undoButton = new Button("Undo");
         undoButton.setMaxWidth(Double.MAX_VALUE);
+        undoButton.setOnMouseClicked(this::undoButtonClick);
         Button resignButton = new Button("Resign");
         resignButton.setMaxWidth(Double.MAX_VALUE);
         Button helpButton = new Button("Help");
@@ -295,8 +296,8 @@ public class ChineseChessApplication extends Application {
     }
 
     /**
-     * What happens when a LocationCircle is clicked.
-     * @param event The ActionEvent(mouse click) that is triggered.
+     * Action taken when a LocationCircle is clicked.
+     * @param event The MouseEvent that triggers this action.
      */
     private void locationCircleClick(MouseEvent event)
     {
@@ -318,5 +319,18 @@ public class ChineseChessApplication extends Application {
         if (game.getWinner() != null) {
             displayWinner();
         }
+    }
+
+    /**
+     * Action taken when an undo button is clicked.
+     * @param event The MouseEvent that triggers this action.
+     */
+    private void undoButtonClick(MouseEvent event)
+    {
+        Button undoButton = (Button) event.getSource();
+        PlayerTilePane pane = (PlayerTilePane) undoButton.getParent();
+        Player player = pane.getPlayer();
+        game.undo(player);
+        updateBoard();
     }
 }
