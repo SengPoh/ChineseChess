@@ -34,6 +34,7 @@ public class ChineseChessApplication extends Application {
     private ImageView boardView;
     private StackPane boardPane;        //The pane for the chess board view.
     private Pane movesPane;
+    private BorderPane winnerPane;
     private LocationCircle[][] locationCircles;
     private Game game;
     private Piece selectedPiece;        //The piece currently selected.
@@ -279,7 +280,7 @@ public class ChineseChessApplication extends Application {
 
     private void displayWinner()
     {
-        BorderPane winnerPane = new BorderPane();
+        winnerPane = new BorderPane();
         boardPane.getChildren().add(winnerPane);
         winnerPane.setMaxSize(300, 200);
         winnerPane.setId("winner-pane");
@@ -293,6 +294,7 @@ public class ChineseChessApplication extends Application {
         buttons.setPrefHeight(100);
         winnerPane.setBottom(buttons);
         Button rematchButton = new Button("Rematch");
+        rematchButton.setOnMouseClicked(this::rematchButtonClick);
         buttons.getChildren().add(rematchButton);
     }
 
@@ -328,13 +330,23 @@ public class ChineseChessApplication extends Application {
      */
     private void undoButtonClick(MouseEvent event)
     {
+        if (boardPane.getChildren().contains(winnerPane))
+        {
+            boardPane.getChildren().remove(winnerPane);
+        }
+
         Button undoButton = (Button) event.getSource();
         PlayerTilePane pane = (PlayerTilePane) undoButton.getParent();
         Player player = pane.getPlayer();
         game.undo(player);
+        boolean onGoing = game.checkOngoing();
         updateBoard();
     }
 
+    /**
+     * Action taken when a resign button is clicked.
+     * @param event The MouseEvent that triggers this action.
+     */
     private void resignButtonCLick(MouseEvent event)
     {
         Button resignButton = (Button) event.getSource();
@@ -344,8 +356,14 @@ public class ChineseChessApplication extends Application {
         displayWinner();
     }
 
-    private void rematchButtonClick(MouseEvent)
+    /**
+     * Action taken when a rematch button is clicked.
+     * @param event The MouseEvent that triggers this action.
+     */
+    private void rematchButtonClick(MouseEvent event)
     {
-
+        boardPane.getChildren().remove(winnerPane);
+        game = new Game();
+        updateBoard();
     }
 }
