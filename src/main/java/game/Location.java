@@ -42,6 +42,7 @@ public class Location {
 
         if (location.getPiece() != null) {
             this.piece = location.getPiece().copy();
+            this.piece.setLocation(this);
         }
     }
 

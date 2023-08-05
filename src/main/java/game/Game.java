@@ -25,6 +25,22 @@ public class Game {
     }
 
     /**
+     * For testing purposes.
+     * @param board Board in this game.
+     */
+    public Game(Board board)
+    {
+        Player redPlayer = new Player(false);
+        Player blackPlayer = new Player(true);
+        players = new ArrayList<>();
+        currentPlayerIndex = 0;
+        players.add(redPlayer);
+        players.add(blackPlayer);
+        this.board = board;
+        isOngoing = true;
+    }
+
+    /**
      * Set up the game with 2 players and the board.
      */
     public void setup()
@@ -42,7 +58,8 @@ public class Game {
      * Get the current player.
      * @return The current player.
      */
-    public Player getCurrentPlayer(){
+    public Player getCurrentPlayer()
+    {
         return players.get(currentPlayerIndex);
     }
 
@@ -147,6 +164,10 @@ public class Game {
             return false;       //does not move if the game is over
         }
 
+        Location moveFromLocation = board.getLocation(piece.getLocation());
+        Player movingPlayer = getPlayer(piece.isBlack());
+        movingPlayer.recordMove(moveFromLocation, board.getLocation(location));
+
         boolean moved = false;
         if (piece != null && getCurrentPlayer().isBlack() == piece.isBlack()) {
             Piece locationPiece = null;
@@ -156,10 +177,13 @@ public class Game {
 
             moved = board.move(piece, location);
             if (moved) {
-                Player currentPlayer = getCurrentPlayer();
-                currentPlayer.removePiece(locationPiece);
+                if (locationPiece != null) {
+                    getPlayer(locationPiece.isBlack()).removePiece(locationPiece);       //remove the piece that was captured.
+                }
                 checkOngoing();
                 nextPlayer();
+            } else {
+                movingPlayer.popPreviousMove();     //remove the record if did not move.
             }
         }
         return moved;
@@ -171,18 +195,24 @@ public class Game {
      */
     public void undo(Player player)
     {
-        previousPlayer();
         boolean undid = false;
+        boolean currentTurn = true;
 
         while (!undid) {
             Player currentPlayer = getCurrentPlayer();
-            if (currentPlayer != player) {
-                undoPlayer(currentPlayer);
-                previousPlayer();
+            if (currentPlayer == player) {
+                if (currentTurn) {          //the player has not moved this turn.
+                    previousPlayer();
+                } else {
+                    undoPlayer(currentPlayer);
+                    undid = true;
+                }
             } else {
                 undoPlayer(currentPlayer);
-                undid = false;
+                previousPlayer();
             }
+            currentTurn = false;
+            checkOngoing();
         }
     }
 
@@ -217,16 +247,15 @@ public class Game {
      */
     private boolean checkOngoing()
     {
-        if (!isOngoing) {
-            return false;
-        }
-
+        boolean hasLoser = false;
         //check players for a loser.
-        for (int i = 0; i < players.size(); i++) {
-            if (players.get(i).lost()) {
-                isOngoing = false;
+        for (Player player : players) {
+            if (player.lost()) {
+                hasLoser = true;
             }
         }
+        isOngoing = !hasLoser;
+
         return isOngoing;
     }
 
