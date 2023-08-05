@@ -9,9 +9,7 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.Dialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -28,7 +26,7 @@ import java.util.ArrayList;
  * This class launches the chinese chess application.
  *
  * @author Lee Seng Poh
- * @version 1-8-2023
+ * @version 5-8-2023
  */
 public class ChineseChessApplication extends Application {
     public static final double INIT_BOARD_WIDTH = 300.0;
@@ -222,6 +220,8 @@ public class ChineseChessApplication extends Application {
             circle.setFill(new ImagePattern(image));
             if (!piece.isBlack()) {
                 circle.setRotate(180);
+            } else {
+                circle.setRotate(0);
             }
         }
     }
