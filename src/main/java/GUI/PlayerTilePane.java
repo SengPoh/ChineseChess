@@ -18,7 +18,8 @@ public class PlayerTilePane extends TilePane {
         this.player = player;
     }
 
-    public Player getPlayer() {
+    public Player getPlayer()
+    {
         return player;
     }
 }
