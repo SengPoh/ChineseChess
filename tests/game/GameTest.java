@@ -124,4 +124,41 @@ class GameTest {
         }
     }
 
+    @Test
+    public void undo_MoveAndCapture_True()
+    {
+        Board board = new Board(9, 10);
+        Game game = new Game(board);
+        boolean isBlack = false;
+        Chariot chariot = new Chariot(board, isBlack);
+        Location location = new Location(4, 5);
+        Location newLocation1 = new Location(2, 5);
+        Location newLocation2 = new Location(5, 5);
+        board.setPiece(chariot, location);
+        game.getPlayer(isBlack).addPiece(chariot);
+
+        Location enemyLocation = new Location(6,5);
+        Location newEnemyLocation = new Location(5, 5);
+        Chariot enemyChariot = new Chariot(board, !isBlack);
+        board.setPiece(enemyChariot, enemyLocation);
+        game.getPlayer(!isBlack).addPiece(enemyChariot);
+
+        assertTrue(game.move(chariot, newLocation1), "The piece was not moved.");
+        assertTrue(game.move(enemyChariot, newEnemyLocation), "The enemy piece was not moved");
+        assertTrue(game.move(chariot, newLocation2), "The piece was not moved(2nd).");
+        game.undo(game.getPlayer(isBlack));
+        assertTrue(board.getPiece(newLocation1) instanceof Chariot, "The undid piece has a different type.");
+        assertEquals(board.getPiece(newLocation1).isBlack(), isBlack, "The undid piece has a different color.");
+        assertTrue(board.getPiece(newEnemyLocation) instanceof Chariot, "The undid enemy piece has a different type.");
+        assertEquals(board.getPiece(newEnemyLocation).isBlack(), !isBlack, "The undid piece has a different color.");
+
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getLength(); j++) {
+                Location tempLoc = new Location(i, j);
+                if (!tempLoc.equals(newLocation1) && !tempLoc.equals(newEnemyLocation)) {
+                    assertNull(board.getPiece(tempLoc), "Location " + i + ", " + j + " is not empty");
+                }
+            }
+        }
+    }
 }
