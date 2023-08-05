@@ -58,6 +58,7 @@ public class Game {
                 return player;
             }
         }
+        return null;        //no player that matches is found
     }
 
     /**
