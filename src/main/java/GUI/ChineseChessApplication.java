@@ -339,7 +339,6 @@ public class ChineseChessApplication extends Application {
         PlayerTilePane pane = (PlayerTilePane) undoButton.getParent();
         Player player = pane.getPlayer();
         game.undo(player);
-        boolean onGoing = game.checkOngoing();
         updateBoard();
     }
 

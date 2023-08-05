@@ -228,8 +228,14 @@ public class Game {
         for (Location oldLocation : locations) {            //location before the move
             Location currentLocation = board.getLocation(oldLocation);      //location after the move.
             //restore the piece to its previous state
-            player.removePiece(currentLocation.getPiece());
-            player.addPiece(oldLocation.getPiece());
+            Piece currentPiece = currentLocation.getPiece();
+            if (currentPiece != null) {
+                getPlayer(currentPiece).removePiece(currentPiece);
+            }
+            Piece oldPiece = oldLocation.getPiece();
+            if (oldPiece != null) {
+                getPlayer(oldPiece).addPiece(oldPiece);
+            }
             board.setLocation(oldLocation);
         }
         return true;
@@ -288,6 +294,25 @@ public class Game {
     }
 
     /**
+     * Get the player with the color corresponding to the specified piece.
+     * @param piece The piece whose owner is to be found.
+     * @return The owner of the piece.
+     */
+    public Player getPlayer(Piece piece)
+    {
+        if (piece == null) {
+            return null;
+        }
+        Player owner = null;
+        for (Player player : players) {
+            if (piece.isBlack() == player.isBlack()) {
+                owner = player;
+            }
+        }
+        return owner;
+    }
+
+    /**
      * Sets a specified piece on the specified location on the board and add it
      * to the player with the same color as the piece.
      * @param piece The piece to be set.
@@ -296,11 +321,7 @@ public class Game {
     private void setPiece(Piece piece, Location location)
     {
         board.setPiece(piece, location);
-        if (getCurrentPlayer().isBlack() == piece.isBlack()) {
-            getCurrentPlayer().addPiece(piece);
-        } else {
-            players.get((currentPlayerIndex + 1) % players.size()).addPiece(piece);
-        }
+        getPlayer(piece).addPiece(piece);
     }
 
     /**
