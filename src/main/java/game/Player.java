@@ -124,6 +124,11 @@ public class Player {
         return pastMoves.pop();
     }
 
+    public boolean hasMoved()
+    {
+        return !pastMoves.isEmpty();
+    }
+
     /**
      * Returns the color of the player in String format.
      * @return The color of the player in String format.

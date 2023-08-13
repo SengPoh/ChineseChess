@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * Represents the match being played.
  *
  * @author Lee Seng Poh
- * @version 4-8-2023
+ * @version 13-8-2023
  */
 public class Game {
 
@@ -195,8 +195,11 @@ public class Game {
      */
     public void undo(Player player)
     {
-        previousPlayer();
-        boolean undid = false;
+        boolean undid = !player.hasMoved();
+
+        if (!undid) {
+            previousPlayer();
+        }
 
         while (!undid) {
             Player currentPlayer = getCurrentPlayer();
