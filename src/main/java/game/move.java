@@ -1,6 +1,7 @@
 package game;
 
 import game.pieces.Piece;
+import javafx.scene.shape.MoveTo;
 
 /**
  * Represents a move that is made during a game.
@@ -9,9 +10,10 @@ import game.pieces.Piece;
  * @version 13-8-2023
  */
 public class move {
-    Location moveFromLocation;
-    Location moveToLocation;
-    Piece piece;
+    private Location moveFromLocation;
+    private Location moveToLocation;
+    private Piece piece;
+    private Board board;
 
     public move(Location moveFromLocation, Location moveToLocation)
     {
@@ -25,7 +27,34 @@ public class move {
         }
         this.moveFromLocation = new Location(moveFromLocation);
         this.moveToLocation = new Location(moveToLocation);
-        this.piece = moveFromLocation.getPiece();
+        piece = moveFromLocation.getPiece();
+        board = piece.getBoard();
     }
-    
+
+    /**
+     * Returns the location from which the piece moves from.
+     * @return the location from which the piece moves from.
+     */
+    public Location getMoveFromLocation()
+    {
+        return moveFromLocation;
+    }
+
+    /**
+     * Returns the location from which the piece moves to.
+     * @return the location from which the piece moves to.
+     */
+    public Location getMoveToLocation()
+    {
+        return moveToLocation;
+    }
+
+    /**
+     * Returns true if this move can be made.
+     * @return True if this move can be made.
+     */
+    public boolean canMove()
+    {
+        return board.getPiece(moveFromLocation).equals(piece) && piece.getMoves().contains(moveToLocation);
+    }
 }
