@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * y-coordinates are greater than 4.
  *
  * @author Lee Seng Poh
- * @version 25-6-2023
+ * @version 12-8-2023
  */
 
 public abstract class Piece {
@@ -67,7 +67,7 @@ public abstract class Piece {
      * Return the board this piece is on.
      * @return The board this piece is on.
      */
-    protected Board getBoard()
+    public Board getBoard()
     {
         return board;
     }
