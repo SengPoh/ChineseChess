@@ -1,6 +1,7 @@
 package game;
 
 import game.pieces.Chariot;
+import game.pieces.General;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -12,11 +13,26 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 class GameTest {
+    private Game game;
+    private Board board;
+    @BeforeEach
+    void setUp()
+    {
+        board = new Board(9, 10);
+        game = new Game(board);
+        game.getPlayer(true).addPiece(new General(board, true));
+        game.getPlayer(false).addPiece(new General(board, false));
+    }
+
+    @AfterEach
+    void tearDown()
+    {
+        board = null;
+    }
+
     @Test
     public void move_ValidMove_True()
     {
-        Board board = new Board(9, 10);
-        Game game = new Game(board);
         boolean isBlack = false;
         Chariot chariot = new Chariot(board, isBlack);
         Location location = new Location(4, 5);
@@ -31,8 +47,6 @@ class GameTest {
     @Test
     public void undo_Move_True()
     {
-        Board board = new Board(9, 10);
-        Game game = new Game(board);
         boolean isBlack = false;
         Chariot chariot = new Chariot(board, isBlack);
         Location location = new Location(4, 5);
@@ -58,8 +72,6 @@ class GameTest {
     @Test
     public void undo_Capture_True()
     {
-        Board board = new Board(9, 10);
-        Game game = new Game(board);
         boolean isBlack = false;
         Chariot chariot = new Chariot(board, isBlack);
         Location location = new Location(4, 5);
@@ -91,8 +103,6 @@ class GameTest {
     @Test
     public void undo_CurrentPlayerUndo_True()
     {
-        Board board = new Board(9, 10);
-        Game game = new Game(board);
         boolean isBlack = false;
         Chariot chariot = new Chariot(board, isBlack);
         Location location = new Location(4, 5);
@@ -127,8 +137,6 @@ class GameTest {
     @Test
     public void undo_MoveAndCapture_True()
     {
-        Board board = new Board(9, 10);
-        Game game = new Game(board);
         boolean isBlack = false;
         Chariot chariot = new Chariot(board, isBlack);
         Location location = new Location(4, 5);
