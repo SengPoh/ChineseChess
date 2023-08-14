@@ -169,15 +169,15 @@ public class Game {
 
         boolean moved = false;
         if (getCurrentPlayer().isBlack() == piece.isBlack()) {
-            Piece locationPiece = null;
+            Piece capturedPiece = null;
             if (!board.isEmpty(location)) {
-                locationPiece = getPiece(location);
+                capturedPiece = getPiece(location);
             }
 
             moved = board.move(piece, location);
             if (moved) {
-                if (locationPiece != null) {
-                    getPlayer(locationPiece.isBlack()).removePiece(locationPiece);       //remove the piece that was captured.
+                if (capturedPiece != null) {
+                    getPlayer(capturedPiece.isBlack()).removePiece(capturedPiece);       //remove the piece that was captured.
                 }
                 checkOngoing();
                 nextPlayer();
