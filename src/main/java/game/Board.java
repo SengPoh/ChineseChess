@@ -44,6 +44,21 @@ public class Board {
     }
 
     /**
+     * Move a piece according to the specified move.
+     * @param move The move to be made.
+     * @return True if this piece is moved.
+     */
+    public boolean move(Move move)
+    {
+        boolean moved = false;
+        if (move.canMove()) {
+            Piece piece = getPiece(move.getMoveFromLocation());
+            moved = move(piece, move.getMoveToLocation());
+        }
+        return moved;
+    }
+
+    /**
      * Set specified piece at a location within the board if the location is not null,
      * is within the board and does not already have a piece.
      * @param piece The piece to be placed.

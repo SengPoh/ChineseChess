@@ -2,6 +2,7 @@ package game;
 
 import game.pieces.Chariot;
 import game.pieces.Piece;
+import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,6 +18,7 @@ class BoardTest {
     public void init()
     {
         Board board = new Board(9, 10);
+        assertEquals(9, board.getWidth());
         assertEquals(9, board.getWidth());
         assertEquals(10, board.getLength());
     }
@@ -430,6 +432,18 @@ class BoardTest {
             Location location = new Location(1, 4);
             board.setRiverEdge(location, false);
             assertFalse(board.isRiverEdge(location));
+        }
+
+        @Test
+        public void move_ValidMove_True()
+        {
+            Chariot chariot = new Chariot(board, true);
+            Location location = new Location(4, 6);
+            board.setPiece(chariot, location);
+            Location moveToLocation = new Location(6, 6);
+            Move move = new Move(board, location, moveToLocation);
+            assertTrue(board.move(move));
+            assertEquals(chariot.getLocation(), moveToLocation);
         }
     }
 }
