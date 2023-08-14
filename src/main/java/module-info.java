@@ -5,4 +5,5 @@ module chinesechess {
     opens GUI to javafx.fxml;
     exports GUI;
     exports game;
+    exports game.pieces;
 }
