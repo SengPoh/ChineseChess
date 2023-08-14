@@ -2,7 +2,6 @@ package game;
 
 import game.pieces.Chariot;
 import game.pieces.Piece;
-import javafx.scene.input.MouseEvent;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

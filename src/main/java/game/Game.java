@@ -165,7 +165,7 @@ public class Game {
 
         Location moveFromLocation = board.getLocation(piece.getLocation());
         Player movingPlayer = getPlayer(piece.isBlack());
-        movingPlayer.recordMove(moveFromLocation, board.getLocation(location));
+        movingPlayer.recordMove(board, moveFromLocation, board.getLocation(location));
 
         boolean moved = false;
         if (getCurrentPlayer().isBlack() == piece.isBlack()) {
@@ -221,26 +221,34 @@ public class Game {
      */
     private boolean undoPlayer(Player player)
     {
-        Location[] locations = player.popPreviousMove();
+        Move move = player.popPreviousMove();
 
-        if (locations == null) {
+        if (move == null) {
             return false;
         }
 
-        for (Location oldLocation : locations) {            //location before the move
-            Location currentLocation = board.getLocation(oldLocation);      //location after the move.
-            //restore the piece to its previous state
-            Piece currentPiece = currentLocation.getPiece();
-            if (currentPiece != null) {
-                getPlayer(currentPiece).removePiece(currentPiece);
-            }
-            Piece oldPiece = oldLocation.getPiece();
-            if (oldPiece != null) {
-                getPlayer(oldPiece).addPiece(oldPiece);
-            }
-            board.setLocation(oldLocation);
-        }
+        replaceLocation(move.getMoveFromLocation());
+        replaceLocation(move.getMoveToLocation());
         return true;
+    }
+
+    /**
+     * Replaces the corresponding location on the board with the specified location.
+     * The players' pieces are updated accordingly.
+     * @param location The location to replace its counterpart on the board.
+     */
+    private void replaceLocation(Location location)
+    {
+        Location currentLocation = board.getLocation(location);         //The location to be replaced
+        Piece currentPiece = currentLocation.getPiece();
+        if (currentPiece != null) {
+            getPlayer(currentPiece).removePiece(currentPiece);
+        }
+        Piece newPiece = location.getPiece();
+        if (newPiece != null) {
+            getPlayer(newPiece).addPiece(newPiece);
+        }
+        board.setLocation(location);
     }
 
     /**

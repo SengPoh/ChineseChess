@@ -1,8 +1,6 @@
 package game;
 
-import game.pieces.Advisor;
 import game.pieces.Chariot;
-import game.pieces.General;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,6 +34,8 @@ class MoveTest {
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
         Move move = new Move( board, moveFromLocation, moveToLocation);
+        assertEquals(moveFromLocation, move.getMoveFromLocation());
+        assertEquals(moveToLocation, move.getMoveToLocation());
     }
 
     @Test

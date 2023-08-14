@@ -15,8 +15,7 @@ import java.util.Stack;
 public class Player {
     private boolean isBlack;
     private boolean lost;
-    //Record of past moves in a location array of length 2.
-    private Stack<Location[]> pastMoves;
+    private Stack<Move> pastMoves;
     private ArrayList<Piece> pieces;
 
     /**
@@ -101,21 +100,21 @@ public class Player {
      * @param moveFrom The location that the piece moved from.
      * @param moveTo The location that the piece moved to.
      */
-    public void recordMove(Location moveFrom, Location moveTo)
+    public void recordMove(Board board, Location moveFrom, Location moveTo)
     {
         if (moveFrom != null && moveTo != null) {
-            Location[] locations = new Location[2];
-            locations[0] = new Location(moveFrom);
-            locations[1] = new Location(moveTo);
-            pastMoves.add(locations);
+            Location moveFromLocation = new Location(moveFrom);
+            Location moveToLocation = new Location(moveTo);
+            Move move = new Move(board, moveFromLocation, moveToLocation);
+            pastMoves.add(move);
         }
     }
 
     /**
-     * Returns a length 2 array of Locations that changed during this player's last move.
-     * @return a length 2 array of Locations that changed during this player's last move.
+     * Returns this player's last move.
+     * @return This player's last move.
      */
-    public Location[] popPreviousMove()
+    public Move popPreviousMove()
     {
         if (pastMoves.isEmpty()) {
             return null;
