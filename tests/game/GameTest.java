@@ -28,6 +28,7 @@ class GameTest {
     void tearDown()
     {
         board = null;
+        game = null;
     }
 
     @Test
