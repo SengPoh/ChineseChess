@@ -83,4 +83,42 @@ public class Advisor extends Piece {
 
         return copy;
     }
+
+    /**
+     * Returns true if the specified object is an instance of Advisor and has the same location,
+     * board and move set as this Advisor.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Advisor)) {
+            return false;
+        }
+
+        Advisor piece = (Advisor) obj;
+
+        boolean bool = this.getLocation().equals(piece.getLocation());
+        boolean bool2 = this.getBoard() == piece.getBoard();
+        boolean bool3 = this.getMoveSet().equals(piece.getMoves());
+
+        return this.getLocation().equals(piece.getLocation())
+                && this.getBoard() == piece.getBoard()
+                && this.getMoveSet().equals(piece.getMoveSet());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+        result = result + getBoard().hashCode();
+        result = result + getLocation().hashCode();
+        result = result + getMoveSet().hashCode();
+        return result;
+    }
 }

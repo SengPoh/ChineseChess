@@ -285,4 +285,58 @@ class AdvisorTest {
             assertEquals(location, advisor.getLocation(), "This advisor's location was changed.");
         }
     }
+
+    @Test
+    public void equals_EqualAdvisor_True()
+    {
+        Location loc = new Location(2, 8);
+        Advisor advisor1 = new Advisor(board, true);
+        advisor1.setLocation(loc);
+        Advisor advisor2 = new Advisor(board, true);
+        advisor2.setLocation(loc);
+        assertEquals(advisor1, advisor2);
+    }
+
+    @Test
+    public void equals_NonAdvisorObject_True()
+    {
+        Location loc = new Location(2, 8);
+        Advisor advisor1 = new Advisor(board, true);
+        advisor1.setLocation(loc);
+        Object obj = new Object();
+        assertNotEquals(advisor1, obj);
+    }
+
+    @Test
+    public void equals_DifferentLocations_True()
+    {
+        Advisor advisor1 = new Advisor(board, true);
+        Location loc = new Location(2, 8);
+        advisor1.setLocation(loc);
+        Advisor advisor2 = new Advisor(board, true);
+        Location loc2 = new Location(3, 7);
+        advisor2.setLocation(loc2);
+        assertNotEquals(advisor1, advisor2);
+    }
+
+    @Test
+    public void hashCode_EqualAdvisors_Equals()
+    {
+        Location loc = new Location(2, 8);
+        Advisor advisor1 = new Advisor(board, true);
+        advisor1.setLocation(loc);
+        Advisor advisor2 = new Advisor(board, true);
+        advisor2.setLocation(loc);
+        assertEquals(advisor1.hashCode(), advisor2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal()
+    {
+        Location loc = new Location(2, 8);
+        Advisor advisor = new Advisor(board, true);
+        advisor.setLocation(loc);
+        int hashCode = advisor.hashCode();
+        assertEquals(advisor.hashCode(), hashCode);
+    }
 }
