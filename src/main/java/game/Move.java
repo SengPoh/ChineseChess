@@ -1,34 +1,38 @@
 package game;
 
 import game.pieces.Piece;
-import javafx.scene.shape.MoveTo;
 
 /**
  * Represents a move that is made during a game.
 
  * @author Lee Seng Poh
- * @version 13-8-2023
+ * @version 14-8-2023
  */
-public class move {
+public class Move {
     private Location moveFromLocation;
     private Location moveToLocation;
     private Piece piece;
     private Board board;
 
-    public move(Location moveFromLocation, Location moveToLocation)
+    public Move(Board board, Location moveFromLocation, Location moveToLocation)
     {
-        if (moveFromLocation == null || moveToLocation == null) {
-            throw new IllegalArgumentException("The locations entered cannot be null;");
+        if (board == null) {
+            throw new IllegalArgumentException("The board cannot be null.");
         }
 
-        if (this.moveFromLocation.getPiece() == null)
+        if (moveFromLocation == null || !board.isWithinBoard(moveFromLocation) || moveToLocation == null
+                || !board.isWithinBoard(moveToLocation)) {
+            throw new IllegalArgumentException("The location parameter is invalid.");
+        }
+
+        if (board.isEmpty(moveFromLocation))
         {
             throw new IllegalArgumentException("The moveFromLocation does not have a piece to be moved.");
         }
+        this.board = board;
         this.moveFromLocation = new Location(moveFromLocation);
         this.moveToLocation = new Location(moveToLocation);
-        piece = moveFromLocation.getPiece();
-        board = piece.getBoard();
+        piece = board.getPiece(moveFromLocation);
     }
 
     /**
@@ -56,5 +60,20 @@ public class move {
     public boolean canMove()
     {
         return board.getPiece(moveFromLocation).equals(piece) && piece.getMoves().contains(moveToLocation);
+    }
+
+    /**
+     * Make this move. Returns true if this move is made and false otherwise.
+     * @return True if this move is made and false otherwise.
+     */
+    public boolean makeMove()
+    {
+        if (!canMove()) {
+            return false;
+        }
+
+        Piece piece = board.getPiece(moveFromLocation);
+        piece.move(moveToLocation);
+        return true;
     }
 }
