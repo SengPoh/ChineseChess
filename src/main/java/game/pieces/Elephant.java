@@ -12,7 +12,7 @@ import java.util.Arrays;
  * Elephants may not cross the river.
  *
  * @author Lee Seng Poh
- * @version 29-6-2023
+ * @version 14-8-2023
  */
 
 public class Elephant extends Piece {
@@ -40,7 +40,7 @@ public class Elephant extends Piece {
 
     /**
      * Returns a list of legal moves.
-     * An advisor may move and capture one space diagonal, as long as it remains within
+     * An Elephant may move and capture one space diagonal, as long as it remains within
      * the palace.
      * @return A list of legal moves.
      */
@@ -98,5 +98,46 @@ public class Elephant extends Piece {
         copy.setMoveSet(this.getMoveSet());
 
         return copy;
+    }
+
+    /**
+     * Returns true if the specified object is an instance of Elephant and has the same location,
+     * board and move set as this Elephant.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Elephant)) {
+            return false;
+        }
+
+        Elephant piece = (Elephant) obj;
+
+        boolean sameLocation;
+        if (this.getLocation() == null) {
+            sameLocation = (this.getLocation() == piece.getLocation());
+        } else {
+            sameLocation = this.getLocation().equals(piece.getLocation());
+        }
+
+        return sameLocation
+                && this.getBoard() == piece.getBoard()
+                && this.getMoveSet().equals(piece.getMoveSet());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+        result = result + getBoard().hashCode();
+        result = result + getLocation().hashCode();
+        result = result + getMoveSet().hashCode();
+        return result;
     }
 }

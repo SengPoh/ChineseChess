@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Chariot.java.
  *
  * @author Lee Seng Poh
- * @version 21-6-2023
+ * @version 14-8-2023
  */
 
 class ChariotTest {
@@ -307,5 +307,59 @@ class ChariotTest {
 
         assertFalse(chariot.move(newLocation));
         assertEquals(location, chariot.getLocation(), "This chariot's location was changed.");
+    }
+
+    @Test
+    public void equals_EqualChariot_True()
+    {
+        Location loc = new Location(2, 8);
+        Chariot Chariot1 = new Chariot(board, true);
+        Chariot1.setLocation(loc);
+        Chariot Chariot2 = new Chariot(board, true);
+        Chariot2.setLocation(loc);
+        assertEquals(Chariot1, Chariot2);
+    }
+
+    @Test
+    public void equals_NonChariotObject_True()
+    {
+        Location loc = new Location(2, 8);
+        Chariot Chariot1 = new Chariot(board, true);
+        Chariot1.setLocation(loc);
+        Object obj = new Object();
+        assertNotEquals(Chariot1, obj);
+    }
+
+    @Test
+    public void equals_DifferentLocations_True()
+    {
+        Chariot Chariot1 = new Chariot(board, true);
+        Location loc = new Location(2, 8);
+        Chariot1.setLocation(loc);
+        Chariot Chariot2 = new Chariot(board, true);
+        Location loc2 = new Location(3, 7);
+        Chariot2.setLocation(loc2);
+        assertNotEquals(Chariot1, Chariot2);
+    }
+
+    @Test
+    public void hashCode_EqualChariots_Equals()
+    {
+        Location loc = new Location(2, 8);
+        Chariot Chariot1 = new Chariot(board, true);
+        Chariot1.setLocation(loc);
+        Chariot Chariot2 = new Chariot(board, true);
+        Chariot2.setLocation(loc);
+        assertEquals(Chariot1.hashCode(), Chariot2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal()
+    {
+        Location loc = new Location(2, 8);
+        Chariot Chariot = new Chariot(board, true);
+        Chariot.setLocation(loc);
+        int hashCode = Chariot.hashCode();
+        assertEquals(Chariot.hashCode(), hashCode);
     }
 }

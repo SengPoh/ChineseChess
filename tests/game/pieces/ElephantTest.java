@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Elephant.java.
  *
  * @author Lee Seng Poh
- * @version 29-6-2023
+ * @version 14-8-2023
  */
 class ElephantTest {
     private Board board;
@@ -336,4 +336,59 @@ class ElephantTest {
         assertFalse(elephant.move(newLocation));
         assertEquals(location, elephant.getLocation(), "This elephant's location was changed.");
     }
+    
+    @Test
+    public void equals_EqualElephant_True()
+    {
+        Location loc = new Location(2, 8);
+        Elephant Elephant1 = new Elephant(board, true);
+        Elephant1.setLocation(loc);
+        Elephant Elephant2 = new Elephant(board, true);
+        Elephant2.setLocation(loc);
+        assertEquals(Elephant1, Elephant2);
+    }
+
+    @Test
+    public void equals_NonElephantObject_True()
+    {
+        Location loc = new Location(2, 8);
+        Elephant Elephant1 = new Elephant(board, true);
+        Elephant1.setLocation(loc);
+        Object obj = new Object();
+        assertNotEquals(Elephant1, obj);
+    }
+
+    @Test
+    public void equals_DifferentLocations_True()
+    {
+        Elephant Elephant1 = new Elephant(board, true);
+        Location loc = new Location(2, 8);
+        Elephant1.setLocation(loc);
+        Elephant Elephant2 = new Elephant(board, true);
+        Location loc2 = new Location(3, 7);
+        Elephant2.setLocation(loc2);
+        assertNotEquals(Elephant1, Elephant2);
+    }
+
+    @Test
+    public void hashCode_EqualElephants_Equals()
+    {
+        Location loc = new Location(2, 8);
+        Elephant Elephant1 = new Elephant(board, true);
+        Elephant1.setLocation(loc);
+        Elephant Elephant2 = new Elephant(board, true);
+        Elephant2.setLocation(loc);
+        assertEquals(Elephant1.hashCode(), Elephant2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal()
+    {
+        Location loc = new Location(2, 8);
+        Elephant Elephant = new Elephant(board, true);
+        Elephant.setLocation(loc);
+        int hashCode = Elephant.hashCode();
+        assertEquals(Elephant.hashCode(), hashCode);
+    }
+    
 }

@@ -11,7 +11,7 @@ import java.util.Arrays;
  * but may not jump over intervening pieces.
  *
  * @author Lee Seng Poh
- * @version 22-6-2023
+ * @version 14-8-2023
  */
 public class Chariot extends Piece {
 
@@ -75,5 +75,46 @@ public class Chariot extends Piece {
         copy.setMoveSet(this.getMoveSet());
 
         return copy;
+    }
+
+    /**
+     * Returns true if the specified object is an instance of Chariot and has the same location,
+     * board and move set as this Chariot.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Chariot)) {
+            return false;
+        }
+
+        Chariot piece = (Chariot) obj;
+
+        boolean sameLocation;
+        if (this.getLocation() == null) {
+            sameLocation = (this.getLocation() == piece.getLocation());
+        } else {
+            sameLocation = this.getLocation().equals(piece.getLocation());
+        }
+
+        return sameLocation
+                && this.getBoard() == piece.getBoard()
+                && this.getMoveSet().equals(piece.getMoveSet());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+        result = result + getBoard().hashCode();
+        result = result + getLocation().hashCode();
+        result = result + getMoveSet().hashCode();
+        return result;
     }
 }

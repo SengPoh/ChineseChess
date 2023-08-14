@@ -15,7 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Tests for Cannon.java.
  *
  * @author Lee Seng Poh
- * @version 22-6-2023
+ * @version 14-8-2023
  */
 
 public class CannonTest {
@@ -522,5 +522,59 @@ public class CannonTest {
 
         assertFalse(cannon.move(newLocation));
         assertEquals(location, cannon.getLocation(), "This cannon's location was changed.");
+    }
+
+    @Test
+    public void equals_EqualCannon_True()
+    {
+        Location loc = new Location(2, 8);
+        Cannon Cannon1 = new Cannon(board, true);
+        Cannon1.setLocation(loc);
+        Cannon Cannon2 = new Cannon(board, true);
+        Cannon2.setLocation(loc);
+        assertEquals(Cannon1, Cannon2);
+    }
+
+    @Test
+    public void equals_NonCannonObject_True()
+    {
+        Location loc = new Location(2, 8);
+        Cannon Cannon1 = new Cannon(board, true);
+        Cannon1.setLocation(loc);
+        Object obj = new Object();
+        assertNotEquals(Cannon1, obj);
+    }
+
+    @Test
+    public void equals_DifferentLocations_True()
+    {
+        Cannon Cannon1 = new Cannon(board, true);
+        Location loc = new Location(2, 8);
+        Cannon1.setLocation(loc);
+        Cannon Cannon2 = new Cannon(board, true);
+        Location loc2 = new Location(3, 7);
+        Cannon2.setLocation(loc2);
+        assertNotEquals(Cannon1, Cannon2);
+    }
+
+    @Test
+    public void hashCode_EqualCannons_Equals()
+    {
+        Location loc = new Location(2, 8);
+        Cannon Cannon1 = new Cannon(board, true);
+        Cannon1.setLocation(loc);
+        Cannon Cannon2 = new Cannon(board, true);
+        Cannon2.setLocation(loc);
+        assertEquals(Cannon1.hashCode(), Cannon2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal()
+    {
+        Location loc = new Location(2, 8);
+        Cannon Cannon = new Cannon(board, true);
+        Cannon.setLocation(loc);
+        int hashCode = Cannon.hashCode();
+        assertEquals(Cannon.hashCode(), hashCode);
     }
 }

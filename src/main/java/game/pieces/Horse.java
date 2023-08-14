@@ -12,7 +12,7 @@ import java.util.Arrays;
  * A horse may be blocked by a piece next to it vertically or horizontally if it is in the horse's path.
  *
  * @author Lee Seng Poh
- * @version 30-6-2023
+ * @version 14-8-2023
  */
 
 public class Horse extends Piece {
@@ -94,5 +94,46 @@ public class Horse extends Piece {
         copy.setMoveSet(this.getMoveSet());
 
         return copy;
+    }
+
+    /**
+     * Returns true if the specified object is an instance of Horse and has the same location,
+     * board and move set as this Horse.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Horse)) {
+            return false;
+        }
+
+        Horse piece = (Horse) obj;
+
+        boolean sameLocation;
+        if (this.getLocation() == null) {
+            sameLocation = (this.getLocation() == piece.getLocation());
+        } else {
+            sameLocation = this.getLocation().equals(piece.getLocation());
+        }
+
+        return sameLocation
+                && this.getBoard() == piece.getBoard()
+                && this.getMoveSet().equals(piece.getMoveSet());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+        result = result + getBoard().hashCode();
+        result = result + getLocation().hashCode();
+        result = result + getMoveSet().hashCode();
+        return result;
     }
 }

@@ -11,7 +11,7 @@ import java.util.Arrays;
  * must stay within the palace.
  *
  * @author Lee Seng Poh
- * @version 29-6-2023
+ * @version 14-8-2023
  */
 
 public class Advisor extends Piece {
@@ -103,11 +103,14 @@ public class Advisor extends Piece {
 
         Advisor piece = (Advisor) obj;
 
-        boolean bool = this.getLocation().equals(piece.getLocation());
-        boolean bool2 = this.getBoard() == piece.getBoard();
-        boolean bool3 = this.getMoveSet().equals(piece.getMoves());
+        boolean sameLocation;
+        if (this.getLocation() == null) {
+            sameLocation = (this.getLocation() == piece.getLocation());
+        } else {
+            sameLocation = this.getLocation().equals(piece.getLocation());
+        }
 
-        return this.getLocation().equals(piece.getLocation())
+        return sameLocation
                 && this.getBoard() == piece.getBoard()
                 && this.getMoveSet().equals(piece.getMoveSet());
     }

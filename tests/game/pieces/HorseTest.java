@@ -14,7 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * .java.
  *
  * @author Lee Seng Poh
- * @version 30-6-2023
+ * @version 14-8-2023
  */
 
 class HorseTest {
@@ -366,5 +366,59 @@ class HorseTest {
 
         assertFalse(horse.move(newLocation));
         assertEquals(location, horse.getLocation(), "This horse's location was changed.");
+    }
+
+    @Test
+    public void equals_EqualSoldier_True()
+    {
+        Location loc = new Location(2, 8);
+        Soldier Soldier1 = new Soldier(board, true);
+        Soldier1.setLocation(loc);
+        Soldier Soldier2 = new Soldier(board, true);
+        Soldier2.setLocation(loc);
+        assertEquals(Soldier1, Soldier2);
+    }
+
+    @Test
+    public void equals_NonSoldierObject_True()
+    {
+        Location loc = new Location(2, 8);
+        Soldier Soldier1 = new Soldier(board, true);
+        Soldier1.setLocation(loc);
+        Object obj = new Object();
+        assertNotEquals(Soldier1, obj);
+    }
+
+    @Test
+    public void equals_DifferentLocations_True()
+    {
+        Soldier Soldier1 = new Soldier(board, true);
+        Location loc = new Location(2, 8);
+        Soldier1.setLocation(loc);
+        Soldier Soldier2 = new Soldier(board, true);
+        Location loc2 = new Location(3, 7);
+        Soldier2.setLocation(loc2);
+        assertNotEquals(Soldier1, Soldier2);
+    }
+
+    @Test
+    public void hashCode_EqualSoldiers_Equals()
+    {
+        Location loc = new Location(2, 8);
+        Soldier Soldier1 = new Soldier(board, true);
+        Soldier1.setLocation(loc);
+        Soldier Soldier2 = new Soldier(board, true);
+        Soldier2.setLocation(loc);
+        assertEquals(Soldier1.hashCode(), Soldier2.hashCode());
+    }
+
+    @Test
+    public void hashCode_SeparateHashing_Equal()
+    {
+        Location loc = new Location(2, 8);
+        Soldier Soldier = new Soldier(board, true);
+        Soldier.setLocation(loc);
+        int hashCode = Soldier.hashCode();
+        assertEquals(Soldier.hashCode(), hashCode);
     }
 }

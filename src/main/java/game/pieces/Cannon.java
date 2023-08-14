@@ -11,7 +11,7 @@ import java.util.Arrays;
  * but can only capture by jumping a single piece of either colour along the path of attack.
  *
  * @author Lee Seng Poh
- * @version 22-6-2023
+ * @version 14-8-2023
  */
 public class Cannon extends Piece {
 
@@ -105,5 +105,46 @@ public class Cannon extends Piece {
         copy.setMoveSet(this.getMoveSet());
 
         return copy;
+    }
+
+    /**
+     * Returns true if the specified object is an instance of Cannon and has the same location,
+     * board and move set as this Cannon.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Cannon)) {
+            return false;
+        }
+
+        Cannon piece = (Cannon) obj;
+
+        boolean sameLocation;
+        if (this.getLocation() == null) {
+            sameLocation = (this.getLocation() == piece.getLocation());
+        } else {
+            sameLocation = this.getLocation().equals(piece.getLocation());
+        }
+
+        return sameLocation
+                && this.getBoard() == piece.getBoard()
+                && this.getMoveSet().equals(piece.getMoveSet());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int result = 17;
+        result = result + getBoard().hashCode();
+        result = result + getLocation().hashCode();
+        result = result + getMoveSet().hashCode();
+        return result;
     }
 }
