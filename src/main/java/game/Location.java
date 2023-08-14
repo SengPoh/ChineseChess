@@ -154,6 +154,11 @@ public class Location {
         return piece;
     }
 
+    /**
+     * Returns true if the specified object is an instance of Location and has the same x and y as this location.
+     * @param obj The object to be tested.
+     * @return True if the specified object is the same as this object. False otherwise.
+     */
     @Override
     public boolean equals(Object obj)
     {
