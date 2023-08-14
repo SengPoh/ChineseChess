@@ -3,7 +3,6 @@ package game;
 import game.pieces.*;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 /**
  * Represents the match being played.
@@ -160,7 +159,7 @@ public class Game {
      */
     public boolean move(Piece piece, Location location)
     {
-        if (!isOngoing) {
+        if (!isOngoing || piece == null || !board.isWithinBoard(location)) {
             return false;       //does not move if the game is over
         }
 
@@ -169,7 +168,7 @@ public class Game {
         movingPlayer.recordMove(moveFromLocation, board.getLocation(location));
 
         boolean moved = false;
-        if (piece != null && getCurrentPlayer().isBlack() == piece.isBlack()) {
+        if (getCurrentPlayer().isBlack() == piece.isBlack()) {
             Piece locationPiece = null;
             if (!board.isEmpty(location)) {
                 locationPiece = getPiece(location);
