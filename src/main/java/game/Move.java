@@ -61,19 +61,4 @@ public class Move {
     {
         return board.getPiece(moveFromLocation).equals(piece) && piece.getMoves().contains(moveToLocation);
     }
-
-    /**
-     * Make this move. Returns true if this move is made and false otherwise.
-     * @return True if this move is made and false otherwise.
-     */
-    public boolean makeMove()
-    {
-        if (!canMove()) {
-            return false;
-        }
-
-        Piece piece = board.getPiece(moveFromLocation);
-        piece.move(moveToLocation);
-        return true;
-    }
 }
