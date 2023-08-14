@@ -180,8 +180,8 @@ public class Location {
     public int hashCode()
     {
         int result = 17;
-        result = 31 * x;
-        result = 31 * y;
+        result = 31 * result + x;
+        result = 31 * result + y;
         return result;
     }
 }
