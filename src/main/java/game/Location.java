@@ -168,7 +168,7 @@ public class Location {
         Location loc = (Location) obj;
 
         return this.getX() == loc.getX()
-                && getY() == loc.getY();
+                && this.getY() == loc.getY();
     }
 
     @Override
