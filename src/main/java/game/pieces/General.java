@@ -11,9 +11,11 @@ import java.util.Arrays;
  * must stay within the palace, with the following exception.
  * If the two generals face each other along the same file with no intervening pieces,
  * the general crosses the board to capture the enemy general.(Flying General move)
+ * A general has a very high relative value of 1,000,000 because the player loses
+ * if their general is captured.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 public class General extends Piece {
 
@@ -36,6 +38,7 @@ public class General extends Piece {
                 new Location(0, -1)
         ));
         setMoveSet(moveSet);
+        setValue(1000000);
     }
 
     /**

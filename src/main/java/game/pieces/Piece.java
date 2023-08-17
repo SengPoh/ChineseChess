@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * y-coordinates are greater than 4.
  *
  * @author Lee Seng Poh
- * @version 12-8-2023
+ * @version 17-8-2023
  */
 
 public abstract class Piece {
@@ -21,6 +21,8 @@ public abstract class Piece {
     private boolean isBlack;
     //the available move set of the piece.
     private ArrayList<Location> moveSet = new ArrayList<>();
+    //The approximate value of the piece relative to other pieces.
+    private int value;
 
     /**
      * Initialise this piece with its starting location and the board it is on.
@@ -146,6 +148,16 @@ public abstract class Piece {
     protected boolean isSameColor(Piece otherPiece)
     {
         return isBlack() == otherPiece.isBlack();
+    }
+
+    protected void setValue(int value)
+    {
+        this.value = value;
+    }
+
+    public int getValue()
+    {
+        return value;
     }
 
     /**

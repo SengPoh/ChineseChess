@@ -9,9 +9,10 @@ import java.util.Arrays;
 /**
  * Represents game piece Chariot that moves and captures any distance orthogonally,
  * but may not jump over intervening pieces.
+ * A chariot has a relative value of 18.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 public class Chariot extends Piece {
 
@@ -34,6 +35,7 @@ public class Chariot extends Piece {
                 new Location(0, -1)
         ));
         setMoveSet(moveSet);
+        setValue(18);
     }
 
     /**

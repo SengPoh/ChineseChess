@@ -9,9 +9,10 @@ import java.util.Arrays;
 /**
  * Represents game piece Advisor that moves and captures one space diagonally and
  * must stay within the palace.
+ * An advisor has a relative value of 4.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 
 public class Advisor extends Piece {
@@ -35,6 +36,7 @@ public class Advisor extends Piece {
                 new Location(-1, -1)
         ));
         setMoveSet(moveSet);
+        setValue(4);
     }
 
     /**

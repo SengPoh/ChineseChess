@@ -10,9 +10,10 @@ import java.util.Arrays;
  * Represents game piece Horse that moves and captures in an "L" shape:
  * two squares vertically and one square horizontally, or two squares horizontally and one square vertically.
  * A horse may be blocked by a piece next to it vertically or horizontally if it is in the horse's path.
+ * A horse has a relative value of 8.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 
 public class Horse extends Piece {
@@ -40,6 +41,7 @@ public class Horse extends Piece {
                 new Location(-2, -1)
         ));
         setMoveSet(moveSet);
+        setValue(8);
     }
 
     public ArrayList<Location> getMoves(){

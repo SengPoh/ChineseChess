@@ -7,11 +7,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Represents game piece Chariot that moves any distance orthogonally,
+ * Represents game piece Cannon that moves any distance orthogonally,
  * but can only capture by jumping a single piece of either colour along the path of attack.
+ * A cannon has a relative value of 9
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 public class Cannon extends Piece {
 
@@ -34,6 +35,7 @@ public class Cannon extends Piece {
                 new Location(0, -1)
         ));
         setMoveSet(moveSet);
+        setValue(9);
     }
 
     /**

@@ -10,9 +10,10 @@ import java.util.Arrays;
  * Represents game piece Soldier that moves and capture one space forward before crossing the river.
  * After crossing the river, it may move and capture forward or horizontally.
  * Soldiers cannot move backwards.
+ * A soldier has a relative value of 2 before crossing the river and 4 after crossing the river.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 
 public class Soldier extends Piece {
@@ -37,6 +38,8 @@ public class Soldier extends Piece {
             moveSet.add(new Location(0, 1));
         }
         setMoveSet(moveSet);
+
+        setValue(2);
     }
 
     /**
@@ -110,6 +113,7 @@ public class Soldier extends Piece {
             ));
         }
         setMoveSet(newMoveSet);
+        setValue(4);
     }
 
     @Override

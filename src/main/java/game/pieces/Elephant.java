@@ -10,9 +10,10 @@ import java.util.Arrays;
  * Represents game piece Elephant that moves and captures two space diagonally and
  * may not jump over intervening pieces.
  * Elephants may not cross the river.
+ * An elephant has a relative value of 4.
  *
  * @author Lee Seng Poh
- * @version 14-8-2023
+ * @version 17-8-2023
  */
 
 public class Elephant extends Piece {
@@ -36,6 +37,7 @@ public class Elephant extends Piece {
                 new Location(-2, -2)
         ));
         setMoveSet(moveSet);
+        setValue(4);
     }
 
     /**
