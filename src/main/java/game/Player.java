@@ -129,6 +129,19 @@ public class Player {
     }
 
     /**
+     * Returns the combined value of this player's pieces.
+     * @return The combined value of this player's pieces.
+     */
+    public int getPieceValues()
+    {
+        int score = 0;
+        for (Piece piece : pieces) {
+            score = score + piece.getValue();
+        }
+        return score;
+    }
+
+    /**
      * Returns the color of the player in String format.
      * @return The color of the player in String format.
      */
