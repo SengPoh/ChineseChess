@@ -323,6 +323,25 @@ public class Game {
     }
 
     /**
+     * Computes and returns the compared score of the player with the specified color.
+     * The score is greater than 0 if the player is winning and less than 0 if they are losing.
+     * @param isBlack Whether the player to be evaluated is black.
+     * @return The score of the specified color's side.
+     */
+    public int evaluateScore(boolean isBlack)
+    {
+        int blackScore = getPlayer(true).getPieceValues();
+        int redScore = getPlayer(false).getPieceValues();
+        int score = 0;
+        if (isBlack) {
+            score = blackScore - redScore;
+        } else {
+            score = redScore - blackScore;
+        }
+        return score;
+    }
+
+    /**
      * Sets a specified piece on the specified location on the board and add it
      * to the player with the same color as the piece.
      * @param piece The piece to be set.
