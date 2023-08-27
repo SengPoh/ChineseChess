@@ -233,4 +233,24 @@ class GameTest {
             }
         }
     }
+
+    @Test
+    public void evaluateScore_Winning_Positive()
+    {
+        boolean isBlack = true;
+        General general = new General(board, isBlack);
+        game.getPlayer(isBlack).addPiece(general);
+
+        assertEquals(game.evaluateScore(isBlack), 1000000);
+    }
+
+    @Test
+    public void evaluateScore_Losing_Negative()
+    {
+        boolean isBlack = true;
+        General general = new General(board, isBlack);
+        game.getPlayer(isBlack).addPiece(general);
+
+        assertEquals(game.evaluateScore(!isBlack), -1000000);
+    }
 }

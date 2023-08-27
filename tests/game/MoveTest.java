@@ -33,28 +33,28 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
-        Move move = new Move( board, moveFromLocation, moveToLocation);
+        Move move = new Move(chariot , moveFromLocation, moveToLocation);
         assertEquals(moveFromLocation, move.getMoveFromLocation());
         assertEquals(moveToLocation, move.getMoveToLocation());
     }
 
     @Test
-    public void init_NullBoard_Exception()
+    public void init_NullPiece_Exception()
     {
         Location moveFromLocation = new Location(4, 3);
-        Chariot chariot = new Chariot(board, true);
-        board.setPiece(chariot, moveFromLocation);
+        Chariot chariot = null;
         Location moveToLocation = new Location(8, 3);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move( null, moveFromLocation, moveToLocation));
-        assertEquals("The board cannot be null.", exception.getMessage());
+                () -> new Move( chariot, moveFromLocation, moveToLocation));
+        assertEquals("The piece cannot be null.", exception.getMessage());
     }
 
     @Test
     public void init_BothNullLocations_Exception()
     {
+        Chariot chariot = new Chariot(board, true);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move(board, null, null));
+                () -> new Move(chariot, null, null));
         assertEquals("The location parameter is invalid.", exception.getMessage());
     }
 
@@ -65,7 +65,7 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveToLocation);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move(board, moveToLocation, null));
+                () -> new Move(chariot, moveToLocation, null));
         assertEquals("The location parameter is invalid.", exception.getMessage());
     }
 
@@ -76,7 +76,7 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move(board, moveFromLocation, null));
+                () -> new Move(chariot, moveFromLocation, null));
         assertEquals("The location parameter is invalid.", exception.getMessage());
     }
 
@@ -88,7 +88,7 @@ class MoveTest {
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move( board, moveFromLocation, moveToLocation));
+                () -> new Move( chariot, moveFromLocation, moveToLocation));
         assertEquals("The location parameter is invalid.", exception.getMessage());
     }
 
@@ -100,18 +100,21 @@ class MoveTest {
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(5, 10);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move( board, moveFromLocation, moveToLocation));
+                () -> new Move( chariot, moveFromLocation, moveToLocation));
         assertEquals("The location parameter is invalid.", exception.getMessage());
     }
 
     @Test
-    public void init_NoPieceAtMoveFromLocation_Exception()
+    public void init_UnmatchedPieceAndMoveFromLocation_Exception()
     {
+        Location pieceLocation = new Location(6, 2);
+        Chariot chariot = new Chariot(board, true);
+        board.setPiece(chariot, pieceLocation);
         Location moveFromLocation = new Location(5, 3);
         Location moveToLocation = new Location(5, 4);
         Exception exception = assertThrows(IllegalArgumentException.class,
-                () -> new Move( board, moveFromLocation, moveToLocation));
-        assertEquals("The moveFromLocation does not have a piece to be moved.", exception.getMessage());
+                () -> new Move(chariot , moveFromLocation, moveToLocation));
+        assertEquals("The moveFromLocation does not match the location of the piece.", exception.getMessage());
     }
 
     @Test
@@ -121,7 +124,7 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
-        Move move = new Move( board, moveFromLocation, moveToLocation);
+        Move move = new Move( chariot, moveFromLocation, moveToLocation);
 
         assertEquals(moveFromLocation, move.getMoveFromLocation());
     }
@@ -133,7 +136,7 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
-        Move move = new Move(board, moveFromLocation, moveToLocation);
+        Move move = new Move(chariot, moveFromLocation, moveToLocation);
 
         assertEquals(moveToLocation, move.getMoveToLocation());
     }
@@ -145,7 +148,7 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 3);
-        Move move = new Move(board, moveFromLocation, moveToLocation);
+        Move move = new Move(chariot, moveFromLocation, moveToLocation);
 
         assertTrue(move.canMove());
     }
@@ -157,12 +160,8 @@ class MoveTest {
         Chariot chariot = new Chariot(board, true);
         board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(8, 4);
-        Move move = new Move(board, moveFromLocation, moveToLocation);
+        Move move = new Move(chariot, moveFromLocation, moveToLocation);
 
         assertFalse(move.canMove());
-    }
-
-    @Test
-    public void makeMove() {
     }
 }

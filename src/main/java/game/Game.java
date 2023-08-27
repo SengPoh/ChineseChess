@@ -165,7 +165,7 @@ public class Game {
 
         Location moveFromLocation = board.getLocation(piece.getLocation());
         Player movingPlayer = getPlayer(piece.isBlack());
-        movingPlayer.recordMove(board, moveFromLocation, board.getLocation(location));
+        movingPlayer.recordMove(piece, moveFromLocation, board.getLocation(location));
 
         boolean moved = false;
         if (getCurrentPlayer().isBlack() == piece.isBlack()) {

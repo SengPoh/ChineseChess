@@ -440,7 +440,7 @@ class BoardTest {
             Location location = new Location(4, 6);
             board.setPiece(chariot, location);
             Location moveToLocation = new Location(6, 6);
-            Move move = new Move(board, location, moveToLocation);
+            Move move = new Move(chariot, location, moveToLocation);
             assertTrue(board.move(move));
             assertEquals(chariot.getLocation(), moveToLocation);
         }

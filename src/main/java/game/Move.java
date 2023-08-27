@@ -14,25 +14,26 @@ public class Move {
     private Piece piece;
     private Board board;
 
-    public Move(Board board, Location moveFromLocation, Location moveToLocation)
+    public Move(Piece piece, Location moveFromLocation, Location moveToLocation)
     {
-        if (board == null) {
-            throw new IllegalArgumentException("The board cannot be null.");
+        if (piece == null) {
+            throw new IllegalArgumentException("The piece cannot be null.");
         }
+        this.piece = piece;
+        this.board = piece.getBoard();
 
         if (moveFromLocation == null || !board.isWithinBoard(moveFromLocation) || moveToLocation == null
                 || !board.isWithinBoard(moveToLocation)) {
             throw new IllegalArgumentException("The location parameter is invalid.");
         }
 
-        if (board.isEmpty(moveFromLocation))
+        if (!piece.getLocation().equals(moveFromLocation))
         {
-            throw new IllegalArgumentException("The moveFromLocation does not have a piece to be moved.");
+            throw new IllegalArgumentException("The moveFromLocation does not match the location of the piece.");
         }
-        this.board = board;
-        this.moveFromLocation = new Location(moveFromLocation);
-        this.moveToLocation = new Location(moveToLocation);
-        piece = board.getPiece(moveFromLocation);
+        this.moveFromLocation = new Location(board.getLocation(moveFromLocation));
+        this.moveToLocation = new Location(board.getLocation(moveToLocation));
+
     }
 
     /**

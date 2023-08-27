@@ -32,10 +32,10 @@ class PlayerTest {
         Board board = new Board(9, 10);
         Player player = new Player(false);
         Location moveFromLocation = new Location(4, 6);
-        Chariot chariot = new Chariot(new Board(9, 10), false);
-        moveFromLocation.setPiece(chariot);
+        Chariot chariot = new Chariot(board, false);
+        board.setPiece(chariot, moveFromLocation);
         Location moveToLocation = new Location(6, 6);
-        player.recordMove(board, moveFromLocation, moveToLocation);
+        player.recordMove(chariot, moveFromLocation, moveToLocation);
 
         Move move = player.popPreviousMove();
         assertEquals(move.getMoveFromLocation(), moveFromLocation);
