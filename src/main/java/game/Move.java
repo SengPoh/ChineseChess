@@ -9,10 +9,10 @@ import game.pieces.Piece;
  * @version 14-8-2023
  */
 public class Move {
-    private Location moveFromLocation;
-    private Location moveToLocation;
-    private Piece piece;
-    private Board board;
+    private final Location moveFromLocation;
+    private final Location moveToLocation;
+    private final Piece piece;
+    private final Board board;
 
     public Move(Piece piece, Location moveFromLocation, Location moveToLocation)
     {
