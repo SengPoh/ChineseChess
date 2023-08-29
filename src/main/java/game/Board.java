@@ -109,14 +109,19 @@ public class Board {
 
     /**
      * Returns true if this board contains the specified piece on it.
+     * Returns false otherwise or if it is null.
      * @param piece Piece whose presence in the board is to be tested.
      * @return True if the board contains the specified piece.
      */
     private boolean boardContains(Piece piece)
     {
+        if (piece == null) {
+            return false;
+        }
+
         for (int i = 0; i < width; i++) {
             for (int j = 0; j < length; j++) {
-                 if (board[i][j].getPiece() == piece) {
+                 if (piece.equals(board[i][j].getPiece())) {
                      return true;
                  }
             }
