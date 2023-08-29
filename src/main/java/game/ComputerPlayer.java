@@ -4,10 +4,15 @@ import java.util.ArrayList;
 
 /**
  * An algorithm that searches for the best move available using Alpha–beta pruning.
+ *
+ * @author Lee Seng Poh, with reference to https://www.chessprogramming.org/Alpha-Beta#Implementation
+ * @version 29-8-2023
  */
 public class ComputerPlayer extends Player {
     private final Game game;
+    //number of steps ahead looked when deciding move (not including initial move).
     private final int ply;
+    private Move currentBestMove;
 
     /**
      * Initialises the computer player.
@@ -22,7 +27,24 @@ public class ComputerPlayer extends Player {
         this.ply = ply;
     }
 
-    public int alphaBeta(int alpha, int beta, int depth, boolean isMaximizingPlayer)
+    public Move decideMove()
+    {
+        alphaBetaMax(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ply);
+        if (!currentBestMove.canMove()) {
+            throw new IllegalStateException("Error in deciding move.");
+        }
+        return currentBestMove;
+    }
+
+    /**
+     * Maximizer part of alpha-beta pruning algorithm.
+     * Maximizes the score at the current depth with a lower bound of alpha and an upper bound of beta.
+     * @param alpha The lower bound of the acceptable score.
+     * @param beta The upper bound of the acceptable score.
+     * @param depth The current depth being looked at.
+     * @return The score for this position.
+     */
+    public double alphaBetaMax(double alpha, double beta, int depth)
     {
         if (depth == 0) {
             return game.evaluateScore(isBlack());
@@ -30,15 +52,57 @@ public class ComputerPlayer extends Player {
 
         ArrayList<Move> moves = game.getCurrentPlayer().getMoves();
 
-        if (isMaximizingPlayer) {
-            double value = Double.NEGATIVE_INFINITY;
-            for (Move move : moves) {
-                if (!game.move(move)) {
-                    throw new IllegalStateException("This move cannot be made in this condition.");
-                };
-                value = Math.max(value, alphaBeta(alpha, beta, depth - 1, false));
+        for (Move move : moves) {
+            boolean moved = game.move(move);
+            if (!moved) {
+                throw new IllegalStateException("This move cannot be made in this condition.");
+            }
+            double score =  alphaBetaMin(alpha, beta, depth - 1);
+            game.undo(game.getPlayer(move.getPiece()));
+            if (score >= beta) {
+                return beta;    //fail hard beta-cutoff
+            }
+            if (score > alpha) {
+                alpha = score;
+
+                if (depth == ply) {
+                    currentBestMove = move;
+                }
             }
         }
-        return 0;
+        return alpha;
+    }
+
+    /**
+     * Minimizer part of alpha-beta pruning algorithm.
+     * Minimizes the score at the current depth with a lower bound of alpha and an upper bound of beta.
+     * @param alpha The lower bound of the acceptable score.
+     * @param beta The upper bound of the acceptable score.
+     * @param depth The current depth being looked at.
+     * @return The score for this position.
+     */
+    public double alphaBetaMin(double alpha, double beta, int depth)
+    {
+        if (depth == 0) {
+            return game.evaluateScore(isBlack());
+        }
+
+        ArrayList<Move> moves = game.getCurrentPlayer().getMoves();
+
+        for (Move move : moves) {
+            boolean moved = game.move(move);
+            if (!moved) {
+                throw new IllegalStateException("This move cannot be made in this condition.");
+            }
+            double score =  alphaBetaMax(alpha, beta, depth - 1);
+            game.undo(game.getPlayer(move.getPiece()));
+            if (score <= alpha) {
+                return alpha;    //fail hard alpha-cutoff
+            }
+            if (score < beta) {
+                beta = score;
+            }
+        }
+        return beta;
     }
 }
