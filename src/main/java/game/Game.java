@@ -189,6 +189,17 @@ public class Game {
     }
 
     /**
+     * Make the specified move. if it is a legal move and it is a piece of the current player.
+     * Returns true if the piece is moved. The game ends if the move captures a general.
+     * @param move The move to be made.
+     * @return True if the move was made.
+     */
+    public boolean move(Move move)
+    {
+        return move(move.getPiece(), move.getMoveToLocation());
+    }
+
+    /**
      * Undo moves until the last move of the specified player is undone.
      * @param player The specified player whose last move to undo.
      */

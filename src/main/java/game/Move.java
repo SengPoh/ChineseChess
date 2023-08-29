@@ -37,6 +37,16 @@ public class Move {
     }
 
     /**
+     * Returns the piece making the move.
+     * @return The piece making the move.
+     */
+    public Piece getPiece()
+    {
+        return piece;
+
+    }
+
+    /**
      * Returns the location from which the piece moves from.
      * @return the location from which the piece moves from.
      */
