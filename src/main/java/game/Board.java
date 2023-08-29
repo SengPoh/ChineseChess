@@ -93,6 +93,28 @@ public class Board {
     }
 
     /**
+     * Returns the equivalent piece as the specified piece. This includes the pieces
+     * having the same type and location. Returns null if none is found.
+     * @param piece The piece to be queried.
+     * @return The equivalent piece or null if none is found.
+     */
+    public Piece getPiece(Piece piece)
+    {
+        if (piece == null) {
+            return null;
+        }
+
+        if (boardContains(piece)) {
+            Piece locationPiece = getPiece(piece.getLocation());
+            if (piece.equals(locationPiece)) {
+                return piece;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Remove any piece from the specified location on the board, if there are any is
      * present there.
      * @param location The location to be emptied.
