@@ -100,12 +100,12 @@ public class Player {
      * @param moveFrom The location that the piece moved from.
      * @param moveTo The location that the piece moved to.
      */
-    public void recordMove(Board board, Location moveFrom, Location moveTo)
+    public void recordMove(Piece piece, Location moveFrom, Location moveTo)
     {
         if (moveFrom != null && moveTo != null) {
             Location moveFromLocation = new Location(moveFrom);
             Location moveToLocation = new Location(moveTo);
-            Move move = new Move(board, moveFromLocation, moveToLocation);
+            Move move = new Move(piece, moveFromLocation, moveToLocation);
             pastMoves.add(move);
         }
     }
@@ -139,6 +139,35 @@ public class Player {
             score = score + piece.getValue();
         }
         return score;
+    }
+
+    /**
+     * Returns all the legal moves this player currently has.
+     * @return All the legal moves this player currently has.
+     */
+    public ArrayList<Move> getMoves()
+    {
+        ArrayList<Move> moves = new ArrayList<>();
+        for (Piece piece : pieces) {
+            moves.addAll(getPieceMoves(piece));
+        }
+        return moves;
+    }
+
+    /**
+     * Returns all the moves of the specified piece.
+     * @param piece The piece whose move is wanted.
+     * @return All the moves of the specified piece.
+     */
+    private ArrayList<Move> getPieceMoves(Piece piece)
+    {
+        Location pieceLocation = piece.getLocation();
+        ArrayList<Move> moves = new ArrayList<>();
+        for (Location newLocation : piece.getMoves()) {
+            Move move = new Move(piece, pieceLocation, newLocation);
+            moves.add(move);
+        }
+        return moves;
     }
 
     /**
