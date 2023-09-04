@@ -22,9 +22,10 @@ public class ChineseChessApplication extends Application {
 
         primaryStage.setTitle("Xiang Qi");
         primaryStage.setScene(scene);
+        primaryStage.sizeToScene();
         primaryStage.show();
 
         primaryStage.setMinHeight(primaryStage.getHeight());
-        primaryStage.setMaxWidth(primaryStage.getWidth());
+        primaryStage.setMinWidth(primaryStage.getWidth());
     }
 }
