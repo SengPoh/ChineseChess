@@ -8,6 +8,13 @@
     -fx-alignment: center;
 }
 
+#main-menu {
+    -fx-alignment: center;
+    -fx-spacing: 40;
+    -fx-font-size: 18;
+    -fx-padding: 10.0;
+}
+
 #winner-pane {
     -fx-background-color: white;
     -fx-border-color: blue;
