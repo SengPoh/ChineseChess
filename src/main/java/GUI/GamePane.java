@@ -4,12 +4,9 @@ import game.Game;
 import game.Location;
 import game.Player;
 import game.pieces.Piece;
-import javafx.application.Application;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,12 +16,12 @@ import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
 /**
- * This class launches the chinese chess application.
+ * This class displays the game with the board and chess pieces.
+ * The setUpChessPieces method needs to be called to initialise the chess pieces.
  *
  * @author Lee Seng Poh
  * @version 5-8-2023
@@ -66,7 +63,14 @@ public class GamePane extends Pane {
         base.prefWidthProperty().bind(widthProperty());
         setMinWidth(INIT_BOARD_WIDTH);
         setMinHeight(420);
+    }
 
+    /**
+     * Set up chess pieces in their initial position.
+     * This method should be called after primary stage is shown.
+     */
+    public void setUpChessPieces()
+    {
         populateBoardLocations();
         updateBoard();
     }

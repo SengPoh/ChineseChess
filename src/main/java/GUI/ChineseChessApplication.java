@@ -2,10 +2,7 @@ package GUI;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
-import java.util.Scanner;
 
 public class ChineseChessApplication extends Application {
 
@@ -22,10 +19,10 @@ public class ChineseChessApplication extends Application {
 
         primaryStage.setTitle("Xiang Qi");
         primaryStage.setScene(scene);
-        primaryStage.sizeToScene();
         primaryStage.show();
 
         primaryStage.setMinHeight(primaryStage.getHeight());
         primaryStage.setMinWidth(primaryStage.getWidth());
+        root.setUpChessPieces();
     }
 }
