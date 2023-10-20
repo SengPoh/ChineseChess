@@ -135,6 +135,8 @@ public class GamePane extends Pane {
             currentX = currentX + spacingX;
             currentY = initialY;
         }
+        //Rotate the board so that the red side is on the bottom side of the screen.
+        boardPane.setRotate(180);
     }
 
     /**
