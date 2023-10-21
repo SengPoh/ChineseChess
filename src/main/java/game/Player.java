@@ -132,6 +132,9 @@ public class Player {
     public void recordMove(Piece piece, Location moveFrom, Location moveTo)
     {
         if (moveFrom != null && moveTo != null) {
+            if (!moveFrom.equals(piece.getLocation())) {
+                throw new IllegalArgumentException("The move from location and the location of the piece does not match");
+            }
             Location moveFromLocation = new Location(moveFrom);
             Location moveToLocation = new Location(moveTo);
             Move move = new Move(piece, moveFromLocation, moveToLocation);

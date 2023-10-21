@@ -19,7 +19,7 @@ public class Move {
         if (piece == null) {
             throw new IllegalArgumentException("The piece cannot be null.");
         }
-        this.piece = piece;
+        this.piece = piece.copy();
         this.board = piece.getBoard();
 
         if (moveFromLocation == null || !board.isWithinBoard(moveFromLocation) || moveToLocation == null
@@ -34,6 +34,14 @@ public class Move {
         this.moveFromLocation = new Location(board.getLocation(moveFromLocation));
         this.moveToLocation = new Location(board.getLocation(moveToLocation));
 
+    }
+
+    public Move(Move move)
+    {
+        this.moveFromLocation = new Location(move.moveFromLocation) ;
+        this.moveToLocation = new Location(move.moveToLocation);
+        this.piece = move.piece.copy();
+        this.board = move.board;
     }
 
     /**
@@ -71,5 +79,13 @@ public class Move {
     public boolean canMove()
     {
         return board.getPiece(moveFromLocation).equals(piece) && piece.getMoves().contains(moveToLocation);
+    }
+
+    /**
+     * Undo the move so that the location of the piece matches the location it moved from.
+     */
+    public void undo()
+    {
+        piece.setLocation(moveFromLocation);
     }
 }

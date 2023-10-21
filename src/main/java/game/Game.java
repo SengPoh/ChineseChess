@@ -228,9 +228,7 @@ public class Game {
             ComputerPlayer computerPlayer = (ComputerPlayer) getCurrentPlayer();
             Move move = computerPlayer.decideMove();
             boolean moved = move(move);
-            if (moved) {
-                nextPlayer();
-            }
+            return moved;
         }
         return false;
     }
@@ -276,6 +274,7 @@ public class Game {
 
         replaceLocation(move.getMoveFromLocation());
         replaceLocation(move.getMoveToLocation());
+        //move.undo();
         return true;
     }
 

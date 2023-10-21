@@ -48,7 +48,7 @@ public class GamePane extends Pane {
         game = new Game();
 
         if (isComputerGame) {
-            game.setComputerGame(10);
+            game.setComputerGame(3);
         }
 
         boardView = createBoardImageView();
@@ -313,7 +313,8 @@ public class GamePane extends Pane {
         LocationCircle circle = (LocationCircle) event.getSource();
         Location location = circle.getLocation();
         Piece piece = game.getPiece(location);
-        if (selectedPiece == null && piece != null && piece.isBlack() == game.getCurrentPlayer().isBlack()) {
+        if (selectedPiece == null && piece != null && piece.isBlack() == game.getCurrentPlayer().isBlack()
+                && !game.getCurrentPlayer().isComputer()) {
             selectedPiece = game.getPiece(location);
             locationCircles[location.getX()][location.getY()].setStroke(Color.YELLOW);
         } else if (selectedPiece != null) {
@@ -322,8 +323,10 @@ public class GamePane extends Pane {
             boolean moved = game.move(selectedPiece, location);
             selectedPiece = null;
             updateBoard();
+            //Move the computer player if it is its turn.
             if (moved && game.getCurrentPlayer().isComputer()) {
                 game.moveComputer();
+                updateBoard();
             }
         }
         displayMoves();

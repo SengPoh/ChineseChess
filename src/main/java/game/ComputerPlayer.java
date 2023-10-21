@@ -33,6 +33,10 @@ public class ComputerPlayer extends Player {
 
     public Move decideMove()
     {
+        if (game.getCurrentPlayer() != this) {
+            throw new IllegalStateException("this is not this player's turn.");
+        }
+
         alphaBetaMax(Double.NEGATIVE_INFINITY, Double.POSITIVE_INFINITY, ply);
         if (!currentBestMove.canMove()) {
             throw new IllegalStateException("Error in deciding move.");
@@ -57,6 +61,7 @@ public class ComputerPlayer extends Player {
         ArrayList<Move> moves = game.getCurrentPlayer().getMoves();
 
         for (Move move : moves) {
+            Move copy = new Move(move);
             boolean moved = game.move(move);
             if (!moved) {
                 throw new IllegalStateException("This move cannot be made in this condition.");
@@ -70,7 +75,7 @@ public class ComputerPlayer extends Player {
                 alpha = score;
 
                 if (depth == ply) {
-                    currentBestMove = move;
+                    currentBestMove = copy;
                 }
             }
         }
