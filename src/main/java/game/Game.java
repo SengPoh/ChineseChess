@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Represents the match being played.
  *
  * @author Lee Seng Poh
- * @version 13-8-2023
+ * @version 21-10-2023
  */
 public class Game {
 
@@ -51,6 +51,22 @@ public class Game {
         players.add(redPlayer);
         players.add(blackPlayer);
         setupBoard();
+    }
+
+    /**
+     * set the game to be a computer game. The computer player is set to be the red player.
+     * @param ply The number of steps this computer looks ahead.
+     */
+    public void setComputerGame(int ply)
+    {
+        boolean isBlack = true;
+        Player player = getPlayer(isBlack);
+        int index =players.indexOf(player);
+        Player computerPlayer = new ComputerPlayer(isBlack, this, ply);
+        for (Piece piece : player.getPieces()) {
+            computerPlayer.addPiece(piece);
+        }
+        players.set(index, computerPlayer);
     }
 
     /**
@@ -181,6 +197,9 @@ public class Game {
                 }
                 checkOngoing();
                 nextPlayer();
+//                if (getCurrentPlayer().isComputer()) {
+//                    moveComputer();
+//                }
             } else {
                 movingPlayer.popPreviousMove();     //remove the record if did not move.
             }
@@ -197,6 +216,23 @@ public class Game {
     public boolean move(Move move)
     {
         return move(move.getPiece(), move.getMoveToLocation());
+    }
+
+    /**
+     * If the current player is a computer player, make a move for it.
+     * @return True if a move was made.
+     */
+    public boolean moveComputer()
+    {
+        if (getCurrentPlayer().isComputer()) {
+            ComputerPlayer computerPlayer = (ComputerPlayer) getCurrentPlayer();
+            Move move = computerPlayer.decideMove();
+            boolean moved = move(move);
+            if (moved) {
+                nextPlayer();
+            }
+        }
+        return false;
     }
 
     /**

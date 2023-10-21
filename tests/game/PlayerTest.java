@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 /**
  * Tests for Player.java.
  * @author Lee Seng Poh
- * @version 4-7-2023
+ * @version 21-10-2023
  */
 
 class PlayerTest {
@@ -24,6 +24,13 @@ class PlayerTest {
     {
         Player player = new Player(false);
         assertFalse(player.isBlack());
+    }
+
+    @Test
+    public void isComputerPlayer_NotComputerPlayer_False()
+    {
+        Player player = new Player(true);
+        assertFalse(player.isComputer());
     }
 
     @Test

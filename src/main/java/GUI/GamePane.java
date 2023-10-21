@@ -24,7 +24,7 @@ import java.util.ArrayList;
  * The setUpChessPieces method needs to be called to initialise the chess pieces.
  *
  * @author Lee Seng Poh
- * @version 5-8-2023
+ * @version 21-10-2023
  */
 public class GamePane extends Pane {
     public static final double INIT_BOARD_WIDTH = 300.0;
@@ -37,10 +37,19 @@ public class GamePane extends Pane {
     private Game game;
     private Piece selectedPiece;        //The piece currently selected.
 
-    public GamePane()
+    /**
+     * Initialise this Game Pane with either 2 human player or 1 human and 1 computer player based
+     * on whether it is a computer game.
+     * @param isComputerGame True if this is a computer game.
+     */
+    public GamePane(boolean isComputerGame)
     {
         super();
         game = new Game();
+
+        if (isComputerGame) {
+            game.setComputerGame(10);
+        }
 
         boardView = createBoardImageView();
 
@@ -250,7 +259,7 @@ public class GamePane extends Pane {
     private void displayMoves()
     {
         boardPane.getChildren().remove(movesPane);
-        if (selectedPiece != null) {
+        if (selectedPiece != null && !game.getPlayer(selectedPiece).isComputer()) {
             movesPane = new Pane();
             movesPane.setMouseTransparent(true);
             boardPane.getChildren().add(movesPane);
@@ -279,6 +288,7 @@ public class GamePane extends Pane {
         winnerPane = new BorderPane();
         boardPane.getChildren().add(winnerPane);
         winnerPane.setMaxSize(300, 200);
+        winnerPane.setRotate(180);
         winnerPane.setId("winner-pane");
 
         Text winnerText = new Text(game.getWinner().getColorString().toUpperCase() + " WINS");
@@ -309,9 +319,12 @@ public class GamePane extends Pane {
         } else if (selectedPiece != null) {
             Location pieceLocation = selectedPiece.getLocation();
             locationCircles[pieceLocation.getX()][pieceLocation.getY()].setStroke(Color.TRANSPARENT);
-            game.move(selectedPiece, location);
+            boolean moved = game.move(selectedPiece, location);
             selectedPiece = null;
             updateBoard();
+            if (moved && game.getCurrentPlayer().isComputer()) {
+                game.moveComputer();
+            }
         }
         displayMoves();
 

@@ -10,10 +10,11 @@ import java.util.Stack;
  * Represents the player.
 
  * @author Lee Seng Poh
- * @version 31-7-2023
+ * @version 21-10-2023
  */
 public class Player {
     private boolean isBlack;
+    private boolean isComputer;
     private boolean lost;
     private Stack<Move> pastMoves;
     private ArrayList<Piece> pieces;
@@ -24,6 +25,7 @@ public class Player {
      */
     public Player(boolean isBlack) {
         this.isBlack = isBlack;
+        this.isComputer = false;
         lost = false;
         pastMoves = new Stack<>();
         pieces = new ArrayList<>();
@@ -36,6 +38,24 @@ public class Player {
     public boolean isBlack()
     {
         return isBlack;
+    }
+
+    /**
+     * Sets whether this player is a computer
+     * @param isComputer True if this player is a computer.
+     */
+    protected void setIsComputer(boolean isComputer)
+    {
+        this.isComputer = isComputer;
+    }
+
+    /**
+     * Returns true if this player is a computer.
+     * @return True if this player is a computer.
+     */
+    public boolean isComputer()
+    {
+        return isComputer;
     }
 
     /**
@@ -83,6 +103,15 @@ public class Player {
             sameColor = true;
         }
         return sameColor;
+    }
+
+    /**
+     * Returns an arraylist of all the pieces this player has.
+     * @return An arraylist of all the pieces this player has.
+     */
+    public ArrayList<Piece> getPieces()
+    {
+        return pieces;
     }
 
     /**

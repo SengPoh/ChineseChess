@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * An algorithm that searches for the best move available using Alpha–beta pruning.
  *
  * @author Lee Seng Poh, with reference to https://www.chessprogramming.org/Alpha-Beta#Implementation
- * @version 29-8-2023
+ * @version 21-10-2023
  */
 public class ComputerPlayer extends Player {
     private final Game game;
@@ -24,7 +24,11 @@ public class ComputerPlayer extends Player {
     {
         super(isBlack);
         this.game = game;
+        if (ply < 0) {
+            throw new IllegalArgumentException("Ply must be more than 0.");
+        }
         this.ply = ply;
+        setIsComputer(true);
     }
 
     public Move decideMove()
