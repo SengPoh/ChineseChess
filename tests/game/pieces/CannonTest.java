@@ -536,7 +536,7 @@ public class CannonTest {
     }
 
     @Test
-    public void equals_NonCannonObject_True()
+    public void equals_NonCannonObject_False()
     {
         Location loc = new Location(2, 8);
         Cannon Cannon1 = new Cannon(board, true);
@@ -546,7 +546,7 @@ public class CannonTest {
     }
 
     @Test
-    public void equals_DifferentLocations_True()
+    public void equals_DifferentLocations_False()
     {
         Cannon Cannon1 = new Cannon(board, true);
         Location loc = new Location(2, 8);

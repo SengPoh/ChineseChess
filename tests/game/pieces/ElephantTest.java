@@ -349,7 +349,7 @@ class ElephantTest {
     }
 
     @Test
-    public void equals_NonElephantObject_True()
+    public void equals_NonElephantObject_False()
     {
         Location loc = new Location(2, 8);
         Elephant Elephant1 = new Elephant(board, true);
@@ -359,7 +359,7 @@ class ElephantTest {
     }
 
     @Test
-    public void equals_DifferentLocations_True()
+    public void equals_DifferentLocations_False()
     {
         Elephant Elephant1 = new Elephant(board, true);
         Location loc = new Location(2, 8);

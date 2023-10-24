@@ -380,7 +380,7 @@ class HorseTest {
     }
 
     @Test
-    public void equals_NonSoldierObject_True()
+    public void equals_NonSoldierObject_False()
     {
         Location loc = new Location(2, 8);
         Soldier Soldier1 = new Soldier(board, true);
@@ -390,7 +390,7 @@ class HorseTest {
     }
 
     @Test
-    public void equals_DifferentLocations_True()
+    public void equals_DifferentLocations_False()
     {
         Soldier Soldier1 = new Soldier(board, true);
         Location loc = new Location(2, 8);

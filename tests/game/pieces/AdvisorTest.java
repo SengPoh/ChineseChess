@@ -298,7 +298,7 @@ class AdvisorTest {
     }
 
     @Test
-    public void equals_NonAdvisorObject_True()
+    public void equals_NonAdvisorObject_False()
     {
         Location loc = new Location(2, 8);
         Advisor advisor1 = new Advisor(board, true);
@@ -308,7 +308,7 @@ class AdvisorTest {
     }
 
     @Test
-    public void equals_DifferentLocations_True()
+    public void equals_DifferentLocations_False()
     {
         Advisor advisor1 = new Advisor(board, true);
         Location loc = new Location(2, 8);

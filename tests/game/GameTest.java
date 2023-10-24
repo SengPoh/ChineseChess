@@ -2,6 +2,8 @@ package game;
 
 import game.pieces.Chariot;
 import game.pieces.General;
+import game.pieces.Piece;
+import game.pieces.Soldier;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -228,6 +230,40 @@ class GameTest {
             for (int j = 0; j < board.getLength(); j++) {
                 Location tempLoc = new Location(i, j);
                 if (!tempLoc.equals(newLocation1) && !tempLoc.equals(newEnemyLocation)) {
+                    assertNull(board.getPiece(tempLoc), "Location " + i + ", " + j + " is not empty");
+                }
+            }
+        }
+    }
+
+    @Test
+    public void undo_SoldierCrossRiver_1MoveSet()
+    {
+        boolean isBlack = false;
+        Soldier soldier = new Soldier(board, isBlack);
+        Location location = new Location(2, 4);
+        location.setRiverEdge(true);
+        board.setLocation(location);
+        board.setPiece(soldier, location);
+        game.getPlayer(isBlack).addPiece(soldier);
+        Location newLocation = new Location(2, 5);
+        newLocation.setRiverEdge(true);
+        board.setLocation(newLocation);
+
+        assertTrue(game.move(soldier, newLocation), "The piece was not moved.");
+        game.undo(game.getPlayer(isBlack));
+        Piece locationPiece = board.getPiece(location);
+        assertTrue(locationPiece instanceof Soldier, "The undid piece has a different type.");
+        assertEquals(locationPiece.isBlack(), isBlack, "The undid piece has a different color.");
+        Soldier soldier2 = new Soldier(board, isBlack);
+        soldier2.setLocation(location);
+        assertEquals(locationPiece.getMoves(), soldier2.getMoves(), "The undid piece's move set was not reverted");
+        assertEquals(game.getCurrentPlayer(), game.getPlayer(isBlack), "It is not currently the turn of the player who undid.");
+
+        for (int i = 0; i < board.getWidth(); i++) {
+            for (int j = 0; j < board.getLength(); j++) {
+                Location tempLoc = new Location(i, j);
+                if (!tempLoc.equals(location)) {
                     assertNull(board.getPiece(tempLoc), "Location " + i + ", " + j + " is not empty");
                 }
             }

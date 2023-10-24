@@ -321,7 +321,7 @@ class ChariotTest {
     }
 
     @Test
-    public void equals_NonChariotObject_True()
+    public void equals_NonChariotObject_False()
     {
         Location loc = new Location(2, 8);
         Chariot Chariot1 = new Chariot(board, true);
@@ -331,7 +331,7 @@ class ChariotTest {
     }
 
     @Test
-    public void equals_DifferentLocations_True()
+    public void equals_DifferentLocations_False()
     {
         Chariot Chariot1 = new Chariot(board, true);
         Location loc = new Location(2, 8);
