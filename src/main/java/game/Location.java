@@ -147,9 +147,9 @@ public class Location {
     public Piece removePiece()
     {
         Piece piece = this.piece;
-        if (piece != null) {
-            piece.setLocation(null);
-        }
+//        if (piece != null) {
+//            piece.setLocation(null);
+//        }
         this.piece = null;
         return piece;
     }

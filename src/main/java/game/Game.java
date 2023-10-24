@@ -186,8 +186,8 @@ public class Game {
      */
     public boolean move(Piece piece, Location location)
     {
-        if (!isOngoing || piece == null || !board.isWithinBoard(location)) {
-            return false;       //does not move if the game is over
+        if (piece == null || !board.isWithinBoard(location)) {
+            return false;
         }
 
         Location moveFromLocation = board.getLocation(piece.getLocation());
@@ -195,7 +195,15 @@ public class Game {
         movingPlayer.recordMove(piece, moveFromLocation, board.getLocation(location));
 
         boolean moved = false;
-        if (getCurrentPlayer().isBlack() == piece.isBlack()) {
+        Player currentPlayer = getCurrentPlayer();
+        if (currentPlayer.isBlack() == piece.isBlack()) {
+            //replace the piece stored in pieces with the currently used copy.
+            boolean removed = currentPlayer.removePiece(piece);
+            if (!removed) {
+                throw new IllegalArgumentException("There are no pieces in this player's possession that matches");
+            }
+            currentPlayer.addPiece(piece);
+
             Piece capturedPiece = null;
             if (!board.isEmpty(location)) {
                 capturedPiece = getPiece(location);
