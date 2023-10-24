@@ -7,6 +7,7 @@ import game.pieces.Piece;
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleBinding;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 public class GamePane extends Pane {
     public static final double INIT_BOARD_WIDTH = 300.0;
     public static final double INIT_LOCATION_RADIUS = 15.0;
+    private VBox base;
     private ImageView boardView;
     private StackPane boardPane;        //The pane for the chess board view.
     private Pane movesPane;
@@ -57,13 +59,14 @@ public class GamePane extends Pane {
         boardPane.setAlignment(Pos.CENTER);
         boardPane.setMinSize(0, 0);
 
-        VBox base = new VBox();
+        base = new VBox();
         VBox.setVgrow(boardPane, Priority.ALWAYS);
         createMenuBar(base, game.getPlayer(false));
         base.getChildren().add(boardPane);
         createMenuBar(base, game.getPlayer(true));
 
         getChildren().add(base);
+        rotate();
 
         //Resize the board according to window size
         boardView.fitHeightProperty().bind(boardPane.heightProperty());
@@ -82,6 +85,18 @@ public class GamePane extends Pane {
     {
         populateBoardLocations();
         updateBoard();
+    }
+
+    /**
+     * Rotate the board by 180 degrees.
+     */
+    public void rotate()
+    {
+        base.setRotate(180);
+        for (Node node : base.getChildren()) {
+            node.setRotate(180);
+        }
+        boardPane.setRotate(0);
     }
 
     /**
@@ -144,8 +159,6 @@ public class GamePane extends Pane {
             currentX = currentX + spacingX;
             currentY = initialY;
         }
-        //Rotate the board so that the red side is on the bottom side of the screen.
-        boardPane.setRotate(180);
     }
 
     /**
@@ -374,7 +387,7 @@ public class GamePane extends Pane {
     private void rematchButtonClick(MouseEvent event)
     {
         boardPane.getChildren().remove(winnerPane);
-        game = new Game();
+        game.reset();
         updateBoard();
     }
 }

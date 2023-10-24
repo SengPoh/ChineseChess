@@ -4,6 +4,7 @@ import game.pieces.General;
 import game.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Stack;
 
 /**
@@ -26,6 +27,16 @@ public class Player {
     public Player(boolean isBlack) {
         this.isBlack = isBlack;
         this.isComputer = false;
+        lost = false;
+        pastMoves = new Stack<>();
+        pieces = new ArrayList<>();
+    }
+
+    /**
+     * Reset the state of the player to the initial setup.
+     */
+    public void reset()
+    {
         lost = false;
         pastMoves = new Stack<>();
         pieces = new ArrayList<>();
@@ -82,8 +93,9 @@ public class Player {
     public void checkLost()
     {
         boolean hasGeneral = false;
-        for (Piece piece : pieces) {
-            if (piece instanceof General) {
+        Iterator<Piece> iterator = pieces.iterator();
+        while (iterator.hasNext() && !hasGeneral) {
+            if (iterator.next() instanceof General) {
                 hasGeneral = true;
             }
         }
@@ -121,7 +133,8 @@ public class Player {
      */
     public boolean removePiece(Piece piece)
     {
-        return pieces.remove(piece);
+        boolean removed = pieces.remove(piece);
+        return removed;
     }
 
     /**

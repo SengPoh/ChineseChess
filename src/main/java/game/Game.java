@@ -54,6 +54,17 @@ public class Game {
     }
 
     /**
+     * Reset the state of the game to the initial setup.
+     */
+    public void reset()
+    {
+        for (Player player : players) {
+            player.reset();
+        }
+        setupBoard();
+    }
+
+    /**
      * set the game to be a computer game. The computer player is set to be the red player.
      * @param ply The number of steps this computer looks ahead.
      */
