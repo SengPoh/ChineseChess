@@ -1,9 +1,7 @@
-module chinesechess {
+module GUI.ChineseChessApplication {
     requires javafx.controls;
     requires javafx.fxml;
 
-    opens GUI to javafx.fxml;
     exports GUI;
-    exports game;
-    exports game.pieces;
+    opens GUI to javafx.fxml;
 }

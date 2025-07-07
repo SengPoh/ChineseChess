@@ -1,2 +1,6 @@
 # ChineseChess
-This program simulates a chinese chess game
+
+This is an application for the Chinese Chess Game.
+
+This 
+
